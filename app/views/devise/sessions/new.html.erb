@@ -1,0 +1,34 @@
+<div class="logo_header">
+  <%= image_tag 'logo_ministere2.svg'%>
+</div>
+<div class='w100'>
+
+
+    <div class="login_box">
+       
+      <h1 class="logo_connexion ">Connectez-vous</h1>
+      <div class="d32"></div>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+        <div class="form">
+          <%= f.label :email, "Adresse mail" %>
+          <%= f.email_field :email,required: true, autofocus: true, autocomplete: "email",class:"form-field", id: "form-field1" %>
+        </div>
+        <div class="d24"></div>
+        <div class="form">
+          <%= f.label :password, "Mot de passe" %>
+          <%= f.password_field :password,required: true, autocomplete: "current-password",class:"form-field", id: "form-field2" %>
+        </div>
+
+        <div class="d32"></div>
+        <div class="text-center">
+          <%= f.submit "Connexion", class:"bouton" %>
+        </div>
+        <div class="d24"></div>
+      <% end %>
+    </div>
+    <div class="d32"></div>
+ 
+
+</div>
+

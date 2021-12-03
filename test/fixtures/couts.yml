@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  categorie: MyString
+  programme: one
+  cout: 1.5
+
+two:
+  categorie: MyString
+  programme: two
+  cout: 1.5
