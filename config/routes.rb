@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       post 'mouvements/create'
       post 'mouvements/update'
       delete '/destroy/:id', to: 'mouvements#destroy'
+      post 'mouvements/get_services'
+      post 'mouvements/sort_table'
     end
   end
   namespace :api do
@@ -41,8 +43,10 @@ Rails.application.routes.draw do
     :path_names =>  {:sign_in => "connexion", :sign_out => "logout"}
   root 'pages#index'
   get 'check_user_status' => 'pages#check_user_status'
-  post 'users/import'
-  get 'users/index'
+  post 'users/import' => "users#import"
+  get 'users/index' => "users#index"
+  
+
   get '/*path' => 'pages#index' #redirige toutes les pages sans url vers la page d'accueil
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

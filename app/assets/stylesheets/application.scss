@@ -330,13 +330,10 @@ text-align:right;
           position: sticky; 
           min-width:100px !important;
           
-      top: 0;
+          top: 0;
           background-color:#fff;
           a{
             color:#000091;
-          }
-          span{
-            text-align:right;
           }
         } 
         .border-none{
@@ -372,9 +369,6 @@ text-align:right;
             color: rgba(0,74,112,0.4);
             text-decoration:none;
             margin:0 5px;
-          }
-          span{
-            color: #000091; 
           }
          
         }
@@ -424,6 +418,25 @@ text-align:right;
   label {
   font-size:13px !important;
   }
+  select{
+    color:#1E1E1E;
+    outline:none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    border-radius:4px;
+    font-size:13px;
+    line-height:20px;
+    background-color:#F0F0F0;
+    padding:5px 10px;
+    margin:4px 0px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+    -o-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+    width:100%;
+  }
 }
 
 .page_container{
@@ -433,4 +446,109 @@ text-align:right;
 .titre_page{
   font-size:36px;
   font-weight:500;
+}
+.titre_etiquette{
+  font-size:15px;
+  font-weight:bold;
+}
+.texte_etiquette{
+  font-size:13px;
+}
+.w50{
+  width:50%;
+}
+.w3{
+  width:33.33%;
+}
+.form_box{
+  
+  max-width:520px;
+  margin:auto;
+}
+.react-datepicker__input-container input, .css-1s2u09g-control,.css-1pahdxg-control, .css-1pahdxg-control:hover{
+    color:#1E1E1E !important;
+    outline:none !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    border: none !important;
+    border-radius:4px !important;
+    font-size:13px !important;
+    line-height:20px !important;
+    background-color: #F0F0F0 !important;
+    padding:5px 10px !important;
+    margin:4px 0px !important;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2) !important;
+    -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2) !important;
+    -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2) !important;
+    -o-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2) !important;
+    width:100%;
+    height:44px;
+  &:hover{
+  cursor:pointer;
+  }
+  &:focus{
+  outline:none;
+  appearance:none;
+  }
+}
+.react-datepicker__input-container input::placeholder{
+  color:#1E1E1E !important;
+}
+.pcenter{
+  padding-left:8px;
+  padding-right:8px;
+}
+.css-319lph-ValueContainer{
+  padding:0px !important;
+}
+.css-14el2xx-placeholder, .css-tlfecz-indicatorContainer{
+  color:#1E1E1E !important;
+}
+.css-tlfecz-indicatorContainer{
+  padding:0px !important;
+}
+.css-26l3qy-menu{
+  font-size:13px !important;
+}
+.etiquette_v{
+  background-color: rgba(0, 172, 140, 0.6);
+  border-radius:25px;
+  padding:2px 14px;
+  text-transform: capitalize;
+}
+.etiquette_j{
+  background-color: rgba(253, 207, 65, 0.7);
+  border-radius:25px;
+  padding:2px 14px;
+  text-transform: capitalize;
+}
+.bandeau_titre{
+  font-size:15px;
+  font-weight:bold;
+}
+.bandeau_texte{
+  color:#6A6A6A;
+  font-size:12px;
+}
+.bandeau{
+  padding-right:15px;
+}
+
+.box_bandeau{
+  background-color:#F8F8F8;
+  border-radius:8px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -o-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 15px 20px;
+}
+.bandeau_div{
+  width:25%;
+}
+.bandeau_b{
+  color:#000091;
+  font-size:30px;
+  font-weight:bold;
 }

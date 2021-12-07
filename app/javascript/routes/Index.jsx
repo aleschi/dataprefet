@@ -6,6 +6,9 @@ import Programmes from "../components/Programmes/Programmes";
 import Users from "../components/Users/Users";
 import Services from "../components/Services/Services";
 import Couts from "../components/Couts/Couts";
+import New from "../components/Mouvements/New";
+import Index from "../components/Mouvements/Index";
+import Vueprogramme from "../components/Mouvements/Vueprogramme";
 
 export default (
   <BrowserRouter>
@@ -16,6 +19,9 @@ export default (
       <Route path="/users" element={<Users/>} />
       <Route path="/services" element={<Services/>} />
       <Route path="/couts" element={<Couts/>} />
+      <Route path="/mouvements" element={<New/>} />
+      <Route path="/historique" element={<Index/>} />
+      <Route path="/accueil-cbr" element={<Vueprogramme/>} />
     </Routes>
   </BrowserRouter>
 );

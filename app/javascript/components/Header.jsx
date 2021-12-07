@@ -37,9 +37,11 @@ class Header extends React.Component {
 		  	<div className="nav_header_box">
 			  	<div className="nav_header">
 			  		{ (this.state.statut=="admin") &&
-			  		<div className="nav_link"><NavLink end="nav_link_active" to='/' className="nav_link">Onglet 1 Admin</NavLink></div> }
+			  		<div className="nav_link"><NavLink end="nav_link_active" to='/accueil-cbr' className="nav_link">Accueil</NavLink></div> }
 			  		{ (this.state.statut=="admin") &&
-			  		<div className="nav_link"><NavLink end="nav_link_active" to='/' className="nav_link">Onglet 2</NavLink></div> }
+			  		<div className="nav_link"><NavLink end="nav_link_active" to='/historique' className="nav_link">Historique des déploiements</NavLink></div> }
+			  		{ (this.state.statut=="admin") &&
+			  		<div className="nav_link"><NavLink end="nav_link_active" to='/mouvements' className="nav_link">Créer un redéploiement</NavLink></div> }
 			  		
 			  		
 			  		<Dropdown className="user_dropdown">

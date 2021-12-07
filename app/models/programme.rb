@@ -1,5 +1,6 @@
 class Programme < ApplicationRecord
   	belongs_to :ministere
+    has_many :services
   	require 'roo'
   	require 'axlsx'
 
