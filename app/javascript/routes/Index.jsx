@@ -1,5 +1,5 @@
 import React from "react";
-import {  BrowserRouter,Routes,Route } from "react-router-dom";
+import {  BrowserRouter,Routes,Route, useNavigate,useLocation, Navigate } from "react-router-dom";
 import Home from "../components/Home";
 import Regions from "../components/Regions/Regions";
 import Programmes from "../components/Programmes/Programmes";
@@ -9,6 +9,7 @@ import Couts from "../components/Couts/Couts";
 import New from "../components/Mouvements/New";
 import Index from "../components/Mouvements/Index";
 import Vueprogramme from "../components/Mouvements/Vueprogramme";
+import Objectifs from "../components/Objectifs/Objectifs";
 
 export default (
   <BrowserRouter>
@@ -22,6 +23,7 @@ export default (
       <Route path="/mouvements" element={<New/>} />
       <Route path="/historique" element={<Index/>} />
       <Route path="/accueil-cbr" element={<Vueprogramme/>} />
+      <Route path="/objectifs" element={<Objectifs/>} />
     </Routes>
   </BrowserRouter>
 );

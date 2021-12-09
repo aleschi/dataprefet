@@ -1,7 +1,11 @@
 class SessionsController < Devise::SessionsController
   
   def create
-	  resource = User.find_for_database_authentication(email: params[:user][:email])
+    if params[:user][:statut] == "admin" || params[:user][:statut] == "ministere"
+	   resource = User.find_for_database_authentication(statut: params[:user][:statut])
+   elsif params[:user][:statut] == "cbr" || params[:user][:statut] == "prefet"
+    resource = User.find_for_database_authentication(statut: params[:user][:statut],region_id: params[:user][:region])
+   end
 	  return invalid_login_attempt unless resource
 
 	  if resource.valid_password?(params[:user][:password])
@@ -13,7 +17,7 @@ class SessionsController < Devise::SessionsController
 	    respond_with resource, location: after_sign_in_path_for(resource)
 
 	  else 
-		invalid_login_attempt
+		  invalid_login_attempt
 	  end
   
   end

@@ -8,6 +8,7 @@ class New extends React.Component {
 	    super(props);
 	    this.state = {
 	    	region:null,
+	    	
 	    }
 	}
 	componentDidMount() {
@@ -31,7 +32,7 @@ class New extends React.Component {
 		  	<div className="page_container">
 		  		<div className="titre_page">Redéploiement sur la région {this.state.region}</div>
 		  		<div className="d24"></div>
-		  		<div className="w50"><Form /></div>
+		  		<Form />
 		  	</div>
 		  	<Footer /> 
 		</div>

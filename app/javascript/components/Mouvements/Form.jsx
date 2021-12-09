@@ -6,7 +6,8 @@ import { registerLocale, setDefaultLocale } from  "react-datepicker";
 import fr from 'date-fns/locale/fr';
 registerLocale('fr', fr)
 import Select from 'react-select';
-import { useNavigate } from "react-router-dom";
+
+import New_recap from "./New_recap";
 
 const grades = [
 	  { value: 'A', label: 'A', name:"grade" },
@@ -61,7 +62,7 @@ class Form extends React.Component {
         }
         throw new Error("Network response was not ok.");
       	})
-      	.then(response => this.setState({ programmes: response.programmes }))
+      	.then(response => this.setState({ programmes: response.programmes, mouvements: response.mouvements }))
       	.catch(error => console.log(error.message));
     }
 
@@ -79,6 +80,7 @@ class Form extends React.Component {
   	onSubmit(event) {
     	event.preventDefault();
     	const url = "/api/v1/mouvements/create";
+    	
     	const { date_effet, type_mouvement, grade, quotite, programme_id, service_id} = this.state;
 
 	    const body = {
@@ -100,7 +102,7 @@ class Form extends React.Component {
 	        }
 	        throw new Error("Network response was not ok.");
 	      })
-	      .then(response => useNavigate("/"))
+	      .then(response => {window.location.href = "/historique" ;})
 	      .catch(error => console.log(error.message));
   	}
 
@@ -108,7 +110,6 @@ class Form extends React.Component {
 	    this.setState({ [name]: value,}, function() {
 	    	if (this.state.type_mouvement !== null && this.state.grade !== null && this.state.quotite !== null && this.state.programme_id !== null && this.state.service_id !== null && this.state.date_effet !== null){
 	    	this.setState({ isValid: true});
-	    	console.log(this.state.isValid);
 	    	};
 	    });
 
@@ -154,89 +155,96 @@ class Form extends React.Component {
 	}));
     
     return (  
-		<div className="form_box">
-			<form onSubmit={this.onSubmit}>
-				<div className="texte_etiquette">Type de mouvement</div>
-				
-				<div className="form">   
-	                <Select
-	                	id="type_mouvement"
-				        value={this.state.type_mouvement}
-				        onChange={this.handleChange('type_mouvement')}
-				        options={type_mouvement}
-				        placeholder="- Sélectionner -"
-				        components={{ IndicatorSeparator: () => null }}
-				      />
-	            </div>
-	            <div className="d24"></div>
-
-	            <div className="align_flex">
-					<div className="w3">
-		                <div className="texte_etiquette">Macrograde</div>
-		                
-		                <div className="form">
-		                	<Select
-						        value={this.state.grade}
-						        onChange={this.handleChange('grade')}
-						        options={grades}
+    	<div className="align_flex">
+	    	<div className="w50">
+				<div className="form_box">
+					<form onSubmit={this.onSubmit}>
+						<div className="texte_etiquette">Type de mouvement</div>
+						
+						<div className="form">   
+			                <Select
+			                	id="type_mouvement"
+						        value={this.state.type_mouvement}
+						        onChange={this.handleChange('type_mouvement')}
+						        options={type_mouvement}
 						        placeholder="- Sélectionner -"
 						        components={{ IndicatorSeparator: () => null }}
 						      />
 			            </div>
-		            </div>
-		            <div className="w3 pcenter">
-		                <div className="texte_etiquette">Quotité ETPT</div>
-		                
-		                <div className="form">
-		                	<Select
-						        value={this.state.quotite}
-						        onChange={this.handleChange('quotite')}
-						        options={quotites}
+			            <div className="d24"></div>
+
+			            <div className="align_flex">
+							<div className="w3">
+				                <div className="texte_etiquette">Macrograde</div>
+				                
+				                <div className="form">
+				                	<Select
+								        value={this.state.grade}
+								        onChange={this.handleChange('grade')}
+								        options={grades}
+								        placeholder="- Sélectionner -"
+								        components={{ IndicatorSeparator: () => null }}
+								      />
+					            </div>
+				            </div>
+				            <div className="w3 pcenter">
+				                <div className="texte_etiquette">Quotité ETPT</div>
+				                
+				                <div className="form">
+				                	<Select
+								        value={this.state.quotite}
+								        onChange={this.handleChange('quotite')}
+								        options={quotites}
+								        placeholder="- Sélectionner -"
+								        components={{ IndicatorSeparator: () => null }}
+								      />
+					                
+				                </div>
+				            </div>
+				            <div className="w3">
+				            	<div className="texte_etiquette">Date du changement</div>
+				            	<DatePicker placeholderText="JJ/MM/YYYY" selected={this.state.date_effet} locale="fr" onChange= {this.onChange} dateFormat="dd/MM/yyyy" />
+				            </div>
+			            </div>
+
+			            <div className="d24"></div>
+			            <div className="texte_etiquette">Programme</div>
+			          
+			            <div className="form">
+			                <Select
+						        value={this.state.programme_id}
+						        options={programmes_liste}
+						        onChange={this.handleChange('programme_id')}
 						        placeholder="- Sélectionner -"
 						        components={{ IndicatorSeparator: () => null }}
 						      />
-			                
-		                </div>
-		            </div>
-		            <div className="w3">
-		            	<div className="texte_etiquette">Date du changement</div>
-		            	<DatePicker placeholderText="JJ/MM/YYYY" selected={this.state.date_effet} locale="fr" onChange= {this.onChange} dateFormat="dd/MM/yyyy" />
-		            </div>
-	            </div>
+						      				      
+			            </div>
 
-	            <div className="d24"></div>
-	            <div className="texte_etiquette">Programme</div>
-	          
-	            <div className="form">
-	                <Select
-				        value={this.state.programme_id}
-				        options={programmes_liste}
-				        onChange={this.handleChange('programme_id')}
-				        placeholder="- Sélectionner -"
-				        components={{ IndicatorSeparator: () => null }}
-				      />
-				      				      
-	            </div>
+			            <div className="d24"></div>
 
-	            <div className="d24"></div>
+			            <div className="texte_etiquette">Service d'affectation</div>
+			            <div className="form">
+			            	<Select
+						        value={this.state.service_id}
+						        onChange={this.handleChange('service_id')}
+						        options={services_liste}
+						        placeholder="- Sélectionner -"
+						        components={{ IndicatorSeparator: () => null }}
+						      />
+			            </div>
 
-	            <div className="texte_etiquette">Service d'affectation</div>
-	            <div className="form">
-	            	<Select
-				        value={this.state.service_id}
-				        onChange={this.handleChange('service_id')}
-				        options={services_liste}
-				        placeholder="- Sélectionner -"
-				        components={{ IndicatorSeparator: () => null }}
-				      />
-	            </div>
+			            <div className="d24"></div>
 
-	            <div className="d24"></div>
+			            <div className="text-center">{ this.state.isValid ? <button type="submit" className="bouton">Valider</button> : <span className="bouton_inactif">Valider</span>} </div>
 
-	            <div className="text-center">{ this.state.isValid ? <button type="submit" className="bouton">Valider</button> : <button className="bouton_inactif">Valider</button>} </div>
-
-	            <div className="d24"></div>
-			</form>
+			            <div className="d24"></div>
+					</form>
+				</div>
+			</div>
+			<div className="w50">
+				<New_recap type_mouvement={this.state.type_mouvement}/>
+			</div>
 		</div>
     );
     }

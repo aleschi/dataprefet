@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      get 'objectifs/index'
+      post 'objectifs/import'
+    end
+  end
+  namespace :api do
+    namespace :v1 do
       get 'mouvements/index'
       get 'mouvements/new'
       get 'mouvements/edit'

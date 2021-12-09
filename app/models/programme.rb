@@ -1,6 +1,8 @@
 class Programme < ApplicationRecord
   	belongs_to :ministere
     has_many :services
+    has_many :mouvements
+    has_many :objectifs
   	require 'roo'
   	require 'axlsx'
 

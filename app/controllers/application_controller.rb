@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
   	def resource
     	@resource ||= User.new
- 	end
+ 	  end
   	def resource_class
     	User
   	end
@@ -31,7 +31,8 @@ class ApplicationController < ActionController::Base
 
   	protected
   	def configure_permitted_parameters
-      	devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
-      	devise_parameter_sanitizer.permit(:account_update, keys: [:email, :password, :password_confirmation, ])
+      	devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :statut, :region_id])
+        devise_parameter_sanitizer.permit(:sign_in, keys: [:statut, :region_id, :password])
+      	devise_parameter_sanitizer.permit(:account_update, keys: [:email, :password, :password_confirmation,:region_id, :statut ])
   	end
 end

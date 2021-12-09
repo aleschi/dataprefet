@@ -1,7 +1,8 @@
 import React from "react";
-import Header from "../Header";
-import Footer from "../Footer";
+import { Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'react-bootstrap';
 
+import Checkbox from '@mui/material/Checkbox';
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
 
 class Table extends React.Component {
 	constructor(props) {
@@ -54,6 +55,10 @@ class Table extends React.Component {
 	        }	        	
     	})
     };
+
+    handleChange = (event) => {
+      this.setState({[event.target.name]: event.target.checked});
+    };
 	
     render() {
     
@@ -65,12 +70,17 @@ class Table extends React.Component {
 	        	<th scope="col">Date <button onClick={() => {this.sortTable('date')}} id="date"><i className="fas fa-sort"></i></button></th>
 	        	<th scope="col">Quotité ETPT</th>
 	        	<th scope="col">Macrograde</th>
-	        	<th scope="col">Type</th>
+	        	<th scope="col">Type <Dropdown className="table_dropdown_box">
+              <Dropdown.Toggle  className="table_dropdown_button"></Dropdown.Toggle>
+              <Dropdown.Menu className="table_dropdown_menu">
+
+                <div className="texte_etiquette"><Checkbox {...label} checked={this.state.suppression} defaultChecked name="suppression" onChange={this.handleChange}/>Suppression</div>
+                <div className="texte_etiquette"><Checkbox {...label} checked={this.state.suppression} defaultChecked name="ajout" onChange={this.handleChange}/>Ajout</div>
+              </Dropdown.Menu>
+            </Dropdown> </th>
 	        	<th scope="col">Service concerné</th>
 	        	<th scope="col">Programme</th>
-	          	<th scope="col">Date mise en place <button onClick={() => {this.sortTable('date_effet')}} id="valeur"><i className="fas fa-sort"></i></button></th>
-	          	
-	     	
+	          <th scope="col">Date mise en place <button onClick={() => {this.sortTable('date_effet')}} id="valeur"><i className="fas fa-sort"></i></button></th>	     	
 	        </tr>
 	      	</thead>
 

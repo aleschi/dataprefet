@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2021-12-08
+  etp_cible: 1
+  etpt_plafond: 1.5
+  programme: one
+  region: one
+  etp_3: 1
+
+two:
+  date: 2021-12-08
+  etp_cible: 1
+  etpt_plafond: 1.5
+  programme: two
+  region: two
+  etp_3: 1
