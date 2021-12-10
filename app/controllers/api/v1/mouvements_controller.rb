@@ -90,6 +90,18 @@ class Api::V1::MouvementsController < ApplicationController
     render json: response
   end
 
+  def search
+    mouvements = Mouvement.where(user_id: current_user.id).order(date: :desc)
+    if params[:suppression] == false 
+      mouvements = mouvements.where('type_mouvement != ?', 'suppression')
+    end
+    if params[:ajout] == false 
+      mouvements = mouvements.where('type_mouvement != ?', 'ajout')
+    end
+    response = { mouvements: mouvements.as_json(:include => [:programme,:service,])}
+    render json: response   
+  end 
+
   private
 
   def mouvement_params

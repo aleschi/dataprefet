@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       delete '/destroy/:id', to: 'mouvements#destroy'
       post 'mouvements/get_services'
       post 'mouvements/sort_table'
+      post 'mouvements/search'
     end
   end
   namespace :api do

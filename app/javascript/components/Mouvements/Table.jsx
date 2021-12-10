@@ -10,8 +10,11 @@ class Table extends React.Component {
 	    this.state = {
 	    	region:null,
 	    	mouvements: this.props.mouvements,
+        suppression: true,
+        ajout: true,
 	    }
 	    this.sortTable = this.sortTable.bind(this);
+      this.handleChange = this.handleChange.bind(this);
 	}
 	componentDidUpdate(prevProps) {
       if (this.props.mouvements !== prevProps.mouvements) {
@@ -56,8 +59,39 @@ class Table extends React.Component {
     	})
     };
 
-    handleChange = (event) => {
-      this.setState({[event.target.name]: event.target.checked});
+    handleChange(event) {
+        this.setState({[event.target.name]: event.target.checked});
+        const url = "/api/v1/mouvements/search";
+        var suppression = this.state.suppression;
+        var  ajout = this.state.ajout;
+        if ([event.target.name] == "suppression"){
+          suppression = event.target.checked
+        }
+        if ([event.target.name] == "ajout"){
+          ajout = event.target.checked
+        }
+        
+        const body = {
+          suppression, ajout
+        };
+
+        const token = document.querySelector('meta[name="csrf-token"]').content;
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "X-CSRF-Token": token,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(body)
+        })
+        .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Network response was not ok.");
+      })
+      .then(response => this.setState({ mouvements: response.mouvements, }))
+      .catch(error => console.log(error.message));
     };
 	
     render() {
@@ -74,8 +108,8 @@ class Table extends React.Component {
               <Dropdown.Toggle  className="table_dropdown_button"></Dropdown.Toggle>
               <Dropdown.Menu className="table_dropdown_menu">
 
-                <div className="texte_etiquette"><Checkbox {...label} checked={this.state.suppression} defaultChecked name="suppression" onChange={this.handleChange}/>Suppression</div>
-                <div className="texte_etiquette"><Checkbox {...label} checked={this.state.suppression} defaultChecked name="ajout" onChange={this.handleChange}/>Ajout</div>
+                <div className="texte_etiquette"><Checkbox checked={this.state.suppression} name="suppression" onChange={this.handleChange} inputProps={{ 'aria-label': 'controlled' }}/>Suppression</div>
+                <div className="texte_etiquette"><Checkbox checked={this.state.ajout} name="ajout" onChange={this.handleChange} inputProps={{ 'aria-label': 'controlled' }}/>Ajout</div>
               </Dropdown.Menu>
             </Dropdown> </th>
 	        	<th scope="col">Service concerné</th>
