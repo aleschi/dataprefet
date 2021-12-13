@@ -27,12 +27,15 @@ class Api::V1::MouvementsController < ApplicationController
     solde_etp = (0.03 * Objectif.where(region_id: current_user.region_id).sum('etp_cible')).to_i-etp_supp
     etpt_plafond = Objectif.where(region_id: current_user.region_id).sum('etpt_plafond')
 
+    liste_programmes_mvt = Programme.where(id: mouvements.pluck(:programme_id).uniq!).pluck(:numero)
+
     response = {programmes: programmes.as_json(:include => [:ministere, :mouvements, :objectifs]), region: region,region_id: region_id, mouvements: mouvements.as_json(:include => [:programme,:service,]), 
       etp_supp: etp_supp, etp_supp_a: etp_supp_a, etp_supp_b: etp_supp_b, etp_supp_c: etp_supp_c,
       etp_add: etp_add, etp_add_a: etp_add_a,etp_add_b: etp_add_b, etp_add_c: etp_add_c,
       etpt_supp: etpt_supp, etpt_supp_a: etpt_supp_a, etpt_supp_b: etpt_supp_b, etpt_supp_c: etpt_supp_c,
       etpt_add: etpt_add, etpt_add_a: etpt_add_a,etpt_add_b: etpt_add_b, etpt_add_c: etpt_add_c,
-      solde_etp: solde_etp, etp_cible: etp_cible, etpt_plafond: etpt_plafond, etp_3: etp_3
+      solde_etp: solde_etp, etp_cible: etp_cible, etpt_plafond: etpt_plafond, etp_3: etp_3,
+      liste_programmes_mvt: liste_programmes_mvt,
     }
     render json: response
   end
@@ -53,6 +56,9 @@ class Api::V1::MouvementsController < ApplicationController
     mouvement.programme_id = params[:programme_id][:value]
     cout_etp = Cout.where('programme_id = ? AND categorie = ?',params[:programme_id][:value], params[:grade][:value]).first.cout
     mouvement.cout_etp = params[:quotite][:value].to_f * cout_etp
+    if params[:ponctuel] == true
+      mouvement.ponctuel = true
+    end
     mouvement.save
     if mouvement
       render json: mouvement
@@ -82,11 +88,27 @@ class Api::V1::MouvementsController < ApplicationController
 
   def sort_table
     if params[:search] == "date"
-      mouvements = Mouvement.where(id: params[:mouvements].map{|x| x[:id]}).order(date: :asc)
+      if params[:date_croissant] == true #cetait deja croissant donc on change en desc
+        mouvements = Mouvement.where(id: params[:mouvements].map{|x| x[:id]}).order(date: :desc)
+        date_croissant = false 
+        date_effet_croissant = params[:date_effet_croissant]
+      else
+        mouvements = Mouvement.where(id: params[:mouvements].map{|x| x[:id]}).order(date: :asc)
+        date_croissant = true
+        date_effet_croissant = params[:date_effet_croissant]
+      end
     elsif params[:search] == "date_effet"
-      mouvements = Mouvement.where(id: params[:mouvements].map{|x| x[:id]}).order(date_effet: :asc)
+      if params[:date_effet_croissant] == true
+        mouvements = Mouvement.where(id: params[:mouvements].map{|x| x[:id]}).order(date_effet: :desc)
+        date_effet_croissant = false 
+        date_croissant = params[:date_croissant]
+      else
+        mouvements = Mouvement.where(id: params[:mouvements].map{|x| x[:id]}).order(date_effet: :asc)
+        date_effet_croissant = true 
+        date_croissant = params[:date_croissant]
+      end
     end
-    response = { mouvements: mouvements.as_json(:include => [:programme,:service,])}
+    response = { mouvements: mouvements.as_json(:include => [:programme,:service,]), date_effet_croissant: date_effet_croissant, date_croissant: date_croissant}
     render json: response
   end
 
@@ -97,6 +119,19 @@ class Api::V1::MouvementsController < ApplicationController
     end
     if params[:ajout] == false 
       mouvements = mouvements.where('type_mouvement != ?', 'ajout')
+    end
+    if params[:grade_a] == false 
+      mouvements = mouvements.where('grade != ?', 'A')
+    end
+    if params[:grade_b] == false 
+      mouvements = mouvements.where('grade != ?', 'B')
+    end
+    if params[:grade_c] == false 
+      mouvements = mouvements.where('grade != ?', 'C')
+    end
+    if params[:selected_new] && params[:selected_new].length > 0
+      programmes_id = Programme.where(numero: params[:selected_new]).pluck(:id)
+      mouvements = mouvements.where(programme_id: programmes_id)
     end
     response = { mouvements: mouvements.as_json(:include => [:programme,:service,])}
     render json: response   

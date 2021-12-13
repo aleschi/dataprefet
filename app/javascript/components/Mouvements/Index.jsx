@@ -14,7 +14,7 @@ class Index extends React.Component {
 	    	etpt_plafond: 0,
 	    	etp_3:0,
 	    	etp_supp: 0,
-	    	
+	    	liste_programmes_mvt: [],
 	    }
 	}
 	componentDidMount() {
@@ -26,7 +26,7 @@ class Index extends React.Component {
         }
         throw new Error("Network response was not ok.");
       	})
-      	.then(response => this.setState({region: response.region, mouvements: response.mouvements, etp_cible: response.etp_cible, etpt_plafond: response.etpt_plafond, solde_etp: response.solde_etp, etp_3: response.etp_3, etp_supp: response.etp_supp }))
+      	.then(response => this.setState({region: response.region, mouvements: response.mouvements, etp_cible: response.etp_cible, etpt_plafond: response.etpt_plafond, solde_etp: response.solde_etp, etp_3: response.etp_3, etp_supp: response.etp_supp, liste_programmes_mvt: response.liste_programmes_mvt }))
       	.catch(error => console.log(error.message));
     }
 
@@ -45,7 +45,7 @@ class Index extends React.Component {
 		  			<div className="bandeau"><span className="bandeau_titre">ETP redéployés </span> <span className="bandeau_texte">{this.state.etp_supp} ETP</span></div>
 		  			<div className="bandeau"><span className="bandeau_titre">Solde 2021 </span><span className="bandeau_texte"> {this.state.solde_etp} ETP</span></div>
 		  		</div>
-		  		<Table mouvements={this.state.mouvements}/>
+		  		<Table mouvements={this.state.mouvements} liste_programmes_mvt={this.state.liste_programmes_mvt}/>
 		  	</div>
 		  	<Footer /> 
 		</div>

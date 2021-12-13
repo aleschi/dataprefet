@@ -64,7 +64,7 @@ class Tableprogramme extends React.Component {
 	        	<th scope="col">ETP supprimés</th>
 	        	<th scope="col">ETP ajoutés</th>
 	        	<th scope="col">Mouvements crédits</th>
-            <th scope="col">Coût EAP</th>
+            	<th scope="col">Coût EAP</th>
 	        </tr>
 	      	</thead>
 

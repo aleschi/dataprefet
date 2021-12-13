@@ -87,7 +87,7 @@ class New_recap extends React.Component {
 				<div><span className="info_etp">{this.state.etp_add_a}ETP/{this.state.etpt_add_a}ETPT A</span><span className="info_etp">{this.state.etp_add_b}ETP/{this.state.etpt_add_b}ETPT B</span><span className="info_etp">{this.state.etp_add_c}ETP/{this.state.etpt_add_c}ETPT C</span></div>
 				<div className="d12"></div>
 				<div className="titre_box_form_recap">ETP/ETPT pouvant être ajoutés</div>
-				<div className="chiffre_box_form_recap cbleu">{this.state.etp_supp - this.state.etp_add}/{this.state.etpt_supp - this.state.etpt_add}</div>
+				<div className="chiffre_box_form_recap cbleu">{this.state.etp_supp - this.state.etp_add}/{Math.round((this.state.etpt_supp - this.state.etpt_add)*100) / 100}</div>
 				<div><span className="info_etp">{this.state.etp_supp_a - this.state.etp_add_a}ETP/{this.state.etpt_supp_a - this.state.etpt_add_a}ETPT A</span><span className="info_etp">{this.state.etp_supp_b - this.state.etp_add_b}ETP/{this.state.etpt_supp_b - this.state.etpt_add_b}ETPT B</span><span className="info_etp">{this.state.etp_supp_c - this.state.etp_add_c}ETP/{this.state.etpt_supp_c - this.state.etpt_add_c}ETPT B</span></div>
 			</div>
 			}

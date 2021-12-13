@@ -8,6 +8,7 @@ registerLocale('fr', fr)
 import Select from 'react-select';
 
 import New_recap from "./New_recap";
+import Checkbox from '@mui/material/Checkbox';
 
 const grades = [
 	  { value: 'A', label: 'A', name:"grade" },
@@ -45,12 +46,13 @@ class Form extends React.Component {
 	      programmes: [],
 	      services: [],
 	      isValid: false,
-	      
+	      ponctuel: false,
 	    };
 
 	    this.onChange = this.onChange.bind(this);
 	    this.onSubmit = this.onSubmit.bind(this);
 	    this.stripHtmlEntities = this.stripHtmlEntities.bind(this);
+	    this.handleCheck = this.handleCheck.bind(this);
   	}
 
   	componentDidMount() {
@@ -81,10 +83,10 @@ class Form extends React.Component {
     	event.preventDefault();
     	const url = "/api/v1/mouvements/create";
     	
-    	const { date_effet, type_mouvement, grade, quotite, programme_id, service_id} = this.state;
+    	const { date_effet, type_mouvement, grade, quotite, programme_id, service_id, ponctuel} = this.state;
 
 	    const body = {
-	       date_effet, type_mouvement, grade, quotite, programme_id, service_id,
+	       date_effet, type_mouvement, grade, quotite, programme_id, service_id,ponctuel
 	    };
 
     	const token = document.querySelector('meta[name="csrf-token"]').content;
@@ -139,6 +141,10 @@ class Form extends React.Component {
 		      .catch(error => console.log(error.message));
 	    };   	
   	};
+
+  	handleCheck(event) {
+		this.setState({[event.target.name]: event.target.checked});
+  	}
   	
     render() {
 
@@ -172,7 +178,12 @@ class Form extends React.Component {
 						      />
 			            </div>
 			            <div className="d24"></div>
-
+			            {(this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "ajout") &&
+			            <div>
+				            <div className="texte_etiquette">Si le redéploiement concerne un emploi ponctuel, veuillez cocher la case : <Checkbox checked={this.state.ponctuel} name="ponctuel" onChange={this.handleCheck} inputProps={{ 'aria-label': 'controlled' }}/></div>
+				            <div className="d24"></div>
+			            </div>
+			            }
 			            <div className="align_flex">
 							<div className="w3">
 				                <div className="texte_etiquette">Macrograde</div>

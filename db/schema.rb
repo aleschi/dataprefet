@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_08_103201) do
+ActiveRecord::Schema.define(version: 2021_12_13_093442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2021_12_08_103201) do
     t.float "cout_etp"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "ponctuel"
     t.index ["programme_id"], name: "index_mouvements_on_programme_id"
     t.index ["region_id"], name: "index_mouvements_on_region_id"
     t.index ["service_id"], name: "index_mouvements_on_service_id"
