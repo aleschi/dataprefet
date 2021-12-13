@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       post 'mouvements/get_services'
       post 'mouvements/sort_table'
       post 'mouvements/search'
+      get 'mouvements/mouvements_globaux'
     end
   end
   namespace :api do

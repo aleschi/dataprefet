@@ -137,6 +137,12 @@ class Api::V1::MouvementsController < ApplicationController
     render json: response   
   end 
 
+  def mouvements_globaux
+    regions = Region.all
+    response = { regions: regions.as_json(:include => [:objectifs, :mouvements])}
+    render json: response
+  end 
+
   private
 
   def mouvement_params

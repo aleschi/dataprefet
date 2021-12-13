@@ -10,6 +10,7 @@ import New from "../components/Mouvements/New";
 import Index from "../components/Mouvements/Index";
 import Vueprogramme from "../components/Mouvements/Vueprogramme";
 import Objectifs from "../components/Objectifs/Objectifs";
+import IndexDB from "../components/DB/IndexDB";
 
 export default (
   <BrowserRouter>
@@ -24,6 +25,7 @@ export default (
       <Route path="/historique" element={<Index/>} />
       <Route path="/accueil-cbr" element={<Vueprogramme/>} />
       <Route path="/objectifs" element={<Objectifs/>} />
+      <Route path="/accueil-db" element={<IndexDB/>} />
     </Routes>
   </BrowserRouter>
 );
