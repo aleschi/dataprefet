@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       get 'mouvements/edit'
       post 'mouvements/create'
       post 'mouvements/update'
-      delete '/destroy/:id', to: 'mouvements#destroy'
+      delete 'mouvements/destroy/:id', to: 'mouvements#destroy'
       post 'mouvements/get_services'
       post 'mouvements/sort_table'
       post 'mouvements/search'
@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'programmes/index'
       post 'programmes/create'
-      delete '/destroy/:id', to: 'programmes#destroy'
+      delete 'programmes/destroy/:id', to: 'programmes#destroy'
       post 'programmes/import'
     end
   end
@@ -43,7 +43,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'regions/index'
       post 'regions/create'
-      delete '/destroy/:id', to: 'regions#destroy'
+      delete 'regions/destroy/:id', to: 'regions#destroy'
       post 'regions/import'
     end
   end

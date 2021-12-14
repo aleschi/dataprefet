@@ -3,7 +3,7 @@ class Api::V1::MouvementsController < ApplicationController
     programmes = Programme.all
     region = Region.where(id: current_user.region_id).first.nom
     region_id = Region.where(id: current_user.region_id).first.id
-    mouvements = Mouvement.where(user_id: current_user.id).order(date: :desc)
+    mouvements = Mouvement.where(user_id: current_user.id).order(created_at: :desc)
     etp_supp = mouvements.where(type_mouvement: "suppression").count
     etp_supp_a = mouvements.where('type_mouvement = ? AND grade = ?', "suppression", 'A').count
     etp_supp_b = mouvements.where('type_mouvement = ? AND grade = ?', "suppression", 'B').count
@@ -75,7 +75,9 @@ class Api::V1::MouvementsController < ApplicationController
 
   def destroy
     mouvement&.destroy
-    render json: { message: 'mouvement deleted!' }
+    mouvements = Mouvement.where(user_id: current_user.id).order(created_at: :desc)
+    response = { mouvements: mouvements }
+    render json: response
   end
 
   def get_services
@@ -89,11 +91,11 @@ class Api::V1::MouvementsController < ApplicationController
   def sort_table
     if params[:search] == "date"
       if params[:date_croissant] == true #cetait deja croissant donc on change en desc
-        mouvements = Mouvement.where(id: params[:mouvements].map{|x| x[:id]}).order(date: :desc)
+        mouvements = Mouvement.where(id: params[:mouvements].map{|x| x[:id]}).order(created_at: :desc)
         date_croissant = false 
         date_effet_croissant = params[:date_effet_croissant]
       else
-        mouvements = Mouvement.where(id: params[:mouvements].map{|x| x[:id]}).order(date: :asc)
+        mouvements = Mouvement.where(id: params[:mouvements].map{|x| x[:id]}).order(created_at: :asc)
         date_croissant = true
         date_effet_croissant = params[:date_effet_croissant]
       end
@@ -109,6 +111,7 @@ class Api::V1::MouvementsController < ApplicationController
       end
     end
     response = { mouvements: mouvements.as_json(:include => [:programme,:service,]), date_effet_croissant: date_effet_croissant, date_croissant: date_croissant}
+    
     render json: response
   end
 

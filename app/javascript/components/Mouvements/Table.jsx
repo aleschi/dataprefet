@@ -23,6 +23,7 @@ class Table extends React.Component {
 	    this.sortTable = this.sortTable.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.handleChange2 = this.handleChange2.bind(this);
+      this.deleteMouvement = this.deleteMouvement.bind(this);
 	}
 	componentDidUpdate(prevProps) {
       if (this.props.mouvements !== prevProps.mouvements) {
@@ -65,11 +66,16 @@ class Table extends React.Component {
 
     displayRow = () => {
     	return this.state.mouvements.map((mouvement, index) => {
+
+        var date1 = new Date(mouvement.date_effet);
+        var date2 = new Date('2021/12/31');
+        var diffTime = Math.abs(date2 - date1);
+        var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
     		if (mouvement.type_mouvement == "ajout"){
-	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><span className="etiquette_j">{mouvement.type_mouvement}</span>{(mouvement.ponctuel == true) && <span className="etiquette_r">Ponctuel</span>}</td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td></tr>
+	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><span className="etiquette_j">{mouvement.type_mouvement}</span>{(mouvement.ponctuel == true) && <span className="etiquette_r">Ponctuel</span>}</td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td></td><td></td><td><button className="bouton_delete" onClick={e => this.deleteMouvement(e, mouvement)}><i className="fas fa-trash-alt"></i></button></td></tr>
 	        }
 	        else if (mouvement.type_mouvement == "suppression"){
-	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><span className="etiquette_v">{mouvement.type_mouvement}</span></td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td></tr>
+	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><span className="etiquette_v">{mouvement.type_mouvement}</span></td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td>{Math.round(mouvement.cout_etp*diffDays/365).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td><td><button className="bouton_delete" onClick={e => this.deleteMouvement(e, mouvement)}><i className="fas fa-trash-alt"></i></button></td></tr>
 	        }	        	
     	})
     };
@@ -157,6 +163,28 @@ class Table extends React.Component {
       .then(response => this.setState({ mouvements: response.mouvements, }))
       .catch(error => console.log(error.message));
     };
+
+    deleteMouvement = (e, mouvement) => {
+      console.log(mouvement.id);
+      const url = `/api/v1/mouvements/destroy/${mouvement.id}`;
+      const token = document.querySelector('meta[name="csrf-token"]').content;
+
+      fetch(url, {
+        method: "DELETE",
+        headers: {
+          "X-CSRF-Token": token,
+          "Content-Type": "application/json"
+        }
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Network response was not ok.");
+        })
+        .then(() => this.setState({ mouvements: response.mouvements }))
+        .catch(error => console.log(error.message));
+    };
 	
     render() {
     return (  
@@ -192,7 +220,10 @@ class Table extends React.Component {
                 ))}
               </Dropdown.Menu>
             </Dropdown></th>
-	          <th scope="col">Date mise en place <button onClick={() => {this.sortTable('date_effet')}} id="valeur"><i className="fas fa-sort"></i></button></th>	     	
+	          <th scope="col">Date mise en place <button onClick={() => {this.sortTable('date_effet')}} id="valeur"><i className="fas fa-sort"></i></button></th>	 
+            <th scope="col">Mouvements crédits</th> 
+            <th scope="col">Cout EAP</th>   
+            <th scope="col"></th> 	
 	        </tr>
 	      	</thead>
 

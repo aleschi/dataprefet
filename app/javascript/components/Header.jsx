@@ -42,6 +42,8 @@ class Header extends React.Component {
 			  		<div className="nav_link"><NavLink end="nav_link_active" to='/historique' className="nav_link">Historique des déploiements</NavLink></div> }
 			  		{ (this.state.statut=="admin") &&
 			  		<div className="nav_link"><NavLink end="nav_link_active" to='/mouvements' className="nav_link">Créer un redéploiement</NavLink></div> }
+			  		{ (this.state.statut=="admin") &&
+			  		<div className="nav_link"><NavLink end="nav_link_active" to='/couts-etp' className="nav_link">Tableau coûts annuel ETP</NavLink></div> }
 			  		
 			  		
 			  		<Dropdown className="user_dropdown">

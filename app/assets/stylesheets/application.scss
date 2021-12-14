@@ -616,7 +616,15 @@ text-align:right;
 .table_right{
   padding-left:8px;
 }
-
 .total{
   background-color:#F5F9FF !important;
+}
+.bouton_delete{
+  background-color:transparent;
+}
+
+.tables_cout{
+  display:inline-block;
+  padding-right:20px;
+  width:33.33%;
 }

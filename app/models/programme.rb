@@ -3,6 +3,7 @@ class Programme < ApplicationRecord
     has_many :services
     has_many :mouvements
     has_many :objectifs
+    has_many :couts
   	require 'roo'
   	require 'axlsx'
 
