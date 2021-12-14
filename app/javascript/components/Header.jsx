@@ -36,14 +36,22 @@ class Header extends React.Component {
 		  	</div>
 		  	<div className="nav_header_box">
 			  	<div className="nav_header">
+			  		
+			  		<div className="nav_link"><NavLink end="nav_link_active" to='/' className="nav_link">Accueil</NavLink></div> 
 			  		{ (this.state.statut=="admin") &&
-			  		<div className="nav_link"><NavLink end="nav_link_active" to='/accueil-cbr' className="nav_link">Accueil</NavLink></div> }
-			  		{ (this.state.statut=="admin") &&
+			  		<div className="nav_link"><NavLink end="nav_link_active" to='/mouvements-globaux' className="nav_link">Historique des mouvements</NavLink></div> }
+
+			  		{ (this.state.statut=="CBR" || this.state.statut=="prefet") &&
 			  		<div className="nav_link"><NavLink end="nav_link_active" to='/historique' className="nav_link">Historique des déploiements</NavLink></div> }
-			  		{ (this.state.statut=="admin") &&
+
+
+			  		{ (this.state.statut=="CBR") &&
 			  		<div className="nav_link"><NavLink end="nav_link_active" to='/mouvements' className="nav_link">Créer un redéploiement</NavLink></div> }
-			  		{ (this.state.statut=="admin") &&
-			  		<div className="nav_link"><NavLink end="nav_link_active" to='/couts-etp' className="nav_link">Tableau coûts annuel ETP</NavLink></div> }
+
+			  		
+			  		<div className="nav_link"><NavLink end="nav_link_active" to='/couts-etp' className="nav_link">Tableau coûts ETP annuels</NavLink></div> 
+
+			  		
 			  		
 			  		
 			  		<Dropdown className="user_dropdown">

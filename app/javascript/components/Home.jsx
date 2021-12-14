@@ -1,18 +1,37 @@
 import React from "react";
-import Header from "./Header";
-import Footer from "./Footer";
-import { Link } from "react-router-dom";
+import Vueprogramme from "../components/Mouvements/Vueprogramme";
+import IndexDB from "../components/DB/IndexDB";
 
 class Home extends React.Component {
-
+	constructor(props) {
+	    super(props);
+	    this.state = { 
+	      isLoggedIn: false,
+	      statut: '',
+	     };
+	    
+	}
+	componentDidMount() {
+      const url = "/check_user_status";
+      fetch(url)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Network response was not ok.");
+        })
+        .then(response => this.setState({ isLoggedIn: response.isLoggedIn, statut: response.statut }))
+        .catch(() => this.props.history.push("/"));
+  	}
     render() {
     return (  
 		<div>
-		  	<Header /> 
-		  	<div className="page_container">
-		  		<div className="titre_page">Ministère XX</div>
-		  	</div>
-		  	<Footer /> 
+			{ (this.state.statut=="admin") &&
+			<IndexDB />
+			}
+			{ (this.state.statut=="CBR") &&
+			<Vueprogramme />
+			}
 		</div>
     );
     }

@@ -21,7 +21,7 @@ class Users extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
-    const url = "/api/v1/users/index";
+    const url = "/users/index";
     fetch(url)
       .then(response => {
         if (response.ok) {
@@ -38,7 +38,7 @@ class Users extends React.Component {
         event.preventDefault();
         this.setState({ loading: true });
 
-        const url = "/api/v1/users/import";
+        const url = "/users/import";
         const formData = new FormData();
 
         formData.append('file', this.state.files[0]);

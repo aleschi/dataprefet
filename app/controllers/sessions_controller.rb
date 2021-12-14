@@ -1,11 +1,11 @@
 class SessionsController < Devise::SessionsController
   
   def create
-    if params[:user][:statut] == "admin" || params[:user][:statut] == "ministere"
+    if params[:user][:statut] == "admin"
 	   resource = User.find_for_database_authentication(statut: params[:user][:statut])
-   elsif params[:user][:statut] == "cbr" || params[:user][:statut] == "prefet"
-    resource = User.find_for_database_authentication(statut: params[:user][:statut],region_id: params[:user][:region])
-   end
+    elsif params[:user][:statut] == "CBR" || params[:user][:statut] == "prefet"
+      resource = User.find_for_database_authentication(statut: params[:user][:statut],region_id: params[:user][:region_id].to_i)
+    end
 	  return invalid_login_attempt unless resource
 
 	  if resource.valid_password?(params[:user][:password])
@@ -30,14 +30,14 @@ class SessionsController < Devise::SessionsController
   end
  
   def after_sign_in_path_for(resource)
-      root_path   
+        root_path 
   end
 
   protected
   def invalid_login_attempt
-#  set_flash_message(:alert, :invalid)
-  render json: flash[:alert], status: 401
+    render json: flash[:alert], status: 401
   end
+
 
 
 end

@@ -8,9 +8,8 @@ import Services from "../components/Services/Services";
 import Couts from "../components/Couts/Couts";
 import New from "../components/Mouvements/New";
 import Index from "../components/Mouvements/Index";
-import Vueprogramme from "../components/Mouvements/Vueprogramme";
 import Objectifs from "../components/Objectifs/Objectifs";
-import IndexDB from "../components/DB/IndexDB";
+import Historique from "../components/DB/Historique";
 import Index_couts from "../components/Couts/Index_couts";
 
 export default (
@@ -24,10 +23,9 @@ export default (
       <Route path="/couts" element={<Couts/>} />
       <Route path="/mouvements" element={<New/>} />
       <Route path="/historique" element={<Index/>} />
-      <Route path="/accueil-cbr" element={<Vueprogramme/>} />
       <Route path="/objectifs" element={<Objectifs/>} />
-      <Route path="/accueil-db" element={<IndexDB/>} />
       <Route path="/couts-etp" element={<Index_couts/>} />
+      <Route path="/mouvements-globaux" element={<Historique/>} />
     </Routes>
   </BrowserRouter>
 );

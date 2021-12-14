@@ -7,13 +7,29 @@ class User < ApplicationRecord
     def self.import(file)
   		data = Roo::Spreadsheet.open(file.path)
     	headers = data.row(1) # get header row
-    	Region.destroy_all
+    	Region.all.each do |region| #on regarde si la region est dans le fichier
+    		count = 0 
+    		data.each_with_index do |row, idx|
+    			next if idx == 0 # skip header
+      			row_data = Hash[[headers, row].transpose]
+      			if row_data['region'] == region.nom
+      				count += 1
+      			end 
+    		end
+    		if count == 0  #si nest pas dans le fichier on la supp
+    			region.destroy
+    		end
+    	end
+
+
     	data.each_with_index do |row, idx|
       		next if idx == 0 # skip header
       		row_data = Hash[[headers, row].transpose]
-      		Region.where('nom = ?',row_data['region']).first_or_create do |region|
-        		region.nom = row_data['region']
-      		end
+      		if !row_data['region'].nil? && row_data['region'].length > 0 #region existe
+	      		Region.where('nom = ?',row_data['region']).first_or_create do |region|
+	        		region.nom = row_data['region']
+	      		end
+	      	end
       		if User.where('email = ?',row_data['email']).count > 0
 		        @user = User.where('email = ?',row_data['email']).first
 		        @user.statut = row_data['statut']
@@ -28,6 +44,7 @@ class User < ApplicationRecord
 		        if Region.where('nom = ?',row_data['region']).count > 0
 		        	@user.region_id = Region.where('nom = ?',row_data['region']).first.id
 		   		end
+		   		@user.password = row_data['Mot de passe']
 		        if !@user.email.nil?
 			        @user.save
 			    end

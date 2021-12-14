@@ -31,6 +31,8 @@ class Tableprogramme extends React.Component {
             var count_etp_supp = 0
             var etp_cible = 0
             var etpt_plafond = 0
+            var cout_annee = 0
+            var credits_gestion = 0
             programme.objectifs.map((objectif,index) =>{
             	if (objectif.region_id == this.state.region_id){
             		etp_cible = objectif.etp_cible;
@@ -41,12 +43,18 @@ class Tableprogramme extends React.Component {
             this.state.mouvements.map((mouvement,index) =>{
 	            if (mouvement.programme_id == programme.id && mouvement.type_mouvement == "ajout"){
 	              count_etp_add += 1;
+	              cout_annee += mouvement.cout_etp;
+	              credits_gestion += mouvement.credits_gestion;
+
 	            }
 	            else if (mouvement.programme_id == programme.id && mouvement.type_mouvement == "suppression"){
 	              count_etp_supp += 1;
+	              cout_annee += mouvement.cout_etp;
+	              credits_gestion += mouvement.credits_gestion;
 	            }
+
             })    		
-	        return <tr key={index}><td>{programme.numero} - {programme.ministere.nom}</td><td>{etp_cible} ETP </td><td>{etpt_plafond} ETPT</td><td>{count_etp_supp}</td><td>{count_etp_add}</td><td>xx€</td><td>xx€</td></tr>
+	        return <tr key={index}><td>{programme.numero} - {programme.ministere.nom}</td><td>{etp_cible} ETP </td><td>{etpt_plafond} ETPT</td><td>{count_etp_supp}</td><td>{count_etp_add}</td><td>{Math.round(credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(cout_annee).toLocaleString('fr')}€</td></tr>
 	                	
     	})
     };
@@ -63,8 +71,8 @@ class Tableprogramme extends React.Component {
 	        	<th scope="col">Plafond ETPT</th>
 	        	<th scope="col">ETP supprimés</th>
 	        	<th scope="col">ETP ajoutés</th>
-	        	<th scope="col">Mouvements crédits</th>
-            	<th scope="col">Coût EAP</th>
+	        	<th scope="col">Mouvements en gestion (LFR)</th>
+            	<th scope="col">Mouvements en base (PLF N+1)</th>
 	        </tr>
 	      	</thead>
 

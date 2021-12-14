@@ -13,7 +13,7 @@
 
         <div class="form">
           <%= f.label :statut, "Se connecter en tant que" %>
-          <%= f.select :statut , [["CBR","cbr"], ["Prefet - SGAR","prefet"], ["Ministère","ministere"], ["Direction du Budget","admin"]], {:include_blank => "- Sélectionner -"}, {class: "bs_none"} %>
+          <%= f.select :statut , [["CBR","CBR"], ["Prefet - SGAR","prefet"], ["Ministère","ministere"], ["Direction du Budget","admin"]], {:include_blank => "- Sélectionner -"}, {class: "bs_none"} %>
         </div>
         <div class="d24"></div>
         <div id="region">
@@ -45,7 +45,7 @@
    $(function(){    
     $('#user_statut').change(function(){
       var statut = $(this).val() ;
-      if (statut == "cbr" || statut =="prefet"){
+      if (statut == "CBR" || statut =="prefet"){
         $('#region').show();
       }
       else{
@@ -61,4 +61,5 @@
       $(".password").attr('type', 'password');
   }
 });
+
 </script>

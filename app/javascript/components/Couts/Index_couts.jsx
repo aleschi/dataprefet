@@ -26,27 +26,14 @@ class Index_couts extends React.Component {
     displayRow = () => {
     	return this.state.programmes.map((programme, index) => {
 			
-			return <div key={index} className="tables_cout">
-				<div className="titre_etiquette">Programme {programme.numero}</div>
-				<div className="texte_etiquette">{programme.ministere.nom}</div>
-				<div className="table">
-			    <table className="table-striped">
-			      	<thead>
-			        <tr>
-			        	<th scope="col">Macrograde</th>
-			        	<th scope="col">Cout ETP annuel</th>
-			        </tr>
-			      	</thead>
-
-			      	<tbody>
-			      		{programme.couts.map((cout, index) => {
-				      	 return <tr key={index}><td>{cout.categorie}</td><td>{cout.cout.toLocaleString('fr')}€</td></tr>
-				      	})}
-			      	</tbody>
-			    </table>
-			    </div>
-			    <div className="d12"></div>
-	    	</div>  			                	
+			return <tr key={index}>
+				      	<td>{programme.numero} - {programme.ministere.nom} </td>
+				      	{programme.couts.map((cout, index) => {
+				      	return <td key={index}>{cout.cout.toLocaleString('fr')}€</td>
+						})}
+				    </tr>
+				      	
+			      	 			                	
     	})
     };
 
@@ -56,11 +43,25 @@ class Index_couts extends React.Component {
 		<div>
 		  	<Header /> 
 		  	<div className="page_container">
-		  		<div className="titre_page">Répartition des coûts ETP annuels par programme</div>
-		  		<div className="d24"></div>
+		  		<div className="titre_page">Répartition des coûts ETP annuels</div>
 		  		<div className="d24"></div>
 		  		<div>
-		  			{this.displayRow()} 
+		  			<div  className="table">
+			    	<table className="table-striped">
+			      	<thead>
+			        <tr>
+			        	<th scope="col">Programme</th>
+			        	<th scope="col">Macrograde A</th>
+			        	<th scope="col">Macrograde B</th>
+			        	<th scope="col">Macrograde C</th>
+			        </tr>
+			      	</thead>
+
+			      	<tbody>
+		  				{this.displayRow()} 
+		  			</tbody>
+			    	</table>
+	    			</div> 
 		  		</div>
 		  	</div>
 		  	<Footer /> 

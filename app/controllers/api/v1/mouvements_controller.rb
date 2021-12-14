@@ -29,13 +29,15 @@ class Api::V1::MouvementsController < ApplicationController
 
     liste_programmes_mvt = Programme.where(id: mouvements.pluck(:programme_id).uniq!).pluck(:numero)
 
+    mouvement_last_supp = mouvements.where(type_mouvement: "suppression").order(created_at: :desc).first
+
     response = {programmes: programmes.as_json(:include => [:ministere, :mouvements, :objectifs]), region: region,region_id: region_id, mouvements: mouvements.as_json(:include => [:programme,:service,]), 
       etp_supp: etp_supp, etp_supp_a: etp_supp_a, etp_supp_b: etp_supp_b, etp_supp_c: etp_supp_c,
       etp_add: etp_add, etp_add_a: etp_add_a,etp_add_b: etp_add_b, etp_add_c: etp_add_c,
       etpt_supp: etpt_supp, etpt_supp_a: etpt_supp_a, etpt_supp_b: etpt_supp_b, etpt_supp_c: etpt_supp_c,
       etpt_add: etpt_add, etpt_add_a: etpt_add_a,etpt_add_b: etpt_add_b, etpt_add_c: etpt_add_c,
       solde_etp: solde_etp, etp_cible: etp_cible, etpt_plafond: etpt_plafond, etp_3: etp_3,
-      liste_programmes_mvt: liste_programmes_mvt,
+      liste_programmes_mvt: liste_programmes_mvt,mouvement_last_supp: mouvement_last_supp.as_json(:include => [:programme,])
     }
     render json: response
   end
@@ -54,11 +56,31 @@ class Api::V1::MouvementsController < ApplicationController
     mouvement.date_effet = params[:date_effet].to_date
     mouvement.service_id = params[:service_id][:value]
     mouvement.programme_id = params[:programme_id][:value]
-    cout_etp = Cout.where('programme_id = ? AND categorie = ?',params[:programme_id][:value], params[:grade][:value]).first.cout
-    mouvement.cout_etp = params[:quotite][:value].to_f * cout_etp
     if params[:ponctuel] == true
       mouvement.ponctuel = true
     end
+    if !params[:mouvement_id].nil? && !params[:mouvement_id][:value].nil?
+      mouvement.mouvement_lien = params[:mouvement_id][:value]
+    end
+    cout_etp = Cout.where('programme_id = ? AND categorie = ?',params[:programme_id][:value], params[:grade][:value]).first.cout
+    if params[:type_mouvement][:value] == "suppression"
+      mouvement.cout_etp = -(params[:quotite][:value].to_f * cout_etp)
+      mouvement.credits_gestion = -(params[:quotite][:value].to_f * cout_etp * (DateTime.new(2021,12,31)-params[:date_effet].to_date).to_i / 365)
+    else
+      if !params[:mouvement_id][:value].nil? 
+        mouvement.mouvement_lien = params[:mouvement_id][:value]
+        mouvement_supp = Mouvement.where(id: params[:mouvement_id][:value]).first
+        mouvement.credits_gestion = (params[:quotite][:value].to_f * mouvement_supp.programme.couts.where(categorie: params[:grade][:value]).first.cout * (DateTime.new(2021,12,31)-params[:date_effet].to_date).to_i / 365)
+        if params[:ponctuel] == true
+          mouvement.cout_etp = 0
+        else
+          mouvement.cout_etp = params[:quotite][:value].to_f * mouvement_supp.programme.couts.where(categorie: params[:grade][:value]).first.cout
+        end
+      else
+        mouvement.cout_etp = 0
+      end
+    end
+    
     mouvement.save
     if mouvement
       render json: mouvement
@@ -76,7 +98,7 @@ class Api::V1::MouvementsController < ApplicationController
   def destroy
     mouvement&.destroy
     mouvements = Mouvement.where(user_id: current_user.id).order(created_at: :desc)
-    response = { mouvements: mouvements }
+    response = { mouvements: mouvements.as_json(:include => [:programme,:service,]) }
     render json: response
   end
 
@@ -142,9 +164,11 @@ class Api::V1::MouvementsController < ApplicationController
 
   def mouvements_globaux
     regions = Region.all
-    response = { regions: regions.as_json(:include => [:objectifs, :mouvements])}
+    mouvements = Mouvement.all.order(created_at: :desc)
+    response = { regions: regions.as_json(:include => [:objectifs, :mouvements]), mouvements: mouvements.as_json(:include => [:region, :service, :programme])}
     render json: response
-  end 
+  end
+
 
   private
 

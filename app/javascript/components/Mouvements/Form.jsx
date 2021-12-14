@@ -16,8 +16,8 @@ const grades = [
 	  { value: 'C', label: 'C', name:"grade" },
 	];
 const type_mouvement = [
-	  { value: 'ajout', label: "Ajout d'un ETP", name: "type_mouvement" },
-	  { value: 'suppression', label: "Suppression d'un ETP", name: "type_mouvement"  },
+	{ value: 'suppression', label: "Suppression d'un ETP", name: "type_mouvement"  },
+	{ value: 'ajout', label: "Ajout d'un ETP", name: "type_mouvement" },	  
 	];
 const quotites = [
 	  { value: '1', label: '100%', name:"quotite" },
@@ -42,11 +42,13 @@ class Form extends React.Component {
 	      grade: null,
 	      quotite: null,
 	      programme_id: null,
+	      mouvement_id: null,
 	      service_id: null,
 	      programmes: [],
 	      services: [],
 	      isValid: false,
 	      ponctuel: false,
+	      mouvements: [],
 	    };
 
 	    this.onChange = this.onChange.bind(this);
@@ -64,7 +66,7 @@ class Form extends React.Component {
         }
         throw new Error("Network response was not ok.");
       	})
-      	.then(response => this.setState({ programmes: response.programmes, mouvements: response.mouvements }))
+      	.then(response => this.setState({ programmes: response.programmes, mouvements: response.mouvements, }))
       	.catch(error => console.log(error.message));
     }
 
@@ -83,10 +85,10 @@ class Form extends React.Component {
     	event.preventDefault();
     	const url = "/api/v1/mouvements/create";
     	
-    	const { date_effet, type_mouvement, grade, quotite, programme_id, service_id, ponctuel} = this.state;
+    	const { date_effet, type_mouvement, grade, quotite, programme_id, service_id, ponctuel, mouvement_id} = this.state;
 
 	    const body = {
-	       date_effet, type_mouvement, grade, quotite, programme_id, service_id,ponctuel
+	       date_effet, type_mouvement, grade, quotite, programme_id, service_id,ponctuel,mouvement_id
 	    };
 
     	const token = document.querySelector('meta[name="csrf-token"]').content;
@@ -149,7 +151,7 @@ class Form extends React.Component {
     render() {
 
     const programmes_liste = this.state.programmes.map(programme => ({
-	  label: programme.numero,
+	  label: programme.numero + ' - ' + programme.ministere.nom ,
 	  value: programme.id,
 	  name: "programme_id"
 	}));
@@ -159,7 +161,13 @@ class Form extends React.Component {
 	  value: service.id,
 	  name: "service_id"
 	}));
-    
+
+	const mouvements_liste = this.state.mouvements.filter(mouvement => mouvement.type_mouvement == "suppression").map(mouvement => ({
+	  label: 'ETP ' + mouvement.grade + ' - ' + mouvement.quotite*100 + '% - Programme ' + mouvement.programme.numero + ' (fait le ' + mouvement.date + ')'  ,
+	  value: mouvement.id,
+	  name: "mouvement_id"
+	}));
+
     return (  
     	<div className="align_flex">
 	    	<div className="w50">
@@ -181,6 +189,17 @@ class Form extends React.Component {
 			            {(this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "ajout") &&
 			            <div>
 				            <div className="texte_etiquette">Si le redéploiement concerne un emploi ponctuel, veuillez cocher la case : <Checkbox checked={this.state.ponctuel} name="ponctuel" onChange={this.handleCheck} inputProps={{ 'aria-label': 'controlled' }}/></div>
+				            <div className="d24"></div>
+				            <div className="texte_etiquette">Ajout suite à la suppression : </div>
+				            <div className="form">
+				                	<Select
+								        value={this.state.mouvement_id}
+								        onChange={this.handleChange('mouvement_id')}
+								        options={mouvements_liste}
+								        placeholder="- Sélectionner -"
+								        components={{ IndicatorSeparator: () => null }}
+								      />
+					        </div>
 				            <div className="d24"></div>
 			            </div>
 			            }

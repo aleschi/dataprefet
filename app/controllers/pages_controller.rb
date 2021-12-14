@@ -7,16 +7,12 @@ class PagesController < ApplicationController
     def check_user_status
 
 	  	if user_signed_in? 
-	  		if current_user.email == "admin@finances.gouv.fr"
-	  			admin = "admin"
-	  		else
-	  			admin = "admin"
-	  		end
-	  	response = {isLoggedIn: true, statut: admin}    
-	    render json: response
+	  		statut = current_user.statut	
+		  	response = {isLoggedIn: true, statut: statut}    
+		    render json: response
 	  	else
-	  	response = {isLoggedIn: false, statut: "admin"}    
-	    render json: response
+	  		response = {isLoggedIn: false, statut: ""}    
+	    	render json: response
 	  	end
 
     end

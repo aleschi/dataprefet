@@ -3,6 +3,7 @@ import { Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'react-boot
 import Moment from 'moment';
 import Checkbox from '@mui/material/Checkbox';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
+import { CSVLink } from "react-csv";
 
 class Table extends React.Component {
 	constructor(props) {
@@ -64,18 +65,36 @@ class Table extends React.Component {
       .catch(error => console.log(error.message));
     };
 
+    deleteMouvement = (e, mouvement) => {
+      console.log(mouvement.id);
+      const url = `/api/v1/mouvements/destroy/${mouvement.id}`;
+      const token = document.querySelector('meta[name="csrf-token"]').content;
+
+      fetch(url, {
+        method: "DELETE",
+        headers: {
+          "X-CSRF-Token": token,
+          "Content-Type": "application/json"
+        }
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Network response was not ok.");
+        })
+        .then(response => this.setState({ mouvements: response.mouvements }))
+        .catch(error => console.log(error.message));
+    };
+  
+
     displayRow = () => {
     	return this.state.mouvements.map((mouvement, index) => {
-
-        var date1 = new Date(mouvement.date_effet);
-        var date2 = new Date('2021/12/31');
-        var diffTime = Math.abs(date2 - date1);
-        var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
     		if (mouvement.type_mouvement == "ajout"){
-	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><span className="etiquette_j">{mouvement.type_mouvement}</span>{(mouvement.ponctuel == true) && <span className="etiquette_r">Ponctuel</span>}</td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td></td><td></td><td><button className="bouton_delete" onClick={e => this.deleteMouvement(e, mouvement)}><i className="fas fa-trash-alt"></i></button></td></tr>
+	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><span className="etiquette_j">{mouvement.type_mouvement}</span>{(mouvement.ponctuel == true) && <span className="etiquette_r">Ponctuel</span>}</td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td><td><button className="bouton_delete" onClick={e => this.deleteMouvement(e, mouvement)}><i className="fas fa-trash-alt"></i></button></td></tr>
 	        }
 	        else if (mouvement.type_mouvement == "suppression"){
-	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><span className="etiquette_v">{mouvement.type_mouvement}</span></td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td>{Math.round(mouvement.cout_etp*diffDays/365).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td><td><button className="bouton_delete" onClick={e => this.deleteMouvement(e, mouvement)}><i className="fas fa-trash-alt"></i></button></td></tr>
+	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><span className="etiquette_v">{mouvement.type_mouvement}</span></td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td><td><button className="bouton_delete" onClick={e => this.deleteMouvement(e, mouvement)}><i className="fas fa-trash-alt"></i></button></td></tr>
 	        }	        	
     	})
     };
@@ -164,30 +183,20 @@ class Table extends React.Component {
       .catch(error => console.log(error.message));
     };
 
-    deleteMouvement = (e, mouvement) => {
-      console.log(mouvement.id);
-      const url = `/api/v1/mouvements/destroy/${mouvement.id}`;
-      const token = document.querySelector('meta[name="csrf-token"]').content;
-
-      fetch(url, {
-        method: "DELETE",
-        headers: {
-          "X-CSRF-Token": token,
-          "Content-Type": "application/json"
-        }
-      })
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error("Network response was not ok.");
-        })
-        .then(() => this.setState({ mouvements: response.mouvements }))
-        .catch(error => console.log(error.message));
-    };
-	
+    
     render() {
-    return (  
+
+    const headers = ['Date','Quotité ETPT','Macrograde','Type',"Service concerné ",'Programme','Date effective mouvement', 'Mouvements en gestion', 'Mouvement en base (PLF N+1)' ];
+    var data_to_download = [];
+    this.state.mouvements.map((mouvement, index) => {
+   
+      data_to_download.push([mouvement.date,mouvement.quotite,mouvement.grade,mouvement.type_mouvement,mouvement.service.nom,mouvement.programme.numero,mouvement.date_effet,mouvement.credits_gestion,mouvement.cout_etp])
+            })
+
+    return (
+    <div>  
+    <div className="tr"><CSVLink data={data_to_download} headers={headers} filename={"table_mouvements.csv"} className="bouton">Exporter la table <i className="fas fa-cloud-download-alt"></i></CSVLink></div>
+    <div className="d24"></div>
 		<div className="table" >
 	    <table className="table-striped">
 	      	<thead>
@@ -220,9 +229,9 @@ class Table extends React.Component {
                 ))}
               </Dropdown.Menu>
             </Dropdown></th>
-	          <th scope="col">Date mise en place <button onClick={() => {this.sortTable('date_effet')}} id="valeur"><i className="fas fa-sort"></i></button></th>	 
-            <th scope="col">Mouvements crédits</th> 
-            <th scope="col">Cout EAP</th>   
+	          <th scope="col">Date effective <button onClick={() => {this.sortTable('date_effet')}} id="valeur"><i className="fas fa-sort"></i></button></th>	 
+            <th scope="col">Mouvements en gestion (LFR)</th> 
+            <th scope="col">Mouvements en base (PLF N+1)</th>   
             <th scope="col"></th> 	
 	        </tr>
 	      	</thead>
@@ -233,6 +242,7 @@ class Table extends React.Component {
 	    </table>
 		  	
 		</div>
+    </div>
     );
     }
 }
