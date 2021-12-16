@@ -5,6 +5,8 @@ class SessionsController < Devise::SessionsController
 	   resource = User.find_for_database_authentication(statut: params[:user][:statut])
     elsif params[:user][:statut] == "CBR" || params[:user][:statut] == "prefet"
       resource = User.find_for_database_authentication(statut: params[:user][:statut],region_id: params[:user][:region_id].to_i)
+    elsif params[:user][:statut] == "ministere"
+      resource = User.find_for_database_authentication(statut: params[:user][:statut],nom: params[:user][:nom])
     end
 	  return invalid_login_attempt unless resource
 

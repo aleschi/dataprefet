@@ -8,6 +8,9 @@ class Index extends React.Component {
 	    super(props);
 	    this.state = {
 	    	regions:[],
+	    	nom: '',
+	    	mouvements: [],
+	    	objectifs: [],
 	    }
 	}
 	componentDidMount() {
@@ -19,7 +22,7 @@ class Index extends React.Component {
         }
         throw new Error("Network response was not ok.");
       	})
-      	.then(response => this.setState({ regions: response.regions}))
+      	.then(response => this.setState({ nom: response.nom, regions: response.regions, mouvements: response.mouvements, objectifs: response.objectifs}))
       	.catch(error => console.log(error.message));
     }
 
@@ -29,9 +32,9 @@ class Index extends React.Component {
 		<div>
 		  	<Header /> 
 		  	<div className="page_container">
-		  		<div className="titre_page">Direction du Budget</div>
+		  		<div className="titre_page">{this.state.nom}</div>
 		  		<div className="d24"></div>
-		  		<Table regions={this.state.regions}/>
+		  		<Table regions={this.state.regions} mouvements={this.state.mouvements} objectifs={this.state.objectifs}/>
 		  	</div>
 		  	<Footer /> 
 		</div>

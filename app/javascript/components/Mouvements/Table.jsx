@@ -4,6 +4,7 @@ import Moment from 'moment';
 import Checkbox from '@mui/material/Checkbox';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
 import { CSVLink } from "react-csv";
+import Checkbox_dropdown from '../DB/Checkbox_dropdown'
 
 class Table extends React.Component {
 	constructor(props) {
@@ -11,28 +12,38 @@ class Table extends React.Component {
 	    this.state = {
 	    	region:null,
 	    	mouvements: this.props.mouvements,
-        suppression: true,
-        ajout: true,
-        grade_a: true,
-        grade_b: true,
-        grade_c: true,
+
         liste_programmes_mvt: this.props.liste_programmes_mvt,
-        selected: this.props.liste_programmes_mvt,
-        date_croissant:true,
-        date_effet_croissant: true,
+        grades: ["A","B","C"],
+        type_mouvements: ["ajout","suppression"],
+
+        date_croissant:false,
+        date_effet_croissant: false,
+        statut: '',
 	    }
 	    this.sortTable = this.sortTable.bind(this);
-      this.handleChange = this.handleChange.bind(this);
-      this.handleChange2 = this.handleChange2.bind(this);
+
       this.deleteMouvement = this.deleteMouvement.bind(this);
 	}
+  componentDidMount() {
+      const url = "/check_user_status";
+      fetch(url)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Network response was not ok.");
+        })
+        .then(response => this.setState({ statut: response.statut }))
+        .catch(() => this.props.history.push("/"));
+    }
+
 	componentDidUpdate(prevProps) {
       if (this.props.mouvements !== prevProps.mouvements) {
         this.setState({mouvements: this.props.mouvements});
       }
        if (this.props.liste_programmes_mvt !== prevProps.liste_programmes_mvt) {
         this.setState({liste_programmes_mvt: this.props.liste_programmes_mvt});
-        this.setState({selected: this.props.liste_programmes_mvt});
       } 
       
     };
@@ -91,99 +102,19 @@ class Table extends React.Component {
     displayRow = () => {
     	return this.state.mouvements.map((mouvement, index) => {
     		if (mouvement.type_mouvement == "ajout"){
-	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><span className="etiquette_j">{mouvement.type_mouvement}</span>{(mouvement.ponctuel == true) && <span className="etiquette_r">Ponctuel</span>}</td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td><td><button className="bouton_delete" onClick={e => this.deleteMouvement(e, mouvement)}><i className="fas fa-trash-alt"></i></button></td></tr>
+	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><span className="etiquette_j">{mouvement.type_mouvement}</span>{(mouvement.ponctuel == true) && <span className="etiquette_r">Ponctuel</span>}</td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td>{(this.state.statut == "CBR") && <td><button className="bouton_delete" onClick={e => this.deleteMouvement(e, mouvement)}><i className="fas fa-trash-alt"></i></button></td> }</tr>
 	        }
 	        else if (mouvement.type_mouvement == "suppression"){
-	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><span className="etiquette_v">{mouvement.type_mouvement}</span></td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td><td><button className="bouton_delete" onClick={e => this.deleteMouvement(e, mouvement)}><i className="fas fa-trash-alt"></i></button></td></tr>
+	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><span className="etiquette_v">{mouvement.type_mouvement}</span></td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td>{(this.state.statut == "CBR") && <td><button className="bouton_delete" onClick={e => this.deleteMouvement(e, mouvement)}><i className="fas fa-trash-alt"></i></button></td>}</tr>
 	        }	        	
     	})
     };
 
-    handleChange(event) {
-        this.setState({[event.target.name]: event.target.checked});
-        const url = "/api/v1/mouvements/search";
-        var suppression = this.state.suppression;
-        var  ajout = this.state.ajout;
-        var  grade_a = this.state.grade_a;
-        var  grade_b = this.state.grade_b;
-        var  grade_c = this.state.grade_c;
 
-        if ([event.target.name] == "suppression"){
-          suppression = event.target.checked
-        }
-        if ([event.target.name] == "ajout"){
-          ajout = event.target.checked
-        }
-        if ([event.target.name] == "grade_a"){
-          grade_a = event.target.checked
-        }
-        if ([event.target.name] == "grade_b"){
-          grade_b = event.target.checked
-        }
-        if ([event.target.name] == "grade_c"){
-          grade_c = event.target.checked
-        }
-        
-        const body = {
-          suppression, ajout,grade_a,grade_b,grade_c
-        };
-
-        const token = document.querySelector('meta[name="csrf-token"]').content;
-        fetch(url, {
-          method: "POST",
-          headers: {
-            "X-CSRF-Token": token,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(body)
-        })
-        .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Network response was not ok.");
-      })
-      .then(response => this.setState({ mouvements: response.mouvements, }))
-      .catch(error => console.log(error.message));
-    };
-
-    handleChange2(event, value) {
-        const selected_new = new Array() 
-        this.state.liste_programmes_mvt.forEach(el => {
-          if (el == event.target.name && value == true){
-            selected_new.push(el);
-          }
-          else if (el != event.target.name){
-            selected_new.push(el);
-          }
-        });  
-        this.setState({selected: selected_new});
-        const url = "/api/v1/mouvements/search";
+    handleCallback = (childData) =>{
+        this.setState({mouvements: childData})
+    }
   
-        const body = {
-          selected_new
-        };
-
-        const token = document.querySelector('meta[name="csrf-token"]').content;
-        fetch(url, {
-          method: "POST",
-          headers: {
-            "X-CSRF-Token": token,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(body)
-        })
-        .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Network response was not ok.");
-      })
-      .then(response => this.setState({ mouvements: response.mouvements, }))
-      .catch(error => console.log(error.message));
-    };
-
-    
     render() {
 
     const headers = ['Date','Quotité ETPT','Macrograde','Type',"Service concerné ",'Programme','Date effective mouvement', 'Mouvements en gestion', 'Mouvement en base (PLF N+1)' ];
@@ -203,36 +134,14 @@ class Table extends React.Component {
 	        <tr>
 	        	<th scope="col">Date <button onClick={() => {this.sortTable('date')}} id="date"><i className="fas fa-sort"></i></button></th>
 	        	<th scope="col">Quotité ETPT</th>
-	        	<th scope="col">Macrograde <Dropdown className="table_dropdown_box">
-              <Dropdown.Toggle  className="table_dropdown_button"></Dropdown.Toggle>
-              <Dropdown.Menu className="table_dropdown_menu">
-
-                <div className="texte_etiquette"><Checkbox checked={this.state.grade_a} name="grade_a" onChange={this.handleChange} inputProps={{ 'aria-label': 'controlled' }}/>A</div>
-                <div className="texte_etiquette"><Checkbox checked={this.state.grade_b} name="grade_b" onChange={this.handleChange} inputProps={{ 'aria-label': 'controlled' }}/>B</div>
-                <div className="texte_etiquette"><Checkbox checked={this.state.grade_c} name="grade_c" onChange={this.handleChange} inputProps={{ 'aria-label': 'controlled' }}/>C</div>
-              </Dropdown.Menu>
-            </Dropdown></th>
-	        	<th scope="col">Type <Dropdown className="table_dropdown_box">
-              <Dropdown.Toggle  className="table_dropdown_button"></Dropdown.Toggle>
-              <Dropdown.Menu className="table_dropdown_menu">
-
-                <div className="texte_etiquette"><Checkbox checked={this.state.suppression} name="suppression" onChange={this.handleChange} inputProps={{ 'aria-label': 'controlled' }}/>Suppression</div>
-                <div className="texte_etiquette"><Checkbox checked={this.state.ajout} name="ajout" onChange={this.handleChange} inputProps={{ 'aria-label': 'controlled' }}/>Ajout</div>
-              </Dropdown.Menu>
-            </Dropdown> </th>
+	        	<th scope="col">Macrograde <Checkbox_dropdown name="grade" array={this.state.grades} parentCallback = {this.handleCallback}/></th>
+	        	<th scope="col">Type <Checkbox_dropdown name="type_mouvement" array={this.state.type_mouvements} parentCallback = {this.handleCallback}/> </th>
 	        	<th scope="col">Service concerné</th>
-	        	<th scope="col">Programme <Dropdown className="table_dropdown_box">
-              <Dropdown.Toggle  className="table_dropdown_button"></Dropdown.Toggle>
-              <Dropdown.Menu className="table_dropdown_menu">
-                {this.state.liste_programmes_mvt.map((programme, index) => (
-                  <div key={index} className="texte_etiquette"><Checkbox value={programme} checked={this.state.selected.includes(programme)} name={programme} onChange={(event, value) => this.handleChange2(event, value)} inputProps={{ 'aria-label': 'controlled' }}/>{programme}</div>
-                ))}
-              </Dropdown.Menu>
-            </Dropdown></th>
+	        	<th scope="col">Programme <Checkbox_dropdown name="programme" array={this.state.liste_programmes_mvt} parentCallback = {this.handleCallback}/></th>
 	          <th scope="col">Date effective <button onClick={() => {this.sortTable('date_effet')}} id="valeur"><i className="fas fa-sort"></i></button></th>	 
             <th scope="col">Mouvements en gestion (LFR)</th> 
             <th scope="col">Mouvements en base (PLF N+1)</th>   
-            <th scope="col"></th> 	
+            {(this.state.statut == "CBR") && <th scope="col"></th> }	
 	        </tr>
 	      	</thead>
 

@@ -38,7 +38,7 @@ class Header extends React.Component {
 			  	<div className="nav_header">
 			  		
 			  		<div className="nav_link"><NavLink end="nav_link_active" to='/' className="nav_link">Accueil</NavLink></div> 
-			  		{ (this.state.statut=="admin") &&
+			  		{ (this.state.statut=="admin" || this.state.statut=="ministere") &&
 			  		<div className="nav_link"><NavLink end="nav_link_active" to='/mouvements-globaux' className="nav_link">Historique des mouvements</NavLink></div> }
 
 			  		{ (this.state.statut=="CBR" || this.state.statut=="prefet") &&

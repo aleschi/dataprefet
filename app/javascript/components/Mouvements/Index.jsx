@@ -26,12 +26,12 @@ class Index extends React.Component {
         }
         throw new Error("Network response was not ok.");
       	})
-      	.then(response => this.setState({region: response.region, mouvements: response.mouvements, etp_cible: response.etp_cible, etpt_plafond: response.etpt_plafond, solde_etp: response.solde_etp, etp_3: response.etp_3, etp_supp: response.etp_supp, liste_programmes_mvt: response.liste_programmes_mvt }))
+      	.then(response => this.setState({region: response.region, mouvements: response.mouvements, etp_cible: response.etp_cible, etpt_plafond: response.etpt_plafond, solde_etp: response.solde_etp, etp_3: response.etp_3, etp_supp: response.etp_supp, liste_programmes_mvt: response.liste_programmes_mvt, }))
       	.catch(error => console.log(error.message));
     }
 
     render() {
-    
+    console.log(this.state.liste_programmes_mvt);
     return (  
 		<div>
 		  	<Header /> 

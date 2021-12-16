@@ -26,10 +26,10 @@ class Home extends React.Component {
     render() {
     return (  
 		<div>
-			{ (this.state.statut=="admin") &&
-			<IndexDB />
+			{ (this.state.statut=="admin" || this.state.statut=="ministere") &&
+			<IndexDB/>
 			}
-			{ (this.state.statut=="CBR") &&
+			{ (this.state.statut=="CBR" || this.state.statut=="prefet") &&
 			<Vueprogramme />
 			}
 		</div>

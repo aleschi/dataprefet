@@ -3,7 +3,7 @@ class Api::V1::MouvementsController < ApplicationController
     programmes = Programme.all
     region = Region.where(id: current_user.region_id).first.nom
     region_id = Region.where(id: current_user.region_id).first.id
-    mouvements = Mouvement.where(user_id: current_user.id).order(created_at: :desc)
+    mouvements = Mouvement.where(region_id: current_user.region_id).order(created_at: :desc)
     etp_supp = mouvements.where(type_mouvement: "suppression").count
     etp_supp_a = mouvements.where('type_mouvement = ? AND grade = ?', "suppression", 'A').count
     etp_supp_b = mouvements.where('type_mouvement = ? AND grade = ?', "suppression", 'B').count
@@ -27,7 +27,7 @@ class Api::V1::MouvementsController < ApplicationController
     solde_etp = (0.03 * Objectif.where(region_id: current_user.region_id).sum('etp_cible')).to_i-etp_supp
     etpt_plafond = Objectif.where(region_id: current_user.region_id).sum('etpt_plafond')
 
-    liste_programmes_mvt = Programme.where(id: mouvements.pluck(:programme_id).uniq!).pluck(:numero)
+    liste_programmes_mvt = Programme.where(id: mouvements.pluck(:programme_id).uniq).pluck(:numero)
 
     mouvement_last_supp = mouvements.where(type_mouvement: "suppression").order(created_at: :desc).first
 
@@ -132,40 +132,57 @@ class Api::V1::MouvementsController < ApplicationController
         date_croissant = params[:date_croissant]
       end
     end
-    response = { mouvements: mouvements.as_json(:include => [:programme,:service,]), date_effet_croissant: date_effet_croissant, date_croissant: date_croissant}
+    response = { mouvements: mouvements.as_json(:include => [:region,:programme,:service,]), date_effet_croissant: date_effet_croissant, date_croissant: date_croissant}
     
     render json: response
   end
 
-  def search
-    mouvements = Mouvement.where(user_id: current_user.id).order(date: :desc)
-    if params[:suppression] == false 
-      mouvements = mouvements.where('type_mouvement != ?', 'suppression')
-    end
-    if params[:ajout] == false 
-      mouvements = mouvements.where('type_mouvement != ?', 'ajout')
-    end
-    if params[:grade_a] == false 
-      mouvements = mouvements.where('grade != ?', 'A')
-    end
-    if params[:grade_b] == false 
-      mouvements = mouvements.where('grade != ?', 'B')
-    end
-    if params[:grade_c] == false 
-      mouvements = mouvements.where('grade != ?', 'C')
-    end
-    if params[:selected_new] && params[:selected_new].length > 0
-      programmes_id = Programme.where(numero: params[:selected_new]).pluck(:id)
-      mouvements = mouvements.where(programme_id: programmes_id)
-    end
-    response = { mouvements: mouvements.as_json(:include => [:programme,:service,])}
-    render json: response   
-  end 
+  
 
   def mouvements_globaux
     regions = Region.all
-    mouvements = Mouvement.all.order(created_at: :desc)
-    response = { regions: regions.as_json(:include => [:objectifs, :mouvements]), mouvements: mouvements.as_json(:include => [:region, :service, :programme])}
+    if current_user.statut == "admin"
+      mouvements = Mouvement.all.order(created_at: :desc)
+      nom = "Direction du Budget"
+      objectifs = Objectif.all
+    elsif current_user.statut == "ministere"
+      nom = current_user.nom 
+      ministere = Ministere.where(nom: current_user.nom).first
+      programme_id = Programme.where(ministere_id: ministere.id).pluck(:id)
+      mouvements = Mouvement.where(programme_id: programme_id).order(created_at: :desc)
+      objectifs = Objectif.where(programme_id: programme_id)
+    end
+
+    liste_programmes_mvt = Programme.where(id: mouvements.pluck(:programme_id).uniq).pluck(:numero)
+    liste_regions_mvt = Region.where(id: mouvements.pluck(:region_id).uniq).pluck(:nom)
+    response = { nom: nom , regions: regions.as_json(:include => [:objectifs, :mouvements]), mouvements: mouvements.as_json(:include => [:region, :service, :programme]), objectifs: objectifs, liste_programmes_mvt: liste_programmes_mvt, liste_regions_mvt: liste_regions_mvt}
+    render json: response
+  end
+
+  def search
+    if current_user.statut == "admin"
+      mouvements = Mouvement.all.order(created_at: :desc)
+    elsif current_user.statut == "CBR" || current_user.statut == "prefet"
+      mouvements = Mouvement.where(region_id: current_user.region_id).order(date: :desc)
+    end
+
+    if params[:selected_new] && params[:selected_new].length > 0
+      if params[:name] == "programme"
+        programmes_id = Programme.where(numero: params[:selected_new]).pluck(:id)
+        mouvements = mouvements.where(programme_id: programmes_id)
+      end
+      if params[:name] == "region"
+        regions_id = Region.where(nom: params[:selected_new]).pluck(:id)
+        mouvements = mouvements.where(region_id: regions_id)
+      end
+      if params[:name] == "grade"
+        mouvements = mouvements.where(grade: params[:selected_new])
+      end
+      if params[:name] == "type_mouvement"
+        mouvements = mouvements.where(type_mouvement: params[:selected_new])
+      end
+    end
+    response = { mouvements: mouvements.as_json(:include => [:region, :programme,:service,])}
     render json: response
   end
 

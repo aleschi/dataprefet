@@ -61,7 +61,7 @@ class New_recap extends React.Component {
 			{ (this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "suppression") &&
 			<div className="box_form_recap">
 				<div className="titre_box_form_recap">Solde</div>
-				<div className="chiffre_box_form_recap crose">{this.state.solde_etp} ETP ({Math.round(this.state.solde_etp/this.state.etp_cible * 100 * 100) / 100 }%)</div>
+				<div className="chiffre_box_form_recap crose">{this.state.solde_etp} ETP ({Math.round(this.state.solde_etp/this.state.etp_cible * 100 * 10) / 10 }%)</div>
 				<div className="d12"></div>
 				<div className="titre_box_form_recap">Impact mouvement</div>
 				<div className="chiffre_box_form_recap cvert">1 ETP ({Math.round(1/this.state.etp_cible * 100 *100 ) / 100 }%) </div>
