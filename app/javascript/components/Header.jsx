@@ -37,19 +37,19 @@ class Header extends React.Component {
 		  	<div className="nav_header_box">
 			  	<div className="nav_header">
 			  		
-			  		<div className="nav_link"><NavLink end="nav_link_active" to='/' className="nav_link">Accueil</NavLink></div> 
+			  		<div className="nav_link"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/'>Accueil</NavLink></div> 
 			  		{ (this.state.statut=="admin" || this.state.statut=="ministere") &&
-			  		<div className="nav_link"><NavLink end="nav_link_active" to='/mouvements-globaux' className="nav_link">Historique des mouvements</NavLink></div> }
+			  		<div className="nav_link"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/mouvements-globaux'>Historique des mouvements</NavLink></div> }
 
 			  		{ (this.state.statut=="CBR" || this.state.statut=="prefet") &&
-			  		<div className="nav_link"><NavLink end="nav_link_active" to='/historique' className="nav_link">Historique des déploiements</NavLink></div> }
+			  		<div className="nav_link"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/historique'>Historique des déploiements</NavLink></div> }
 
 
 			  		{ (this.state.statut=="CBR") &&
-			  		<div className="nav_link"><NavLink end="nav_link_active" to='/mouvements' className="nav_link">Créer un redéploiement</NavLink></div> }
+			  		<div className="nav_link"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/mouvements'>Créer un redéploiement</NavLink></div> }
 
 			  		
-			  		<div className="nav_link"><NavLink end="nav_link_active" to='/couts-etp' className="nav_link">Tableau coûts ETP annuels</NavLink></div> 
+			  		<div className="nav_link"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/couts-etp'>Tableau coûts ETP annuels</NavLink></div> 
 
 			  		
 			  		

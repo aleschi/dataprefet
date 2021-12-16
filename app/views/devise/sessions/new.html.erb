@@ -8,7 +8,7 @@
        
       <h1 class="logo_connexion ">Connectez-vous</h1>
       <div class="d32"></div>
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name),:html => {:id => "login"}, remote: true) do |f| %>
 
 
         <div class="form">
@@ -34,6 +34,7 @@
           <%= f.label :password, "Mot de passe" %>
           <%= f.password_field :password,required: true, autocomplete: "current-password",class:"form-field password", id: "form-field2" %><a class="eye_icon"><i class="fas fa-eye"></i></a>
         </div>
+        <div id='error-message' class="error"></div>
 
         <div class="d32"></div>
         <div class="text-center">
@@ -75,5 +76,20 @@
       $(".password").attr('type', 'password');
   }
 });
+
+  $(document).ready(function() {
+    //form id
+    $('#login')
+    .bind('ajax:success', function(evt, data, status, xhr) {
+      //function called on status: 200 (for ex.)
+      //console.log('success');
+      window.location.href = "/"
+    })
+    .bind("ajax:error", function(evt, xhr, status, error) {
+      //function called on status: 401 or 500 (for ex.)
+      //console.log(xhr.responseText);
+      $('#error-message').html("Mot de passe incorrect")
+    });
+  });
 
 </script>

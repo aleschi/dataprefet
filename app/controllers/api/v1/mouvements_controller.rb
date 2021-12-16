@@ -1,4 +1,6 @@
 class Api::V1::MouvementsController < ApplicationController
+  before_action :authenticate_user!
+  
   def index
     programmes = Programme.all
     region = Region.where(id: current_user.region_id).first.nom
