@@ -25,6 +25,7 @@ class New_recap extends React.Component {
 	    	solde_etp: 0,
 	    	etp_cible: 0,
 	    	mouvement_last_supp: [],
+	    	mouvement_id: this.props.mouvement_id,
 	    }
 	}
 
@@ -45,10 +46,13 @@ class New_recap extends React.Component {
       if (this.props.type_mouvement !== prevProps.type_mouvement) {
         this.setState({type_mouvement: this.props.type_mouvement});
       }
+      if (this.props.mouvement_id !== prevProps.mouvement_id) {
+        this.setState({mouvement_id: this.props.mouvement_id});
+      }
     };
 
     render() {
-
+   
     return (  
 		<div>
 			{ (this.state.type_mouvement == null) && 
@@ -72,18 +76,39 @@ class New_recap extends React.Component {
 			}
 			{ (this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "ajout") &&
 			<div className="box_form_recap">
-				
-				<div className="titre_box_form_recap">Dernière suppression effectuée</div>
+				{ (this.state.mouvement_id != null) ? 
 
-				<div><span className="info_etp">1 ETP {this.state.mouvement_last_supp.grade} - {this.state.mouvement_last_supp.quotite*100} % - P {this.state.mouvement_last_supp.programme.numero} - (fait le {this.state.mouvement_last_supp.date})</span></div>
-				<div className="d12"></div>
-				<div className="titre_box_form_recap">ETP déjà ajoutés suite à cette suppression ({this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_last_supp.id).length})</div>
+				<div>
+					<div className="titre_box_form_recap">Suppression sélectionnée</div>
+					<div className="d12"></div>
+					<div><span className="info_etp">{this.state.mouvement_id.label}</span></div>
+					
+					<div className="d24"></div>
+					<div className="titre_box_form_recap">ETP déjà ajoutés suite à cette suppression ({this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_id.value).length})</div>
+					<div className="d12"></div>
+					{this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_id.value).map((mouvement,index) => (
+							<div key={index}><span className="info_etp">1 ETP {mouvement.grade} - {mouvement.quotite*100} % - Programme {mouvement.programme.numero}- (fait le {mouvement.date})</span></div>
+						))
+					}
+				</div>
 
-				{this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_last_supp.id).length > 0 && 
-					this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_last_supp.id).map((mouvement,index) => (
-						<div key={index}><span className="info_etp">1 ETP {mouvement.grade} - {mouvement.quotite*100} % - P {mouvement.programme.numero}- (fait le {mouvement.date})</span></div>
-					))
+				:
+				<div>
+					<div className="titre_box_form_recap">Dernière suppression effectuée</div>
+					<div className="d12"></div>
+					<div><span className="info_etp">1 ETP {this.state.mouvement_last_supp.grade} - {this.state.mouvement_last_supp.quotite*100} % - Programme {this.state.mouvement_last_supp.programme.numero} - (fait le {this.state.mouvement_last_supp.date})</span></div>
+					<div className="d24"></div>
+					<div className="titre_box_form_recap">ETP déjà ajoutés suite à cette suppression ({this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_last_supp.id).length})</div>
+					<div className="d12"></div>
+					{this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_last_supp.id).length > 0 && 
+						this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_last_supp.id).map((mouvement,index) => (
+							<div key={index}><span className="info_etp">1 ETP {mouvement.grade} - {mouvement.quotite*100} % - Programme {mouvement.programme.numero}- (fait le {mouvement.date})</span></div>
+						))
+					}
+				</div>
 				}
+				
+				
 				
 			</div>
 			}

@@ -1,6 +1,8 @@
 class Api::V1::ServicesController < ApplicationController
-	protect_from_forgery with: :null_session
-  before_action :authenticate_user!
+	before_action :authenticate_user!
+
+  protect_from_forgery with: :null_session
+  
   def index
   	services = Service.all 
   	response = {services: services}

@@ -1,4 +1,5 @@
 @import "font-awesome";
+@import 'react-datepicker/dist/react-datepicker';
 
 @font-face {
   font-family: 'Marianne';
@@ -294,6 +295,7 @@ text-align:right;
   margin-top:10px;
   margin-bottom:50px;
   max-height: 400px;
+  min-height:250px;
   overflow: auto;
   width:100%;
   display:inline-block;
@@ -311,15 +313,20 @@ text-align:right;
           font-size:13px;
           position: sticky; 
           min-width:100px !important;
-          
+          max-width:130px !important;
           top: 0;
           background-color:#fff;
           a{
             color:#000091;
           }
+
         } 
         .border-none{
             border-right:none;
+          }
+        .w0{
+            max-width: 0px !important;
+            min-width:0px !important;
           }
       }
     }
@@ -364,6 +371,7 @@ text-align:right;
     
   }
 }
+
 .bouton, .bouton:focus, .bouton:active{
   text-decoration:none;
   background-color:#000091;
@@ -537,9 +545,11 @@ text-align:right;
   -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   -o-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 15px 20px;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .bandeau_div{
-  width:25%;
+  text-align:center
 }
 .bandeau_b{
   color:#000091;
@@ -571,7 +581,7 @@ text-align:right;
 
 .info_etp{
   background-color:#23EADE;
-  font-size:10px;
+  font-size:12px;
   padding:4px 8px;
   border-radius:25px;
   margin:0px 5px;

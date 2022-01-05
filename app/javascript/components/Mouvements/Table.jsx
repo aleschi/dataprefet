@@ -20,6 +20,11 @@ class Table extends React.Component {
         date_croissant:false,
         date_effet_croissant: false,
         statut: '',
+
+        grades_selected: ["A","B","C"],
+        programmes_selected: this.props.liste_programmes_mvt,
+        types_selected:["ajout","suppression"],
+        regions_selected:[],
 	    }
 	    this.sortTable = this.sortTable.bind(this);
 
@@ -43,7 +48,7 @@ class Table extends React.Component {
         this.setState({mouvements: this.props.mouvements});
       }
        if (this.props.liste_programmes_mvt !== prevProps.liste_programmes_mvt) {
-        this.setState({liste_programmes_mvt: this.props.liste_programmes_mvt});
+        this.setState({liste_programmes_mvt: this.props.liste_programmes_mvt, programmes_selected: this.props.liste_programmes_mvt});
       } 
       
     };
@@ -77,7 +82,7 @@ class Table extends React.Component {
     };
 
     deleteMouvement = (e, mouvement) => {
-      console.log(mouvement.id);
+      
       const url = `/api/v1/mouvements/destroy/${mouvement.id}`;
       const token = document.querySelector('meta[name="csrf-token"]').content;
 
@@ -112,12 +117,14 @@ class Table extends React.Component {
 
 
     handleCallback = (childData) =>{
-        this.setState({mouvements: childData})
+        this.setState({mouvements: childData.mouvements, grades_selected: childData.grades_selected, programmes_selected: childData.programmes_selected, types_selected: childData.types_selected})
     }
   
     render() {
+    console.log(this.state.grades_selected);
+    console.log(this.state.mouvements);
 
-    const headers = ['Date','Quotité ETPT','Macrograde','Type',"Service concerné ",'Programme','Date effective mouvement', 'Mouvements en gestion', 'Mouvement en base (PLF N+1)' ];
+    const headers = ['Date','Quotité ETP','Macrograde','Type',"Service concerné ",'Programme','Date effective mouvement', 'Mouvements en gestion', 'Mouvement en base (PLF N+1)' ];
     var data_to_download = [];
     this.state.mouvements.map((mouvement, index) => {
    
@@ -133,15 +140,15 @@ class Table extends React.Component {
 	      	<thead>
 	        <tr>
 	        	<th scope="col">Date <button onClick={() => {this.sortTable('date')}} id="date"><i className="fas fa-sort"></i></button></th>
-	        	<th scope="col">Quotité ETPT</th>
-	        	<th scope="col">Macrograde <Checkbox_dropdown name="grade" array={this.state.grades} parentCallback = {this.handleCallback}/></th>
-	        	<th scope="col">Type <Checkbox_dropdown name="type_mouvement" array={this.state.type_mouvements} parentCallback = {this.handleCallback}/> </th>
+	        	<th scope="col">Quotité ETP</th>
+	        	<th scope="col">Macrograde <Checkbox_dropdown name="grade" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.grades} parentCallback = {this.handleCallback}/></th>
+	        	<th scope="col">Type <Checkbox_dropdown name="type_mouvement" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.type_mouvements} parentCallback = {this.handleCallback}/> </th>
 	        	<th scope="col">Service concerné</th>
-	        	<th scope="col">Programme <Checkbox_dropdown name="programme" array={this.state.liste_programmes_mvt} parentCallback = {this.handleCallback}/></th>
+	        	<th scope="col">Programme <Checkbox_dropdown name="programme" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.liste_programmes_mvt} parentCallback = {this.handleCallback}/></th>
 	          <th scope="col">Date effective <button onClick={() => {this.sortTable('date_effet')}} id="valeur"><i className="fas fa-sort"></i></button></th>	 
             <th scope="col">Mouvements en gestion (LFR)</th> 
             <th scope="col">Mouvements en base (PLF N+1)</th>   
-            {(this.state.statut == "CBR") && <th scope="col"></th> }	
+            {(this.state.statut == "CBR") && <th scope="col" className="w0"></th> }	
 	        </tr>
 	      	</thead>
 

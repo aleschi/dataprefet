@@ -15,10 +15,7 @@ const grades = [
 	  { value: 'B', label: 'B', name:"grade" },
 	  { value: 'C', label: 'C', name:"grade" },
 	];
-const type_mouvement = [
-	{ value: 'suppression', label: "Suppression d'un ETP", name: "type_mouvement"  },
-	{ value: 'ajout', label: "Ajout d'un ETP", name: "type_mouvement" },	  
-	];
+
 const quotites = [
 	  { value: '1', label: '100%', name:"quotite" },
 	  { value: '0.90', label: '90%', name:"quotite" },
@@ -112,9 +109,25 @@ class Form extends React.Component {
 
   	handleChange = name => value => {
 	    this.setState({ [name]: value,}, function() {
-	    	if (this.state.type_mouvement !== null && this.state.grade !== null && this.state.quotite !== null && this.state.programme_id !== null && this.state.service_id !== null && this.state.date_effet !== null){
-	    	this.setState({ isValid: true});
-	    	};
+	    	if (this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "ajout"){
+		    	if (this.state.grade !== null && this.state.quotite !== null && this.state.programme_id !== null && this.state.service_id !== null && this.state.date_effet !== null && this.state.mouvement_id !== null){
+		    	this.setState({ isValid: true});
+		    	}
+		    	else {
+		    	this.setState({ isValid: false});
+		    	}
+	    	}
+	    	else if (this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "suppression"){
+		    	if (this.state.grade !== null && this.state.quotite !== null && this.state.programme_id !== null && this.state.service_id !== null && this.state.date_effet !== null){
+		    	this.setState({ isValid: true});
+		    	}
+		    	else {
+		    	this.setState({ isValid: false});
+		    	}
+	    	}
+	    	else {
+	    		this.setState({ isValid: false});
+	    	}
 	    });
 
 	    
@@ -149,7 +162,7 @@ class Form extends React.Component {
   	}
   	
     render() {
-
+   
     const programmes_liste = this.state.programmes.map(programme => ({
 	  label: programme.numero + ' - ' + programme.ministere.nom ,
 	  value: programme.id,
@@ -167,6 +180,18 @@ class Form extends React.Component {
 	  value: mouvement.id,
 	  name: "mouvement_id"
 	}));
+
+	if (this.state.mouvements.filter(mouvement => mouvement.type_mouvement == "suppression").length > 0) {
+	var type_mouvement = [
+	{ value: 'suppression', label: "Suppression d'un ETP", name: "type_mouvement"  },
+	{ value: 'ajout', label: "Ajout d'un ETP", name: "type_mouvement" },	  
+	];
+	} else {
+	var type_mouvement = [
+	{ value: 'suppression', label: "Suppression d'un ETP", name: "type_mouvement"  },	  
+	];
+	}
+
 
     return (  
     	<div className="align_flex">
@@ -218,7 +243,7 @@ class Form extends React.Component {
 					            </div>
 				            </div>
 				            <div className="w3 pcenter">
-				                <div className="texte_etiquette">Quotité ETPT</div>
+				                <div className="texte_etiquette">Quotité ETP</div>
 				                
 				                <div className="form">
 				                	<Select
@@ -232,8 +257,8 @@ class Form extends React.Component {
 				                </div>
 				            </div>
 				            <div className="w3">
-				            	<div className="texte_etiquette">Date du changement</div>
-				            	<DatePicker placeholderText="JJ/MM/YYYY" selected={this.state.date_effet} locale="fr" onChange= {this.onChange} dateFormat="dd/MM/yyyy" />
+				            	<div className="texte_etiquette">Date effective</div>
+				            	<DatePicker placeholderText="JJ/MM/YYYY" selected={this.state.date_effet} locale="fr" onChange= {this.onChange} dateFormat="dd/MM/yyyy" minDate={new Date(2022,0,1)} maxDate={new Date(2022,11,31)}/>
 				            </div>
 			            </div>
 
@@ -273,7 +298,7 @@ class Form extends React.Component {
 				</div>
 			</div>
 			<div className="w50">
-				<New_recap type_mouvement={this.state.type_mouvement}/>
+				<New_recap type_mouvement={this.state.type_mouvement} mouvement_id={this.state.mouvement_id}/>
 			</div>
 		</div>
     );

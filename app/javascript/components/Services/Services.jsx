@@ -78,11 +78,7 @@ class Services extends React.Component {
               <Col sm={12} lg={6}>
                 <div className="titre_part">Fichier Services</div>
                 <div className="d24"></div>
-                {this.state.services.map((service, index) => (
-                <div key={index}>
-                  <div className="texte_etiquette">{service.nom}</div>
-                </div>
-                ))}
+                <div>{this.state.services.length}</div>
               </Col>
               <Col sm={12} lg={6}>
 

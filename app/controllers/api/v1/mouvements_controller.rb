@@ -55,24 +55,24 @@ class Api::V1::MouvementsController < ApplicationController
     mouvement.region_id = current_user.region_id
     mouvement.quotite = params[:quotite][:value].to_f
     mouvement.grade = params[:grade][:value]
-    mouvement.date_effet = params[:date_effet].to_date
+    mouvement.date_effet = params[:date_effet].to_date + 1.day
     mouvement.service_id = params[:service_id][:value]
     mouvement.programme_id = params[:programme_id][:value]
-    if params[:ponctuel] == true
+    if params[:ponctuel] == true && params[:type_mouvement][:value] == "ajout"
       mouvement.ponctuel = true
     end
-    if !params[:mouvement_id].nil? && !params[:mouvement_id][:value].nil?
+    if !params[:mouvement_id].nil? && !params[:mouvement_id][:value].nil? && params[:type_mouvement][:value] == "ajout"
       mouvement.mouvement_lien = params[:mouvement_id][:value]
     end
     cout_etp = Cout.where('programme_id = ? AND categorie = ?',params[:programme_id][:value], params[:grade][:value]).first.cout
     if params[:type_mouvement][:value] == "suppression"
       mouvement.cout_etp = -(params[:quotite][:value].to_f * cout_etp)
-      mouvement.credits_gestion = -(params[:quotite][:value].to_f * cout_etp * (DateTime.new(2021,12,31)-params[:date_effet].to_date).to_i / 365)
+      mouvement.credits_gestion = -(params[:quotite][:value].to_f * cout_etp * (DateTime.new(2022,12,31)-params[:date_effet].to_date).to_i / 365)
     else
       if !params[:mouvement_id][:value].nil? 
         mouvement.mouvement_lien = params[:mouvement_id][:value]
         mouvement_supp = Mouvement.where(id: params[:mouvement_id][:value]).first
-        mouvement.credits_gestion = (params[:quotite][:value].to_f * mouvement_supp.programme.couts.where(categorie: params[:grade][:value]).first.cout * (DateTime.new(2021,12,31)-params[:date_effet].to_date).to_i / 365)
+        mouvement.credits_gestion = (params[:quotite][:value].to_f * mouvement_supp.programme.couts.where(categorie: params[:grade][:value]).first.cout * (DateTime.new(2022,12,31)-params[:date_effet].to_date).to_i / 365)
         if params[:ponctuel] == true
           mouvement.cout_etp = 0
         else
@@ -162,29 +162,45 @@ class Api::V1::MouvementsController < ApplicationController
   end
 
   def search
+    mouvements_grades = params[:grades_selected]
+    mouvements_type_mouvements = params[:types_selected]
+    mouvements_programmes = params[:programmes_selected]
+    mouvements_programmes_id = Programme.where(numero: mouvements_programmes).pluck(:id)
+    mouvements_region = params[:regions_selected]
+
+
     if current_user.statut == "admin"
       mouvements = Mouvement.all.order(created_at: :desc)
+      mouvements_region_id = Region.where(nom: mouvements_region).pluck(:id)
     elsif current_user.statut == "CBR" || current_user.statut == "prefet"
       mouvements = Mouvement.where(region_id: current_user.region_id).order(date: :desc)
+      mouvements_region = current_user.region_id
+      mouvements_region_id = current_user.region_id
     end
 
+    
     if params[:selected_new] && params[:selected_new].length > 0
       if params[:name] == "programme"
+        mouvements_programmes = params[:selected_new]
         programmes_id = Programme.where(numero: params[:selected_new]).pluck(:id)
-        mouvements = mouvements.where(programme_id: programmes_id)
+        mouvements = mouvements.where(programme_id: programmes_id, region_id: mouvements_region_id, grade: mouvements_grades,type_mouvement: mouvements_type_mouvements)
       end
       if params[:name] == "region"
+        mouvements_region = params[:selected_new]
         regions_id = Region.where(nom: params[:selected_new]).pluck(:id)
-        mouvements = mouvements.where(region_id: regions_id)
+        mouvements = mouvements.where(region_id: regions_id, programme_id: mouvements_programmes_id,grade: mouvements_grades, type_mouvement: mouvements_type_mouvements)
       end
       if params[:name] == "grade"
-        mouvements = mouvements.where(grade: params[:selected_new])
+        mouvements_grades = params[:selected_new]
+        mouvements = mouvements.where(grade: params[:selected_new], region_id: mouvements_region_id, programme_id: mouvements_programmes_id,type_mouvement: mouvements_type_mouvements)
       end
       if params[:name] == "type_mouvement"
-        mouvements = mouvements.where(type_mouvement: params[:selected_new])
+        mouvements_type_mouvements = params[:selected_new]
+        mouvements = mouvements.where(type_mouvement: params[:selected_new], programme_id: mouvements_programmes_id, region_id: mouvements_region_id, grade: mouvements_grades,)
       end
     end
-    response = { mouvements: mouvements.as_json(:include => [:region, :programme,:service,])}
+
+    response = { mouvements: mouvements.as_json(:include => [:region, :programme,:service,]), types_selected: mouvements_type_mouvements, grades_selected: mouvements_grades, programmes_selected: mouvements_programmes, regions_selected: mouvements_region}
     render json: response
   end
 

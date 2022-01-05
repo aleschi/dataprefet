@@ -38,7 +38,11 @@ class Table extends React.Component {
 
 
     displayRow = () => {
-    	return this.state.regions.map((region, index) => {
+      var cout_annee_total = 0
+      var credits_gestion_total = 0
+    	return ( 
+
+      this.state.regions.map((region, index) => {
           var count_etp_add = 0
           var count_etpt_add = 0
           var count_etp_supp = 0
@@ -65,9 +69,65 @@ class Table extends React.Component {
               credits_gestion += mouvement.credits_gestion;
             }
           })
+          credits_gestion_total += credits_gestion;
+          cout_annee_total += cout_annee_total;
+
 	        return <tr key={index}><td>{region.nom}</td><td>{etp_cible}</td><td>{etpt_plafond}</td>{(this.state.statut == "admin") && <td>{Math.round(0.03*etp_cible)}</td>}{(this.state.statut == "admin") &&<td>{Math.round(0.03*etp_cible)-count_etp_supp} ({Math.round((3-count_etp_supp/etp_cible*100)*100)/100}%)</td>}<td>{count_etp_supp}</td><td>{count_etp_add}</td><td>{count_etpt_supp}</td><td>{count_etpt_add}</td><td>{Math.round(credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(cout_annee).toLocaleString('fr')}€</td></tr>
 	            	
     	})
+      
+      )
+    };
+
+    displayTotal = () => {
+      var cout_annee_total = 0
+      var credits_gestion_total = 0
+      var count_etp_add_total= 0
+      var count_etpt_add_total = 0
+      var count_etp_supp_total = 0
+      var count_etpt_supp_total = 0
+      var etp_cible_total = 0
+      var etpt_plafond_total = 0
+      this.state.regions.map((region, index) => {
+          var count_etp_add = 0
+          var count_etpt_add = 0
+          var count_etp_supp = 0
+          var count_etpt_supp = 0
+          var etp_cible = 0
+          var etpt_plafond = 0
+          var cout_annee = 0
+          var credits_gestion = 0
+          this.state.objectifs.filter(objectif => objectif.region_id == region.id).map((objectif) => {
+            etp_cible += objectif.etp_cible;
+            etpt_plafond += objectif.etpt_plafond;
+          })
+          this.state.mouvements.filter(mouvement => mouvement.region_id == region.id).map((mouvement) => {
+            if (mouvement.type_mouvement == "ajout"){
+              count_etp_add += 1;
+              count_etpt_add += mouvement.quotite;
+              cout_annee += mouvement.cout_etp;
+              credits_gestion += mouvement.credits_gestion;
+            }
+            else {
+              count_etp_supp +=1;
+              count_etpt_supp += mouvement.quotite;
+              cout_annee += mouvement.cout_etp;
+              credits_gestion += mouvement.credits_gestion;
+            }
+          })
+          credits_gestion_total += credits_gestion;
+          cout_annee_total += cout_annee;
+          count_etp_add_total += count_etp_add;
+          count_etpt_add_total += count_etpt_add;
+          count_etp_supp_total += count_etp_supp;
+          count_etpt_supp_total += count_etpt_supp;
+          etp_cible_total += etp_cible;
+          etpt_plafond_total += etpt_plafond;
+                
+      })
+
+      return <tr className="total"><td>Total</td><td>{etp_cible_total}</td><td>{etpt_plafond_total}</td>{(this.state.statut == "admin") &&<td>{Math.round(0.03*etp_cible_total)}</td>}{(this.state.statut == "admin") &&<td>{Math.round(0.03*etp_cible_total)-count_etp_supp_total}</td>}<td>{count_etp_supp_total}</td><td>{count_etp_add_total}</td><td>{Math.round(count_etpt_supp_total *10)/10}</td><td>{Math.round(count_etpt_add_total*10)/10}</td><td>{Math.round(credits_gestion_total).toLocaleString('fr')}€</td><td>{Math.round(cout_annee_total).toLocaleString('fr')}€</td></tr>
+    
     };
 	
     render() {
@@ -95,7 +155,10 @@ class Table extends React.Component {
 	      	</thead>
 
 	      	<tbody>
+            {this.displayTotal()} 
 		      	{this.displayRow()} 
+            
+            
 	      	</tbody>
 	    </table>
 		  	

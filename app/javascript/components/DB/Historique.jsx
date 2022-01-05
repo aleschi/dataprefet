@@ -4,6 +4,7 @@ import Footer from "../Footer";
 import Moment from 'moment';
 import Checkbox from '@mui/material/Checkbox';
 import Checkbox_dropdown from './Checkbox_dropdown'
+import { CSVLink } from "react-csv";
 class Index extends React.Component {
 	constructor(props) {
 	    super(props);
@@ -15,7 +16,12 @@ class Index extends React.Component {
 	    	type_mouvements: ["ajout","suppression"],
 
 	    	date_croissant:false,
-        	date_effet_croissant: false,
+        date_effet_croissant: false,
+
+        grades_selected: ["A","B","C"],
+        programmes_selected: [],
+        types_selected:["ajout","suppression"],
+        regions_selected:[],
 	    }
 	    this.sortTable = this.sortTable.bind(this);
 	}
@@ -28,7 +34,7 @@ class Index extends React.Component {
         }
         throw new Error("Network response was not ok.");
       	})
-      	.then(response => this.setState({mouvements: response.mouvements, liste_programmes_mvt: response.liste_programmes_mvt, liste_regions_mvt: response.liste_regions_mvt }))
+      	.then(response => this.setState({mouvements: response.mouvements, liste_programmes_mvt: response.liste_programmes_mvt, programmes_selected: response.liste_programmes_mvt, liste_regions_mvt: response.liste_regions_mvt, regions_selected: response.liste_regions_mvt }))
       	.catch(error => console.log(error.message));
     }
 
@@ -46,7 +52,7 @@ class Index extends React.Component {
 
     
     handleCallback = (childData) =>{
-        this.setState({mouvements: childData})
+        this.setState({mouvements: childData.mouvements, grades_selected: childData.grades_selected, programmes_selected: childData.programmes_selected, types_selected: childData.types_selected, regions_selected: childData.regions_selected})
     }
 
     sortTable = (params) => {
@@ -78,6 +84,13 @@ class Index extends React.Component {
     };
 
     render() {
+
+    const headers = ['Region','Date','Quotité ETP','Macrograde','Type',"Service concerné ",'Programme','Date effective mouvement', 'Mouvements en gestion', 'Mouvement en base (PLF N+1)' ];
+    var data_to_download = [];
+    this.state.mouvements.map((mouvement, index) => {
+   
+      data_to_download.push([mouvement.region.nom,mouvement.date,mouvement.quotite,mouvement.grade,mouvement.type_mouvement,mouvement.service.nom,mouvement.programme.numero,mouvement.date_effet,mouvement.credits_gestion,mouvement.cout_etp])
+            })
     
     return (  
 		<div>
@@ -85,18 +98,20 @@ class Index extends React.Component {
 		  	<div className="page_container">
 		  		<div className="titre_page">Hitorique des mouvements</div>
 		  		<div className="d24"></div>
+          <div className="tr"><CSVLink data={data_to_download} headers={headers} filename={"table_mouvements.csv"} className="bouton">Exporter la table <i className="fas fa-cloud-download-alt"></i></CSVLink></div>
+          <div className="d24"></div>
 		  		<div className="table" >
 				    <table className="table-striped">
 				      	<thead>
 				        <tr>
-				        	<th scope="col">Région <Checkbox_dropdown name="region" array={this.state.liste_regions_mvt} parentCallback = {this.handleCallback}/></th>
+				        	<th scope="col">Région <Checkbox_dropdown name="region" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.liste_regions_mvt} parentCallback = {this.handleCallback}/></th>
 				        	<th scope="col">Date <button onClick={() => {this.sortTable('date')}} id="date"><i className="fas fa-sort"></i></button></th>
-				        	<th scope="col">Quotité ETPT</th>
-				        	<th scope="col">Macrograde <Checkbox_dropdown name="grade" array={this.state.grades} parentCallback = {this.handleCallback}/></th>
-				        	<th scope="col">Type <Checkbox_dropdown name="type_mouvement" array={this.state.type_mouvements} parentCallback = {this.handleCallback}/></th>
+				        	<th scope="col">Quotité ETP</th>
+				        	<th scope="col">Macrograde <Checkbox_dropdown name="grade" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.grades} parentCallback = {this.handleCallback}/></th>
+				        	<th scope="col">Type <Checkbox_dropdown name="type_mouvement" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.type_mouvements} parentCallback = {this.handleCallback}/></th>
 				        	<th scope="col">Service concerné</th>
 
-				        	<th scope="col">Programme <Checkbox_dropdown name="programme" array={this.state.liste_programmes_mvt} parentCallback = {this.handleCallback}/></th>
+				        	<th scope="col">Programme <Checkbox_dropdown name="programme" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.liste_programmes_mvt} parentCallback = {this.handleCallback}/></th>
 
 				          	<th scope="col">Date effective <button onClick={() => {this.sortTable('date_effet')}} id="valeur"><i className="fas fa-sort"></i></button></th>	 
 				            <th scope="col">Mouvements en gestion (LFR)</th> 

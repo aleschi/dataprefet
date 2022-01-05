@@ -1,18 +1,35 @@
 class Service < ApplicationRecord
   belongs_to :programme
+  has_many :mouvements
   require 'roo'
   require 'axlsx'
 
   	def self.import(file)
-      Service.destroy_all
+      #Service.destroy_all
 
   		data = Roo::Spreadsheet.open(file.path)
     	headers = data.row(1) # get header row
+
+      Service.all.each do |service| #on regarde si le service est dans le fichier
+        count = 0 
+        data.each_with_index do |row, idx|
+          next if idx == 0 # skip header
+            row_data = Hash[[headers, row].transpose]
+            if row_data['Nom'] == service.nom
+              count += 1
+            end 
+        end
+        if count == 0  #si nest pas dans le fichier on le supp ainsi que les mouvements associes
+          Mouvement.where(service_id: service.id).destroy_all
+          service.destroy
+        end
+      end
+
     	data.each_with_index do |row, idx|
       	next if idx == 0 # skip header
       	row_data = Hash[[headers, row].transpose]
         if Programme.where('numero = ?',row_data['Numero'].to_s).count > 0
-        	if Service.where('nom = ?',row_data['Nom'].to_s).count > 0
+        	if Service.where('nom = ? AND programme_id = ?',row_data['Nom'].to_s,Programme.where('numero = ?',row_data['Numero'].to_s).first.id).count > 0 #service existe deja
   		        @service = Service.where('nom = ?',row_data['Nom'].to_s).first
   		    else
   		        @service = Service.new 
