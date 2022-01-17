@@ -214,6 +214,7 @@ class Form extends React.Component {
 			            {(this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "ajout") &&
 			            <div>
 				            <div className="texte_etiquette">Si le redéploiement concerne un emploi ponctuel, veuillez cocher la case : <Checkbox checked={this.state.ponctuel} name="ponctuel" onChange={this.handleCheck} inputProps={{ 'aria-label': 'controlled' }}/></div>
+				            <div className="texte_info">(un poste ponctuel est un poste qui répond à une politique prioritaire ministérielle nécessitant des recrutements spécifiques et exceptionnels en cours d’année)</div>
 				            <div className="d24"></div>
 				            <div className="texte_etiquette">Ajout suite à la suppression : </div>
 				            <div className="form">
@@ -298,7 +299,7 @@ class Form extends React.Component {
 				</div>
 			</div>
 			<div className="w50">
-				<New_recap type_mouvement={this.state.type_mouvement} mouvement_id={this.state.mouvement_id}/>
+				<New_recap type_mouvement={this.state.type_mouvement} mouvement_id={this.state.mouvement_id} quotite={this.state.quotite}/>
 			</div>
 		</div>
     );

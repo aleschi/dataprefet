@@ -6,23 +6,23 @@ class Api::V1::MouvementsController < ApplicationController
     region = Region.where(id: current_user.region_id).first.nom
     region_id = Region.where(id: current_user.region_id).first.id
     mouvements = Mouvement.where(region_id: current_user.region_id).order(created_at: :desc)
-    etp_supp = mouvements.where(type_mouvement: "suppression").count
-    etp_supp_a = mouvements.where('type_mouvement = ? AND grade = ?', "suppression", 'A').count
-    etp_supp_b = mouvements.where('type_mouvement = ? AND grade = ?', "suppression", 'B').count
-    etp_supp_c = mouvements.where('type_mouvement = ? AND grade = ?', "suppression", 'C').count
-    etp_add = mouvements.where(type_mouvement: "ajout").count
-    etp_add_a = mouvements.where('type_mouvement = ? AND grade = ?', "ajout", 'A').count
-    etp_add_b = mouvements.where('type_mouvement = ? AND grade = ?', "ajout", 'B').count
-    etp_add_c = mouvements.where('type_mouvement = ? AND grade = ?', "ajout", 'C').count
+    etp_supp = mouvements.where(type_mouvement: "suppression").sum('quotite')
+    etp_supp_a = mouvements.where('type_mouvement = ? AND grade = ?', "suppression", 'A').sum('quotite')
+    etp_supp_b = mouvements.where('type_mouvement = ? AND grade = ?', "suppression", 'B').sum('quotite')
+    etp_supp_c = mouvements.where('type_mouvement = ? AND grade = ?', "suppression", 'C').sum('quotite')
+    etp_add = mouvements.where(type_mouvement: "ajout").sum('quotite')
+    etp_add_a = mouvements.where('type_mouvement = ? AND grade = ?', "ajout", 'A').sum('quotite')
+    etp_add_b = mouvements.where('type_mouvement = ? AND grade = ?', "ajout", 'B').sum('quotite')
+    etp_add_c = mouvements.where('type_mouvement = ? AND grade = ?', "ajout", 'C').sum('quotite')
 
-    etpt_supp = mouvements.where(type_mouvement: "suppression").sum('quotite')
-    etpt_supp_a = mouvements.where('type_mouvement = ? AND grade = ?', "suppression", 'A').sum('quotite')
-    etpt_supp_b = mouvements.where('type_mouvement = ? AND grade = ?', "suppression", 'B').sum('quotite')
-    etpt_supp_c = mouvements.where('type_mouvement = ? AND grade = ?', "suppression", 'C').sum('quotite')
-    etpt_add = mouvements.where(type_mouvement: "ajout").sum('quotite')
-    etpt_add_a = mouvements.where('type_mouvement = ? AND grade = ?', "ajout", 'A').sum('quotite')
-    etpt_add_b = mouvements.where('type_mouvement = ? AND grade = ?', "ajout", 'B').sum('quotite')
-    etpt_add_c = mouvements.where('type_mouvement = ? AND grade = ?', "ajout", 'C').sum('quotite')
+    etpt_supp = mouvements.where(type_mouvement: "suppression").sum('etpt')
+    etpt_supp_a = mouvements.where('type_mouvement = ? AND grade = ?', "suppression", 'A').sum('etpt')
+    etpt_supp_b = mouvements.where('type_mouvement = ? AND grade = ?', "suppression", 'B').sum('etpt')
+    etpt_supp_c = mouvements.where('type_mouvement = ? AND grade = ?', "suppression", 'C').sum('etpt')
+    etpt_add = mouvements.where(type_mouvement: "ajout").sum('etpt')
+    etpt_add_a = mouvements.where('type_mouvement = ? AND grade = ?', "ajout", 'A').sum('etpt')
+    etpt_add_b = mouvements.where('type_mouvement = ? AND grade = ?', "ajout", 'B').sum('etpt')
+    etpt_add_c = mouvements.where('type_mouvement = ? AND grade = ?', "ajout", 'C').sum('etpt')
 
     etp_cible = Objectif.where(region_id: current_user.region_id).sum('etp_cible')
     etp_3 = (0.03 * Objectif.where(region_id: current_user.region_id).sum('etp_cible')).to_i
@@ -68,6 +68,7 @@ class Api::V1::MouvementsController < ApplicationController
     if params[:type_mouvement][:value] == "suppression"
       mouvement.cout_etp = -(params[:quotite][:value].to_f * cout_etp)
       mouvement.credits_gestion = -(params[:quotite][:value].to_f * cout_etp * (DateTime.new(2022,12,31)-params[:date_effet].to_date).to_i / 365)
+      mouvement.etpt =  params[:quotite][:value].to_f * (params[:date_effet].to_date-DateTime.new(2022,1,1)).to_i / 365
     else
       if !params[:mouvement_id][:value].nil? 
         mouvement.mouvement_lien = params[:mouvement_id][:value]
@@ -81,6 +82,7 @@ class Api::V1::MouvementsController < ApplicationController
       else
         mouvement.cout_etp = 0
       end
+      mouvement.etpt =  params[:quotite][:value].to_f * (DateTime.new(2022,12,31)-params[:date_effet].to_date).to_i / 365
     end
     
     mouvement.save

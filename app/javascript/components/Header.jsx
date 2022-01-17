@@ -49,10 +49,14 @@ class Header extends React.Component {
 			  		<div className="nav_link"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/mouvements'>Créer un redéploiement</NavLink></div> }
 
 			  		
-			  		<div className="nav_link"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/couts-etp'>Tableau coûts ETP annuels</NavLink></div> 
 
 			  		
-			  		
+			  		<div className="nav_link"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/couts-etp'>Tableau coûts ETP annuels</NavLink></div> 
+
+			  		{ (this.state.statut=="CBR") &&
+			  		<div className="nav_link"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/faq'>FAQ</NavLink></div> }
+
+
 			  		
 			  		<Dropdown className="user_dropdown">
 			  			<Dropdown.Toggle  className="user_dropdown_button"><i className="fas fa-user-circle"></i></Dropdown.Toggle>

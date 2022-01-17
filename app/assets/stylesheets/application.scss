@@ -450,6 +450,10 @@ text-align:right;
 .texte_etiquette{
   font-size:13px;
 }
+.texte_info{
+  font-size:11px;
+  font-style: italic;
+}
 .w50{
   width:50%;
 }
@@ -638,3 +642,30 @@ text-align:right;
   font-size:10px;
   color:#E18863;
 }
+.accordion-button{
+  color:#000091 !important;
+  font-weight:700 !important;
+  box-shadow:none !important; 
+  padding-left:0px !important;
+  &:active, &:focus {
+  border:none !important;
+  box-shadow:none !important;
+  background-color: transparent !important; 
+  }
+}
+.accordion-item{
+border:none !important;
+border-bottom: 1px solid #000091 !important;
+
+border-radius:0px !important;
+}
+
+.accordion-body{
+  padding-left:0px !important;
+  padding-top:0px !important;
+  font-size:13px !important;
+}
+
+.accordion-button:after {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000091'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+  }

@@ -53,10 +53,10 @@ class Table_grades extends React.Component {
 		      	</thead>
 
 		      	<tbody>
-			      	<tr><td>ETP A</td><td>{this.state.etp_add_a}</td><td>{this.state.etp_supp_a}</td></tr>
-			      	<tr><td>ETP B</td><td>{this.state.etp_add_b}</td><td>{this.state.etp_supp_b}</td></tr>
-			      	<tr><td>ETP C</td><td>{this.state.etp_add_c}</td><td>{this.state.etp_supp_c}</td></tr>
-			      	<tr className="total"><td>Total ETP</td><td>{this.state.etp_add}</td><td>{this.state.etp_supp}</td></tr>
+			      	<tr><td>ETP A</td><td>{Math.round(this.state.etp_add_a*10)/10}</td><td>{Math.round(this.state.etp_supp_a*10)/10}</td></tr>
+			      	<tr><td>ETP B</td><td>{Math.round(this.state.etp_add_b*10)/10}</td><td>{Math.round(this.state.etp_supp_b*10)/10}</td></tr>
+			      	<tr><td>ETP C</td><td>{Math.round(this.state.etp_add_c*10)/10}</td><td>{Math.round(this.state.etp_supp_c*10)/10}</td></tr>
+			      	<tr className="total"><td>Total ETP</td><td>{Math.round(this.state.etp_add*10)/10}</td><td>{Math.round(this.state.etp_supp*10)/10}</td></tr>
 		      	</tbody>
 		    </table>
 		    </div>
@@ -74,10 +74,10 @@ class Table_grades extends React.Component {
 		      	</thead>
 
 		      	<tbody>
-			      	<tr><td>ETPT A</td><td>{this.state.etpt_add_a}</td><td>{this.state.etpt_supp_a}</td></tr>
-			      	<tr><td>ETPT B</td><td>{this.state.etpt_add_b}</td><td>{this.state.etpt_supp_b}</td></tr>
-			      	<tr><td>ETPT C</td><td>{this.state.etpt_add_c}</td><td>{this.state.etpt_supp_c}</td></tr>
-			      	<tr className="total"><td>Total ETPT</td><td>{this.state.etpt_add}</td><td>{this.state.etpt_supp}</td></tr>
+			      	<tr><td>ETPT A</td><td>{Math.round(this.state.etpt_add_a*100)/100}</td><td>{Math.round(this.state.etpt_supp_a*100)/100}</td></tr>
+			      	<tr><td>ETPT B</td><td>{Math.round(this.state.etpt_add_b*100)/100}</td><td>{Math.round(this.state.etpt_supp_b*100)/100}</td></tr>
+			      	<tr><td>ETPT C</td><td>{Math.round(this.state.etpt_add_c*100)/100}</td><td>{Math.round(this.state.etpt_supp_c*100)/100}</td></tr>
+			      	<tr className="total"><td>Total ETPT</td><td>{Math.round(this.state.etpt_add*100)/100}</td><td>{Math.round(this.state.etpt_supp*100)/100}</td></tr>
 		      	</tbody>
 		    </table>
 		    </div>

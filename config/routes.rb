@@ -53,6 +53,8 @@ Rails.application.routes.draw do
   get 'check_user_status' => 'pages#check_user_status'
   post 'users/import' => "users#import"
   get 'users/index' => "users#index"
+
+
   
 
   get '/*path' => 'pages#index' #redirige toutes les pages sans url vers la page d'accueil

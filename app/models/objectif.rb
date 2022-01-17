@@ -16,7 +16,7 @@ class Objectif < ApplicationRecord
    			if Programme.where(numero: row_data['programme'].to_s).count > 0 && Region.where(nom: row_data['region']).count > 0
 		        @objectif = Objectif.new 
 		        @objectif.date = Date.new(2022,1,1)
-		        @objectif.etp_cible = row_data['etp cible'].to_i
+		        @objectif.etp_cible = row_data['etp cible'].to_f
 		        @objectif.etpt_plafond = row_data['etpt plafond'].to_f
 		        @objectif.region_id = Region.where(nom: row_data['region']).first.id
 		        @objectif.programme_id = Programme.where(numero: row_data['programme'].to_s).first.id

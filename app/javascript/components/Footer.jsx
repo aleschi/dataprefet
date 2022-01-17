@@ -13,11 +13,11 @@ const Footer = () => (
 		    </div>
 	    </div>
 	    <div className="footer_bottom"> 
-		    <a href="#">Mentions légales</a>
+		    <a>Mentions légales</a>
 		    <span>|</span>
-		    <a href="#">Données personnelles</a>
+		    <a>Données personnelles</a>
 		    <span>|</span>
-		    <a href="#">Accessibilité</a>
+		    <a>Accessibilité</a>
 		    <span>|</span>
 	  	</div>
   	</div>

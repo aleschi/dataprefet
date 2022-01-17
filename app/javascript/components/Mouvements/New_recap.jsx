@@ -26,6 +26,7 @@ class New_recap extends React.Component {
 	    	etp_cible: 0,
 	    	mouvement_last_supp: [],
 	    	mouvement_id: this.props.mouvement_id,
+	    	quotite: this.props.quotite,
 	    }
 	}
 
@@ -49,29 +50,36 @@ class New_recap extends React.Component {
       if (this.props.mouvement_id !== prevProps.mouvement_id) {
         this.setState({mouvement_id: this.props.mouvement_id});
       }
+      if (this.props.quotite !== prevProps.quotite) {
+        this.setState({quotite: this.props.quotite});
+      }
     };
 
     render() {
-   
+   	
     return (  
 		<div>
 			{ (this.state.type_mouvement == null) && 
 			<div className="box_form_recap">
 				
 				<div className="titre_box_form_recap">Solde restant pour suppression</div>
-				<div className="chiffre_box_form_recap cbleu">{this.state.solde_etp} ETP ({Math.round(this.state.solde_etp/this.state.etp_cible * 100 * 10) / 10 }%)</div>
+				<div className="chiffre_box_form_recap cbleu">{Math.round(this.state.solde_etp*10)/10} ETP ({Math.round(this.state.solde_etp/this.state.etp_cible * 100 * 10) / 10 }%)</div>
 			</div>
 			}
 			{ (this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "suppression") &&
 			<div className="box_form_recap">
 				<div className="titre_box_form_recap">Solde</div>
-				<div className="chiffre_box_form_recap crose">{this.state.solde_etp} ETP ({Math.round(this.state.solde_etp/this.state.etp_cible * 100 * 10) / 10 }%)</div>
+				<div className="chiffre_box_form_recap crose">{Math.round(this.state.solde_etp*10)/10} ETP ({Math.round(this.state.solde_etp/this.state.etp_cible * 100 * 10) / 10 }%)</div>
 				<div className="d12"></div>
+				{ (this.state.quotite != null) &&
+				<div>
 				<div className="titre_box_form_recap">Impact mouvement</div>
-				<div className="chiffre_box_form_recap cvert">1 ETP ({Math.round(1/this.state.etp_cible * 100 *100 ) / 100 }%) </div>
+				<div className="chiffre_box_form_recap cvert">{Math.round(this.state.quotite.value*10)/10} ETP ({Math.round(this.state.quotite.value/this.state.etp_cible * 100 *100 ) / 100 }%) </div>
 				<div className="d12"></div>
 				<div className="titre_box_form_recap">Solde après suppression</div>
-				<div className="chiffre_box_form_recap cbleu">{this.state.solde_etp-1} ETP ({Math.round((this.state.solde_etp-1)/this.state.etp_cible * 100 * 100) / 100 }%)</div>
+				<div className="chiffre_box_form_recap cbleu">{Math.round((this.state.solde_etp-this.state.quotite.value)*10)/10} ETP ({Math.round((this.state.solde_etp-this.state.quotite.value)/this.state.etp_cible * 100 * 100) / 100 }%)</div>
+				</div>
+				}
 			</div>
 			}
 			{ (this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "ajout") &&
@@ -87,7 +95,7 @@ class New_recap extends React.Component {
 					<div className="titre_box_form_recap">ETP déjà ajoutés suite à cette suppression ({this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_id.value).length})</div>
 					<div className="d12"></div>
 					{this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_id.value).map((mouvement,index) => (
-							<div key={index}><span className="info_etp">1 ETP {mouvement.grade} - {mouvement.quotite*100} % - Programme {mouvement.programme.numero}- (fait le {mouvement.date})</span></div>
+							<div key={index}><span className="info_etp"> ETP {mouvement.grade} - {mouvement.quotite*100}% - Programme {mouvement.programme.numero} (fait le {mouvement.date})</span></div>
 						))
 					}
 				</div>
@@ -96,13 +104,13 @@ class New_recap extends React.Component {
 				<div>
 					<div className="titre_box_form_recap">Dernière suppression effectuée</div>
 					<div className="d12"></div>
-					<div><span className="info_etp">1 ETP {this.state.mouvement_last_supp.grade} - {this.state.mouvement_last_supp.quotite*100} % - Programme {this.state.mouvement_last_supp.programme.numero} - (fait le {this.state.mouvement_last_supp.date})</span></div>
+					<div><span className="info_etp"> ETP {this.state.mouvement_last_supp.grade} - {this.state.mouvement_last_supp.quotite*100}% - Programme {this.state.mouvement_last_supp.programme.numero} (fait le {this.state.mouvement_last_supp.date})</span></div>
 					<div className="d24"></div>
 					<div className="titre_box_form_recap">ETP déjà ajoutés suite à cette suppression ({this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_last_supp.id).length})</div>
 					<div className="d12"></div>
 					{this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_last_supp.id).length > 0 && 
 						this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_last_supp.id).map((mouvement,index) => (
-							<div key={index}><span className="info_etp">1 ETP {mouvement.grade} - {mouvement.quotite*100} % - Programme {mouvement.programme.numero}- (fait le {mouvement.date})</span></div>
+							<div key={index}><span className="info_etp">ETP {mouvement.grade} - {mouvement.quotite*100}% - Programme {mouvement.programme.numero} (fait le {mouvement.date})</span></div>
 						))
 					}
 				</div>

@@ -10,6 +10,7 @@ class Table extends React.Component {
         mouvements : this.props.mouvements,
         objectifs: this.props.objectifs,
         statut: '',
+        nom: this.props.nom,
 	    }
 	}
   componentDidMount() {
@@ -34,6 +35,9 @@ class Table extends React.Component {
       if (this.props.objectifs !== prevProps.objectifs) {
         this.setState({objectifs: this.props.objectifs});
       }
+      if (this.props.nom !== prevProps.nom) {
+        this.setState({nom: this.props.nom});
+      }
     };
 
 
@@ -57,14 +61,14 @@ class Table extends React.Component {
           })
           this.state.mouvements.filter(mouvement => mouvement.region_id == region.id).map((mouvement) => {
             if (mouvement.type_mouvement == "ajout"){
-              count_etp_add += 1;
-              count_etpt_add += mouvement.quotite;
+              count_etp_add += mouvement.quotite;
+              count_etpt_add += mouvement.etpt;
               cout_annee += mouvement.cout_etp;
               credits_gestion += mouvement.credits_gestion;
             }
             else {
-              count_etp_supp +=1;
-              count_etpt_supp += mouvement.quotite;
+              count_etp_supp += mouvement.quotite;
+              count_etpt_supp += mouvement.etpt;
               cout_annee += mouvement.cout_etp;
               credits_gestion += mouvement.credits_gestion;
             }
@@ -72,7 +76,7 @@ class Table extends React.Component {
           credits_gestion_total += credits_gestion;
           cout_annee_total += cout_annee_total;
 
-	        return <tr key={index}><td>{region.nom}</td><td>{etp_cible}</td><td>{etpt_plafond}</td>{(this.state.statut == "admin") && <td>{Math.round(0.03*etp_cible)}</td>}{(this.state.statut == "admin") &&<td>{Math.round(0.03*etp_cible)-count_etp_supp} ({Math.round((3-count_etp_supp/etp_cible*100)*100)/100}%)</td>}<td>{count_etp_supp}</td><td>{count_etp_add}</td><td>{count_etpt_supp}</td><td>{count_etpt_add}</td><td>{Math.round(credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(cout_annee).toLocaleString('fr')}€</td></tr>
+	        return <tr key={index}><td>{region.nom}</td><td>{Math.round(etp_cible*10)/10}</td><td>{Math.round(etpt_plafond*10)/10}</td>{(this.state.statut == "admin") && <td>{Math.round(0.03*etp_cible)}</td>}{(this.state.statut == "admin") &&<td>{Math.round(0.03*etp_cible)-count_etp_supp} ({Math.round((3-count_etp_supp/etp_cible*100)*100)/100}%)</td>}<td>{count_etp_supp}</td><td>{count_etp_add}</td><td>{Math.round(count_etpt_supp*100)/100}</td><td>{Math.round(count_etpt_add*100)/100}</td><td>{Math.round(credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(cout_annee).toLocaleString('fr')}€</td></tr>
 	            	
     	})
       
@@ -103,14 +107,14 @@ class Table extends React.Component {
           })
           this.state.mouvements.filter(mouvement => mouvement.region_id == region.id).map((mouvement) => {
             if (mouvement.type_mouvement == "ajout"){
-              count_etp_add += 1;
-              count_etpt_add += mouvement.quotite;
+              count_etp_add += mouvement.quotite;
+              count_etpt_add += mouvement.etpt;
               cout_annee += mouvement.cout_etp;
               credits_gestion += mouvement.credits_gestion;
             }
             else {
-              count_etp_supp +=1;
-              count_etpt_supp += mouvement.quotite;
+              count_etp_supp += mouvement.quotite;
+              count_etpt_supp += mouvement.etpt;
               cout_annee += mouvement.cout_etp;
               credits_gestion += mouvement.credits_gestion;
             }
@@ -126,7 +130,17 @@ class Table extends React.Component {
                 
       })
 
-      return <tr className="total"><td>Total</td><td>{etp_cible_total}</td><td>{etpt_plafond_total}</td>{(this.state.statut == "admin") &&<td>{Math.round(0.03*etp_cible_total)}</td>}{(this.state.statut == "admin") &&<td>{Math.round(0.03*etp_cible_total)-count_etp_supp_total}</td>}<td>{count_etp_supp_total}</td><td>{count_etp_add_total}</td><td>{Math.round(count_etpt_supp_total *10)/10}</td><td>{Math.round(count_etpt_add_total*10)/10}</td><td>{Math.round(credits_gestion_total).toLocaleString('fr')}€</td><td>{Math.round(cout_annee_total).toLocaleString('fr')}€</td></tr>
+      return <tr className="total"><td>Total</td>
+      <td>{Math.round(etp_cible_total*10)/10}</td>
+      <td>{Math.round(etpt_plafond_total*10)/10}</td>
+      {(this.state.statut == "admin") &&<td>{Math.round(0.03*etp_cible_total*10)/10}</td>}
+      {(this.state.statut == "admin") &&<td>{Math.round((0.03*etp_cible_total-count_etp_supp_total)*10)/10}</td>}
+      <td>{Math.round(count_etp_supp_total*10)/10}</td>
+      <td>{Math.round(count_etp_add_total*10)/10}</td>
+      <td>{Math.round(count_etpt_supp_total *100)/100}</td>
+      <td>{Math.round(count_etpt_add_total*100)/100}</td>
+      <td>{Math.round(credits_gestion_total).toLocaleString('fr')}€</td>
+      <td>{Math.round(cout_annee_total).toLocaleString('fr')}€</td></tr>
     
     };
 	
@@ -137,8 +151,8 @@ class Table extends React.Component {
 	      	<thead>
 	        <tr>
 	        	<th scope="col">Région</th>        	
-	        	<th scope="col">Effectifs cibles</th>
-	        	<th scope="col">Plafond ETPT</th>
+	        	<th scope="col">Effectifs cibles{(this.state.nom == "Ministère du travail, de l'emploi et de l'insertion") && <span className="texte_info">*</span>}{(this.state.nom == "Ministère de l'agriculture et de l'alimentation") && <span className="texte_info">*</span>}</th>
+	        	<th scope="col">Plafond ETPT{(this.state.nom == "Ministère du travail, de l'emploi et de l'insertion") && <span className="texte_info">*</span>}</th>
             {(this.state.statut == "admin") &&
             <th scope="col">Redéploiement autorisé (3%)</th>
             }

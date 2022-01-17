@@ -11,6 +11,7 @@ import Index from "../components/Mouvements/Index";
 import Objectifs from "../components/Objectifs/Objectifs";
 import Historique from "../components/DB/Historique";
 import Index_couts from "../components/Couts/Index_couts";
+import Faq from "../components/Faq";
 
 export default (
   <BrowserRouter>
@@ -26,6 +27,7 @@ export default (
       <Route path="/objectifs" element={<Objectifs/>} />
       <Route path="/couts-etp" element={<Index_couts/>} />
       <Route path="/mouvements-globaux" element={<Historique/>} />
+      <Route path="/faq" element={<Faq/>} />
     </Routes>
   </BrowserRouter>
 );
