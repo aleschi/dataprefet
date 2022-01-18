@@ -88,7 +88,7 @@ class Checkbox_dropdown extends React.Component {
    
     return (  
 		
-				        	<Dropdown className="table_dropdown_box">
+				        	<Dropdown className="table_dropdown_box pa">
 				              <Dropdown.Toggle  className="table_dropdown_button"></Dropdown.Toggle>
 				              <Dropdown.Menu className="table_dropdown_menu">
 				                {this.state.array.map((arr, index) => (

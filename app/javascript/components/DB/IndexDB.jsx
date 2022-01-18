@@ -34,13 +34,7 @@ class Index extends React.Component {
 		  	<div className="page_container">
 		  		<div className="titre_page">{this.state.nom}</div>
 		  		{(this.state.nom == "Ministère du travail, de l'emploi et de l'insertion") && 
-				<div className="texte_info">*Le total des effectifs inclut ceux de l’inspection du travail, qui seront retirés une fois l’information transmise.</div>
-		  		}
-		  		{(this.state.nom == "Ministère de l'agriculture et de l'alimentation") && 
-				<div className="texte_info">*La ventilation envoyée ne prend pas en compte :  les moyens d'ajustement notifiés (les vacataires PAC) : 670 /
-			 les atypiques/surnombres qui correspondent à des missions nationales exercées en région ou à une compensation liée à des caractéristiques des agents (mandat syndical, adaptation progressive au poste, etc.). Elles ne relèvent donc pas du périmètre de la circulaire MFTP/DB du 22 décembre 2021 :  138
-			/ les effectifs des COM : 24
-			/ les CLM/certaines formations longue durée : afin de ne pas pénaliser les services, le P215 garde, au niveau central, une enveloppe d'ETPT qui permet de remplacer les agents des services déconcentrés absents pour un temps long tout en restant sur le plafond d'emplois de la structure.</div>
+				<div className="texte_info">*Le total des effectifs inclut à ce stade ceux de l’inspection du travail, qui ne font pas partie du champ du dispositif mais dépendent des choix d’organisation des directeurs régionaux. Les effectifs de l’inspection du travail  seront retirés une fois cette information transmise.</div>
 		  		}
 		  		<div className="d24"></div>
 		  		<Table regions={this.state.regions} mouvements={this.state.mouvements} objectifs={this.state.objectifs} nom={this.state.nom}/>

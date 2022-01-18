@@ -39,11 +39,11 @@ class Index extends React.Component {
 		  		<div className="titre_page">{this.state.region}</div>
 		  		<div className="d24"></div>
 		  		<div className="align_flex">
-		  			<div className="bandeau"><span className="bandeau_titre">Effectifs cibles</span><span className="bandeau_texte"> {this.state.etp_cible} ETP</span></div>
-		  			<div className="bandeau"><span className="bandeau_titre">Plafond 2022 </span><span className="bandeau_texte"> {this.state.etpt_plafond} ETPT</span></div>
-		  			<div className="bandeau"><span className="bandeau_titre">3% ETP cibles</span> <span className="bandeau_texte">{this.state.etp_3} ETP</span></div>
-		  			<div className="bandeau"><span className="bandeau_titre">ETP redéployés </span> <span className="bandeau_texte">{this.state.etp_supp} ETP</span></div>
-		  			<div className="bandeau"><span className="bandeau_titre">Solde 2022 </span><span className="bandeau_texte"> {this.state.solde_etp} ETP</span></div>
+		  			<div className="bandeau"><span className="bandeau_titre">Effectifs cibles</span><span className="bandeau_texte"> {(Math.round(this.state.etp_cible*10)/10).toLocaleString('fr')} ETP</span></div>
+		  			<div className="bandeau"><span className="bandeau_titre">Plafond 2022 </span><span className="bandeau_texte"> {(Math.round(this.state.etpt_plafond*10)/10).toLocaleString('fr')} ETPT</span></div>
+		  			<div className="bandeau"><span className="bandeau_titre">3% ETP cibles</span> <span className="bandeau_texte">{(Math.round(this.state.etp_3*10)/10).toLocaleString('fr')} ETP</span></div>
+		  			<div className="bandeau"><span className="bandeau_titre">ETP redéployés </span> <span className="bandeau_texte">{(Math.round(this.state.etp_supp*10)/10).toLocaleString('fr')} ETP</span></div>
+		  			<div className="bandeau"><span className="bandeau_titre">Solde 2022 </span><span className="bandeau_texte"> {(Math.round(this.state.solde_etp*10)/10).toLocaleString('fr')} ETP</span></div>
 		  		</div>
 		  		<Table mouvements={this.state.mouvements} liste_programmes_mvt={this.state.liste_programmes_mvt}/>
 		  	</div>

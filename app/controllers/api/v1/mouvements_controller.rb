@@ -25,8 +25,8 @@ class Api::V1::MouvementsController < ApplicationController
     etpt_add_c = mouvements.where('type_mouvement = ? AND grade = ?', "ajout", 'C').sum('etpt')
 
     etp_cible = Objectif.where(region_id: current_user.region_id).sum('etp_cible')
-    etp_3 = (0.03 * Objectif.where(region_id: current_user.region_id).sum('etp_cible')).to_i
-    solde_etp = (0.03 * Objectif.where(region_id: current_user.region_id).sum('etp_cible')).to_i-etp_supp
+    etp_3 = (0.03 * Objectif.where(region_id: current_user.region_id).sum('etp_cible')).to_f
+    solde_etp = (0.03 * Objectif.where(region_id: current_user.region_id).sum('etp_cible')).to_f-etp_supp
     etpt_plafond = Objectif.where(region_id: current_user.region_id).sum('etpt_plafond')
 
     liste_programmes_mvt = Programme.where(id: mouvements.pluck(:programme_id).uniq).pluck(:numero)

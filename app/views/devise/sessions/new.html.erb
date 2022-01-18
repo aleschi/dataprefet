@@ -19,14 +19,14 @@
         <div id="region">
           <div class="form">
             <%= f.label :region_id, "Sur le périmètre " %>
-            <%= f.select :region_id, Region.all.pluck(:id).map {|s| [Region.find(s).nom, s]}, {:include_blank => "- Sélectionner -"}, {class: "bs_none"} %>
+            <%= f.select :region_id, Region.all.pluck(:id).map {|s| [Region.find(s).nom, s]}, {:include_blank => "- Sélectionner -"}, {class: "bs_none region"} %>
           </div>
           <div class="d24"></div>
         </div>
         <div id="ministere">
           <div class="form">
-            <%= f.label :nom, "Sur le ministere " %>
-            <%= f.select :nom, Ministere.all.pluck(:nom).map {|s| [s, s]}, {:include_blank => "- Sélectionner -"}, {class: "bs_none"} %>
+            <%= f.label :nom, "Sur le ministère " %>
+            <%= f.select :nom, Ministere.all.pluck(:nom).map {|s| [s, s]}, {:include_blank => "- Sélectionner -"}, {class: "bs_none ministere"} %>
           </div>
           <div class="d24"></div>
         </div>
@@ -57,14 +57,18 @@
       if (statut == "CBR" || statut =="prefet"){
         $('#region').show();
         $('#ministere').hide();
+        $('.ministere').val(''); 
       }
       else if (statut == "ministere"){
         $('#ministere').show();
         $('#region').hide();
+        $('.region').val(''); 
       }
       else{
         $('#region').hide();
         $('#ministere').hide();
+        $('.ministere').val(''); 
+        $('.region').val('');
       }
     })
   });

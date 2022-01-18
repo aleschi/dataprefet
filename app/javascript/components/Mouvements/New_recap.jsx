@@ -63,21 +63,21 @@ class New_recap extends React.Component {
 			<div className="box_form_recap">
 				
 				<div className="titre_box_form_recap">Solde restant pour suppression</div>
-				<div className="chiffre_box_form_recap cbleu">{Math.round(this.state.solde_etp*10)/10} ETP ({Math.round(this.state.solde_etp/this.state.etp_cible * 100 * 10) / 10 }%)</div>
+				<div className="chiffre_box_form_recap cbleu">{(Math.round(this.state.solde_etp*10)/10).toLocaleString('fr')} ETP ({(Math.round(this.state.solde_etp/this.state.etp_cible * 100 * 10) / 10).toLocaleString('fr') }%)</div>
 			</div>
 			}
 			{ (this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "suppression") &&
 			<div className="box_form_recap">
 				<div className="titre_box_form_recap">Solde</div>
-				<div className="chiffre_box_form_recap crose">{Math.round(this.state.solde_etp*10)/10} ETP ({Math.round(this.state.solde_etp/this.state.etp_cible * 100 * 10) / 10 }%)</div>
+				<div className="chiffre_box_form_recap crose">{(Math.round(this.state.solde_etp*10)/10).toLocaleString('fr')} ETP ({(Math.round(this.state.solde_etp/this.state.etp_cible * 100 * 10) / 10).toLocaleString('fr') }%)</div>
 				<div className="d12"></div>
 				{ (this.state.quotite != null) &&
 				<div>
 				<div className="titre_box_form_recap">Impact mouvement</div>
-				<div className="chiffre_box_form_recap cvert">{Math.round(this.state.quotite.value*10)/10} ETP ({Math.round(this.state.quotite.value/this.state.etp_cible * 100 *100 ) / 100 }%) </div>
+				<div className="chiffre_box_form_recap cvert">{(Math.round(this.state.quotite.value*10)/10).toLocaleString('fr')} ETP ({(Math.round(this.state.quotite.value/this.state.etp_cible * 100 *100 ) / 100).toLocaleString('fr') }%) </div>
 				<div className="d12"></div>
 				<div className="titre_box_form_recap">Solde après suppression</div>
-				<div className="chiffre_box_form_recap cbleu">{Math.round((this.state.solde_etp-this.state.quotite.value)*10)/10} ETP ({Math.round((this.state.solde_etp-this.state.quotite.value)/this.state.etp_cible * 100 * 100) / 100 }%)</div>
+				<div className="chiffre_box_form_recap cbleu">{(Math.round((this.state.solde_etp-this.state.quotite.value)*10)/10).toLocaleString('fr')} ETP ({(Math.round((this.state.solde_etp-this.state.quotite.value)/this.state.etp_cible * 100 * 100) / 100).toLocaleString('fr') }%)</div>
 				</div>
 				}
 			</div>

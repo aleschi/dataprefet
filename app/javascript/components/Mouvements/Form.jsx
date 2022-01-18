@@ -194,8 +194,8 @@ class Form extends React.Component {
 
 
     return (  
-    	<div className="align_flex">
-	    	<div className="w50">
+    	<div className="align_flex w100s">
+	    	<div className="w50 w100s">
 				<div className="form_box">
 					<form onSubmit={this.onSubmit}>
 						<div className="texte_etiquette">Type de mouvement</div>
@@ -298,7 +298,7 @@ class Form extends React.Component {
 					</form>
 				</div>
 			</div>
-			<div className="w50">
+			<div className="w50 w100s">
 				<New_recap type_mouvement={this.state.type_mouvement} mouvement_id={this.state.mouvement_id} quotite={this.state.quotite}/>
 			</div>
 		</div>

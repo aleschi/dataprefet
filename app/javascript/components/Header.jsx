@@ -37,31 +37,45 @@ class Header extends React.Component {
 		  	<div className="nav_header_box">
 			  	<div className="nav_header">
 			  		
-			  		<div className="nav_link"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/'>Accueil</NavLink></div> 
+			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/'>Accueil</NavLink></div> 
+
 			  		{ (this.state.statut=="admin" || this.state.statut=="ministere") &&
-			  		<div className="nav_link"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/mouvements-globaux'>Historique des mouvements</NavLink></div> }
+			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/mouvements-globaux'>Historique des mouvements</NavLink></div> }
 
 			  		{ (this.state.statut=="CBR" || this.state.statut=="prefet") &&
-			  		<div className="nav_link"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/historique'>Historique des déploiements</NavLink></div> }
+			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/historique'>Historique des déploiements</NavLink></div> }
 
 
 			  		{ (this.state.statut=="CBR") &&
-			  		<div className="nav_link"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/mouvements'>Créer un redéploiement</NavLink></div> }
-
+			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/mouvements'>Créer un redéploiement</NavLink></div> }
 			  		
-
-			  		
-			  		<div className="nav_link"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/couts-etp'>Tableau coûts ETP annuels</NavLink></div> 
+			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/couts-etp'>Tableau coûts ETP annuels</NavLink></div> 
 
 			  		{ (this.state.statut=="CBR") &&
-			  		<div className="nav_link"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/faq'>FAQ</NavLink></div> }
+			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/faq'>FAQ</NavLink></div> }
 
 
 			  		
 			  		<Dropdown className="user_dropdown">
 			  			<Dropdown.Toggle  className="user_dropdown_button"><i className="fas fa-user-circle"></i></Dropdown.Toggle>
 			  			<Dropdown.Menu className="">
-			  				{this.state.isAdmin ? <div className="nav_link"><Link to='/'>Ajouter un document</Link></div> : null }
+
+			  				<div className="nav_link d-md-none"><Link to='/'>Accueil</Link></div>
+
+			  				{ (this.state.statut=="admin" || this.state.statut=="ministere") &&
+					  		<div className="nav_link d-md-none"><Link to='/mouvements-globaux'>Historique des mouvements</Link></div> }
+
+					  		{ (this.state.statut=="CBR" || this.state.statut=="prefet") &&
+					  		<div className="nav_link d-md-none"><Link to='/historique'>Historique des déploiements</Link></div> } 
+
+					  		{ (this.state.statut=="CBR") &&
+			  				<div className="nav_link d-md-none"><Link to='/mouvements'>Créer un redéploiement</Link></div> }
+
+			  				<div className="nav_link d-md-none"><Link to='/couts-etp'>Tableau coûts ETP annuels</Link></div> 
+
+			  				{ (this.state.statut=="CBR") &&
+			  				<div className="nav_link d-md-none"><Link to='/faq'>FAQ</Link></div> }
+			  				
 			  				<div className="nav_link"><a rel="nofollow" data-method="delete" href="/logout" >Se déconnecter</a></div> 
 			  			</Dropdown.Menu>
 			  		</Dropdown>

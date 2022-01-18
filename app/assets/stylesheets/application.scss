@@ -80,7 +80,12 @@ input[type="checkbox"]:focus, input[type="radio"]:focus {
   width:100%;
   border-top:1px solid rgba(231, 231, 231, 1);
   border-bottom:1px solid rgba(231, 231, 231, 1);
-
+  min-height:40px;
+}
+@media(max-width:992px){
+.nav_header_box{
+border-top:none;
+}
 }
 .nav_header{
   width:100%;
@@ -210,7 +215,7 @@ text-align:right;
   color:#D08A77;
 }
 .tu{
-  text-decoration:underline;
+  text-decoration:underline !important;
 }
 .tr{
   text-align:right;
@@ -307,13 +312,13 @@ text-align:right;
         margin-bottom: 30px;
         border:none !important;
         th{
-          padding:20px 4px;
+          padding:20px 8px;
           text-align:left;
           color:#1E1E1E;
           font-size:13px;
           position: sticky; 
-          min-width:100px !important;
-          max-width:130px !important;
+          //min-width:100px !important;
+          //max-width:130px !important;
           top: 0;
           background-color:#fff;
           a{
@@ -533,6 +538,7 @@ text-align:right;
   font-size:15px;
   font-weight:bold;
 }
+
 .bandeau_texte{
   color:#6A6A6A;
   font-size:12px;
@@ -560,7 +566,14 @@ text-align:right;
   font-size:30px;
   font-weight:bold;
 }
-
+@media(max-width:992px){
+  .bandeau_titre{
+  font-size:12px;
+  }
+  .bandeau_b{
+  font-size:15px;
+  }
+}
 .box_form_recap{
   background-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -573,7 +586,11 @@ text-align:right;
   margin-left:50px;
   margin-top:20px;
 }
-
+@media(max-width:992px){
+  .box_form_recap{
+  margin:auto;
+  }
+}
 .titre_box_form_recap{
   font-size:18px;
 }
@@ -669,3 +686,17 @@ border-radius:0px !important;
 .accordion-button:after {
   background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000091'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
   }
+
+@media(max-width:992px){
+  .w100s{
+  width:100%;
+  display:block;
+  padding:0px;
+  }
+}
+.pa{
+  position:absolute !important;
+}
+.padding-none{
+  padding:0px;
+}

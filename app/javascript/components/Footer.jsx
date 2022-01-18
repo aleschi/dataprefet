@@ -19,6 +19,7 @@ const Footer = () => (
 		    <span>|</span>
 		    <a>Accessibilité</a>
 		    <span>|</span>
+		    <a className="tu" href="mailto:declic.budget@finances.gouv.fr" target="_blank">Nous contacter : declic.budget@finances.gouv.fr</a>
 	  	</div>
   	</div>
 );

@@ -39,8 +39,8 @@ class Table_grades extends React.Component {
     render() {
 
     return (
-    	<div className="align_flex">  
-		<div className="w50 table_left" >
+    	<div className="align_flex w100s">  
+		<div className="w50 table_left w100s" >
 			<div className="titre_etiquette">Tableau synthèse ETP par catégorie : </div>
 			<div className="table">
 		    <table className="table-striped">
@@ -53,15 +53,15 @@ class Table_grades extends React.Component {
 		      	</thead>
 
 		      	<tbody>
-			      	<tr><td>ETP A</td><td>{Math.round(this.state.etp_add_a*10)/10}</td><td>{Math.round(this.state.etp_supp_a*10)/10}</td></tr>
-			      	<tr><td>ETP B</td><td>{Math.round(this.state.etp_add_b*10)/10}</td><td>{Math.round(this.state.etp_supp_b*10)/10}</td></tr>
-			      	<tr><td>ETP C</td><td>{Math.round(this.state.etp_add_c*10)/10}</td><td>{Math.round(this.state.etp_supp_c*10)/10}</td></tr>
-			      	<tr className="total"><td>Total ETP</td><td>{Math.round(this.state.etp_add*10)/10}</td><td>{Math.round(this.state.etp_supp*10)/10}</td></tr>
+			      	<tr><td>ETP A</td><td>{(Math.round(this.state.etp_add_a*10)/10).toLocaleString('fr')}</td><td>{(Math.round(this.state.etp_supp_a*10)/10).toLocaleString('fr')}</td></tr>
+			      	<tr><td>ETP B</td><td>{(Math.round(this.state.etp_add_b*10)/10).toLocaleString('fr')}</td><td>{(Math.round(this.state.etp_supp_b*10)/10).toLocaleString('fr')}</td></tr>
+			      	<tr><td>ETP C</td><td>{(Math.round(this.state.etp_add_c*10)/10).toLocaleString('fr')}</td><td>{(Math.round(this.state.etp_supp_c*10)/10).toLocaleString('fr')}</td></tr>
+			      	<tr className="total"><td>Total ETP</td><td>{(Math.round(this.state.etp_add*10)/10).toLocaleString('fr')}</td><td>{(Math.round(this.state.etp_supp*10)/10).toLocaleString('fr')}</td></tr>
 		      	</tbody>
 		    </table>
 		    </div>
 	    </div>
-	    <div className="w50 table_right" >
+	    <div className="w50 table_right w100s" >
 	    	<div className="titre_etiquette">Tableau synthèse ETPT par catégorie : </div>
 			<div className="table">
 		    <table className="table-striped">
@@ -74,10 +74,10 @@ class Table_grades extends React.Component {
 		      	</thead>
 
 		      	<tbody>
-			      	<tr><td>ETPT A</td><td>{Math.round(this.state.etpt_add_a*100)/100}</td><td>{Math.round(this.state.etpt_supp_a*100)/100}</td></tr>
-			      	<tr><td>ETPT B</td><td>{Math.round(this.state.etpt_add_b*100)/100}</td><td>{Math.round(this.state.etpt_supp_b*100)/100}</td></tr>
-			      	<tr><td>ETPT C</td><td>{Math.round(this.state.etpt_add_c*100)/100}</td><td>{Math.round(this.state.etpt_supp_c*100)/100}</td></tr>
-			      	<tr className="total"><td>Total ETPT</td><td>{Math.round(this.state.etpt_add*100)/100}</td><td>{Math.round(this.state.etpt_supp*100)/100}</td></tr>
+			      	<tr><td>ETPT A</td><td>{(Math.round(this.state.etpt_add_a*100)/100).toLocaleString('fr')}</td><td>{(Math.round(this.state.etpt_supp_a*100)/100).toLocaleString('fr')}</td></tr>
+			      	<tr><td>ETPT B</td><td>{(Math.round(this.state.etpt_add_b*100)/100).toLocaleString('fr')}</td><td>{(Math.round(this.state.etpt_supp_b*100)/100).toLocaleString('fr')}</td></tr>
+			      	<tr><td>ETPT C</td><td>{(Math.round(this.state.etpt_add_c*100)/100).toLocaleString('fr')}</td><td>{(Math.round(this.state.etpt_supp_c*100)/100).toLocaleString('fr')}</td></tr>
+			      	<tr className="total"><td>Total ETPT</td><td>{(Math.round(this.state.etpt_add*100)/100).toLocaleString('fr')}</td><td>{(Math.round(this.state.etpt_supp*100)/100).toLocaleString('fr')}</td></tr>
 		      	</tbody>
 		    </table>
 		    </div>

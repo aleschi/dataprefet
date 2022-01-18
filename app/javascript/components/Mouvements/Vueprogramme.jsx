@@ -42,10 +42,10 @@ class Vueprogramme extends React.Component {
 		  		<div className="titre_page">{this.state.region}</div>
 		  		<div className="d24"></div>
 		  		<div className="box_bandeau align_flex">
-		  			<div className="bandeau_div"><div className="bandeau_titre">Effectifs cibles</div><div className="bandeau_b"> {Math.round(this.state.etp_cible*10)/10} ETP </div></div>
-		  			<div className="bandeau_div"><div className="bandeau_titre">Plafond 2022 </div><div className="bandeau_b"> {Math.round(this.state.etpt_plafond*10)/10} ETPT</div></div>
-		  			<div className="bandeau_div"><div className="bandeau_titre">ETP redéployés<span className="texte_info">*</span> </div> <div className="bandeau_b">{Math.round(this.state.etp_supp*10)/10} ETP </div></div>
-		  			<div className="bandeau_div"><div className="bandeau_titre">Solde 2022 </div><div className="bandeau_b"> {Math.round(this.state.solde_etp*10)/10} ETP</div></div>
+		  			<div className="bandeau_div"><div className="bandeau_titre">Effectifs cibles</div><div className="bandeau_b"> {(Math.round(this.state.etp_cible*10)/10).toLocaleString('fr')} ETP </div></div>
+		  			<div className="bandeau_div"><div className="bandeau_titre">Plafond 2022 </div><div className="bandeau_b"> {(Math.round(this.state.etpt_plafond*10)/10).toLocaleString('fr')} ETPT</div></div>
+		  			<div className="bandeau_div"><div className="bandeau_titre">ETP redéployés<span className="texte_info">*</span> </div> <div className="bandeau_b">{(Math.round(this.state.etp_supp*10)/10).toLocaleString('fr')} ETP </div></div>
+		  			<div className="bandeau_div"><div className="bandeau_titre">Solde 2022 </div><div className="bandeau_b"> {(Math.round(this.state.solde_etp*10)/10).toLocaleString('fr')} ETP</div></div>
 		  		</div>
 		  		<div className="d12"></div>
 		  		<div className="texte_info">*Les ETP redéployés correspondent aux ETP supprimés.</div>

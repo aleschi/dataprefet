@@ -50,12 +50,13 @@ class Faq extends React.Component {
 							A l‘occasion de ses points de rendez-vous avec les RBOP délégués, le CBR peut vérifier la cohérence entre les effectifs budgétaires saisis par la DB dans l’outil à partir des notifications réalisées par les RPROG et les effectifs utilisés par les RBOP délégués.
 							Il est rappelé enfin que la circulaire insiste sur la nécessité d’un dialogue de gestion entre les acteurs auquel le CBR est en droit de contribuer (par exemple en pré-CAR).
 
+
 					    </Accordion.Body>
 				  	</Accordion.Item>
 			  		<Accordion.Item eventKey="1">
 			    		<Accordion.Header>Existe-t-il un lien technique fonctionnel entre l’outil et CHORUS ou un autre SI (RH notamment) ?</Accordion.Header>
 					    <Accordion.Body>
-					      Non, il n’y a pas de déversement dans un autre système des mouvements saisis dans l’outil. REPERE3 est un outil de synthèse et de transparence de l’information, alimenté en début d’année par les ministères et la direction du budget et en cours de gestion par les CBR. Ses résultats sont reports par la direction du budget dans les applications de gestion des lois de finance.
+					      Non, il n’y a pas de déversement dans un autre système des mouvements saisis dans l’outil. REPERE3 est un outil de synthèse et de transparence de l’information, alimenté en début d’année par les ministères et la direction du budget et en cours de gestion par les CBR. Ses résultats sont reportés par la direction du budget dans les applications de gestion des lois de finance.
 					    </Accordion.Body>
 			  		</Accordion.Item>
 			  		<Accordion.Item eventKey="2">
@@ -79,6 +80,7 @@ class Faq extends React.Component {
 					    <Accordion.Body>
 					      Le dispositif de redéploiement des emplois dans la limite de 3% s’équilibre par versement, le cas échéant, au plan national, de compensations budgétaires entre programmes. Au titre de l’année N, le financement du total des emplois nets transférés sera assuré en PLFR de fin d’année ; le PLF N+1 prendra en compte, quant à lui, le cas échéant, le coût annuel total de l’emploi s’il a vocation à être pérennisé.
 							Le sujet de la compensation budgétaire consolidée relève des acteurs nationaux (RFFIM, RPROG, DB) et pas des acteurs en région.
+
 
 					    </Accordion.Body>
 			  		</Accordion.Item>
@@ -128,9 +130,10 @@ class Faq extends React.Component {
 
 							Il est fait l’hypothèse que les programmes concernés assurent « en trésorerie T2 » le financement des rémunérations servies sur les postes concernés, au cours de l’année avant la mise en place de cette compensation budgétaire (entre le 1er janvier et le 31 octobre).
 
-							La date de saisie n’a pas été rendue bloquante dans l’outil ce qui implique que, techniquement, il est possible de saisir la création d’un redéploiement antérieur a posteriori : la vigilance des CBR est appelée sur ces demandes rétroactives qui doivent demeurer exceptionnelles.
+							La date de saisie n’a pas été rendue bloquante dans l’outil ce qui implique que, techniquement, il est possible de saisir la création d’un redéploiement antérieur a posteriori : la vigilance des CBR est appelée sur la position stricte qu’il conviendra de retenir, avec la nécessité de ne saisir que les mouvements certains et à venir, par anticipation.  
 
-							On retiendra toutefois qu’à défaut de saisie du redéploiement dans l’outil, il n’y aura pas de financement de l’emploi transféré. Cela ne signifie pas que l’agent ne sera pas rémunéré mais cela signifie que le programme ayant préfinancé la rémunération de l’emploi supplémentaire obtenu n’obtiendra pas compensation budgétaire de la charge salariale correspondante. 
+							On retiendra donc qu’à défaut de saisie du redéploiement dans l’outil, il n’y aura pas de financement de l’emploi transféré. Cela ne signifie pas que l’agent ne sera pas rémunéré mais cela signifie que le programme ayant préfinancé la rémunération de l’emploi supplémentaire obtenu n’obtiendra pas compensation budgétaire de la charge salariale correspondante. 
+
 
 
 					    </Accordion.Body>
@@ -172,7 +175,7 @@ class Faq extends React.Component {
 
 						</Accordion.Header>
 					    <Accordion.Body>
-					      	Le dispositif ne s’applique qu’aux administrations de l’Etat en région figurant dans le périmètre de l’administration territoriale de l’Etat. Le périmètre est régional et les suppressions / déploiements en peuvent porter que sur les programmes éligibles ; les programmes concernés sont décrits dans l’annexe de la circulaire et sont repris dans un menu déroulant de l’outil REPERE3. La circulaire s’applique exclusivement à ces programmes. 
+					      	Le dispositif ne s’applique qu’aux administrations de l’Etat en région figurant dans le périmètre de l’administration territoriale de l’Etat. Le périmètre est régional et les suppressions / redéploiements ne peuvent porter que sur les programmes éligibles ; les programmes concernés sont décrits dans l’annexe de la circulaire et sont repris dans un menu déroulant de l’outil REPERE3. La circulaire s’applique exclusivement à ces programmes. 
 							A noter que, bien qu’ils soient financés sur le programme 155, les moyens du service de l’inspection du travail ne sont pas inclus dans le champ des redéploiements.
 							Les délégués du préfet sont également hors périmètre.
 							Les opérateurs et organismes publics en région (ARS mais aussi CROUS, universités, …) n’entrent pas dans le champ d’application du mécanisme.

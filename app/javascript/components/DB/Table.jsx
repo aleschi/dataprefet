@@ -76,7 +76,17 @@ class Table extends React.Component {
           credits_gestion_total += credits_gestion;
           cout_annee_total += cout_annee_total;
 
-	        return <tr key={index}><td>{region.nom}</td><td>{Math.round(etp_cible*10)/10}</td><td>{Math.round(etpt_plafond*10)/10}</td>{(this.state.statut == "admin") && <td>{Math.round(0.03*etp_cible)}</td>}{(this.state.statut == "admin") &&<td>{Math.round(0.03*etp_cible)-count_etp_supp} ({Math.round((3-count_etp_supp/etp_cible*100)*100)/100}%)</td>}<td>{count_etp_supp}</td><td>{count_etp_add}</td><td>{Math.round(count_etpt_supp*100)/100}</td><td>{Math.round(count_etpt_add*100)/100}</td><td>{Math.round(credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(cout_annee).toLocaleString('fr')}€</td></tr>
+	        return <tr key={index}><td>{region.nom}</td>
+          <td>{(Math.round(etp_cible*10)/10).toLocaleString('fr')}</td>
+          <td>{(Math.round(etpt_plafond*10)/10).toLocaleString('fr')}</td>
+          {(this.state.statut == "admin") && <td>{(Math.round(0.03*etp_cible*10)/10).toLocaleString('fr')}</td>}
+          {(this.state.statut == "admin") &&<td>{(Math.round((0.03*etp_cible-count_etp_supp)*10)/10).toLocaleString('fr')} ({(Math.round((3-count_etp_supp/etp_cible*100)*100)/100).toLocaleString('fr')}%)</td>}
+          <td>{(Math.round(count_etp_supp*10)/10).toLocaleString('fr')}</td>
+          <td>{(Math.round(count_etp_add*10)/10).toLocaleString('fr')}</td>
+          <td>{(Math.round(count_etpt_supp*100)/100).toLocaleString('fr')}</td>
+          <td>{(Math.round(count_etpt_add*100)/100).toLocaleString('fr')}</td>
+          <td>{Math.round(credits_gestion).toLocaleString('fr')}€</td>
+          <td>{Math.round(cout_annee).toLocaleString('fr')}€</td></tr>
 	            	
     	})
       
@@ -131,14 +141,14 @@ class Table extends React.Component {
       })
 
       return <tr className="total"><td>Total</td>
-      <td>{Math.round(etp_cible_total*10)/10}</td>
-      <td>{Math.round(etpt_plafond_total*10)/10}</td>
-      {(this.state.statut == "admin") &&<td>{Math.round(0.03*etp_cible_total*10)/10}</td>}
-      {(this.state.statut == "admin") &&<td>{Math.round((0.03*etp_cible_total-count_etp_supp_total)*10)/10}</td>}
-      <td>{Math.round(count_etp_supp_total*10)/10}</td>
-      <td>{Math.round(count_etp_add_total*10)/10}</td>
-      <td>{Math.round(count_etpt_supp_total *100)/100}</td>
-      <td>{Math.round(count_etpt_add_total*100)/100}</td>
+      <td>{(Math.round(etp_cible_total*10)/10).toLocaleString('fr')}</td>
+      <td>{(Math.round(etpt_plafond_total*10)/10).toLocaleString('fr')}</td>
+      {(this.state.statut == "admin") &&<td>{(Math.round(0.03*etp_cible_total*10)/10).toLocaleString('fr')}</td>}
+      {(this.state.statut == "admin") &&<td>{(Math.round((0.03*etp_cible_total-count_etp_supp_total)*10)/10).toLocaleString('fr')}</td>}
+      <td>{(Math.round(count_etp_supp_total*10)/10).toLocaleString('fr')}</td>
+      <td>{(Math.round(count_etp_add_total*10)/10).toLocaleString('fr')}</td>
+      <td>{(Math.round(count_etpt_supp_total *100)/100).toLocaleString('fr')}</td>
+      <td>{(Math.round(count_etpt_add_total*100)/100).toLocaleString('fr')}</td>
       <td>{Math.round(credits_gestion_total).toLocaleString('fr')}€</td>
       <td>{Math.round(cout_annee_total).toLocaleString('fr')}€</td></tr>
     
