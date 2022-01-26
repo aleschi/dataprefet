@@ -163,7 +163,7 @@ class Faq extends React.Component {
 
 						</Accordion.Header>
 					    <Accordion.Body>
-					      	La circulaire prévoit que « le préfet précise au contrôleur si le redéploiement envisagé est pérenne ou non ». Si le préfet indique « non pérenne », il coche la case indiquant que le redéploiement concerne un emploi ponctuel. Il y alors un seul mouvement en base (PLF n+1) correspondant uniquement à l'emploi supprimé.
+					      	La circulaire prévoit que « le préfet précise au contrôleur si le redéploiement envisagé est pérenne ou non ». Si le préfet indique « non pérenne », il coche la case indiquant que le redéploiement concerne un emploi ponctuel. Il y alors un seul mouvement en gestion (LFR) correspondant uniquement à l'emploi supprimé.
 							Un redéploiement peut obéir à un besoin ponctuel lié à la mise en œuvre des feuilles de route des préfets et de leurs missions. 
 							Dès lors qu’un redéploiement répond à un besoin ponctuel, non récurrent, il n’est a priori pas reconduit sur l’exercice suivant. Il s’ensuit que l’impact en masse salariale porte sur la seule année de gestion N : le projet de loi de finances de fin de gestion devra prendre en considération le besoin de financement de cet emploi sur le programme ponctuellement porteur. Le portage de cet emploi par le nouveau programme d’accueil n’impactera pas N+1 et ne sera donc pas traité en PLF par la direction du budget, de manière consolidée au plan national.
 

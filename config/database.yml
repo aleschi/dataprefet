@@ -84,7 +84,13 @@ production:
   #database: dataprefet_production
   #username: dataprefet
   #password: <%= ENV['DATAPREFET_DATABASE_PASSWORD'] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
   database: <%= ENV["PRODUCTION_DB_NAME"] %>
   username: <%= ENV["PRODUCTION_DB_USERNAME"] %>
   password: <%= Rails.application.credentials.gcp[:db_password] %>
   host:   "/cloudsql/<%= ENV["CLOUD_SQL_CONNECTION_NAME"] %>"
+
+

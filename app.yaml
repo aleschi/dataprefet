@@ -1,0 +1,19 @@
+entrypoint: bundle exec rackup --port $PORT
+env: flex
+runtime: ruby
+
+
+env_variables:
+  SECRET_KEY_BASE: <%= Rails.application.credentials.secret_key_base %>
+
+beta_settings:
+  cloud_sql_instances: propane-flag-332315:europe-west1:direction-budget
+
+resources:
+  disk_size_gb: 40
+
+skip_files:
+- ^node_modules/.*$
+
+readiness_check:
+  app_start_timeout_sec: 1800

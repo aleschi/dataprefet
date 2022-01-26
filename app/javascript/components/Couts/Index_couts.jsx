@@ -62,6 +62,7 @@ class Index_couts extends React.Component {
 		  			</tbody>
 			    	</table>
 	    			</div> 
+	    			<div className='texte_info'>Source Base Pay </div>
 		  		</div>
 		  	</div>
 		  	<Footer /> 
