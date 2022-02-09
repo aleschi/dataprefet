@@ -12,6 +12,9 @@ import Objectifs from "../components/Objectifs/Objectifs";
 import Historique from "../components/DB/Historique";
 import Index_couts from "../components/Couts/Index_couts";
 import Faq from "../components/Faq";
+import Accessibilite from "../components/Accessibilite";
+import Donnees from "../components/Donnees";
+import Mentions from "../components/Mentions";
 
 export default (
   <BrowserRouter>
@@ -28,6 +31,9 @@ export default (
       <Route path="/couts-etp" element={<Index_couts/>} />
       <Route path="/mouvements-globaux" element={<Historique/>} />
       <Route path="/faq" element={<Faq/>} />
+      <Route path="/accessibilite" element={<Accessibilite/>} />
+      <Route path="/donnees-personnelles" element={<Donnees/>} />
+      <Route path="/mentions-legales" element={<Mentions/>} />
     </Routes>
   </BrowserRouter>
 );

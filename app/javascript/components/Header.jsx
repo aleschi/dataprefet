@@ -1,5 +1,6 @@
 import React from "react";
 import logoUrl from '../../assets/images/logo_ministere2.svg';
+import logoUrl2 from '../../assets/images/logo_repere3.svg';
 import { Link } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
 import { Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'react-bootstrap';
@@ -32,7 +33,8 @@ class Header extends React.Component {
     return (  
 		<div>
 		  	<div className="logo_header">
-		    	<img src={logoUrl} alt="DB" />
+		    	<img src={logoUrl} alt="logo DB" />
+		    	<img src={logoUrl2} alt="repere3" className='image2' />
 		  	</div>
 		  	<div className="nav_header_box">
 			  	<div className="nav_header">
@@ -40,10 +42,10 @@ class Header extends React.Component {
 			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/'>Accueil</NavLink></div> 
 
 			  		{ (this.state.statut=="admin" || this.state.statut=="ministere") &&
-			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/mouvements-globaux'>Historique des mouvements</NavLink></div> }
+			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/mouvements-globaux'>Historique des redéploiements</NavLink></div> }
 
 			  		{ (this.state.statut=="CBR" || this.state.statut=="prefet") &&
-			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/historique'>Historique des déploiements</NavLink></div> }
+			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/historique'>Historique des redéploiements</NavLink></div> }
 
 
 			  		{ (this.state.statut=="CBR") &&

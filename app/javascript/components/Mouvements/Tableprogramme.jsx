@@ -54,7 +54,8 @@ class Tableprogramme extends React.Component {
 	            }
 
             })    		
-	        return <tr key={index}><td>{programme.numero} - {programme.ministere.nom} {(programme.numero == '155') && <span className="texte_info">*</span>} </td>
+	        return <tr key={index}><td>{programme.numero} - {programme.ministere.nom} {(programme.numero == '155') && <span className="texte_info">(2)</span>}
+	        {(programme.numero == '217') && <span className="texte_info">(1)</span>} </td>
 	        <td>{(Math.round(etp_cible*10)/10).toLocaleString('fr')} ETP </td>
 	        <td>{(Math.round(etpt_plafond*10)/10).toLocaleString('fr')} ETPT</td>
 	        <td>{(Math.round(count_etp_supp*10)/10).toLocaleString('fr')}</td>
@@ -89,8 +90,9 @@ class Tableprogramme extends React.Component {
 		    </table>
 			
 			</div>
-			
-			<div className="texte_info">*Le total des effectifs inclut à ce stade ceux de l’inspection du travail, qui ne font pas partie du champ du dispositif mais dépendent des choix d’organisation des directeurs régionaux. Les effectifs de l’inspection du travail  seront retirés une fois cette information transmise.</div>
+			<div className="texte_info">(1)Dans l’attente des plafonds en ETPT pour le programme 217 – MTE, la colonne ETPT du MTE est par convention identique à celle des ETP. Ces données en ETPT seront actualisées dès réception des enveloppes en ETPT.</div>
+			<div className="texte_info">(2)Le total des effectifs inclut à ce stade ceux de l’inspection du travail, qui ne font pas partie du champ du dispositif mais dépendent des choix d’organisation des directeurs régionaux. Les effectifs de l’inspection du travail  seront retirés une fois cette information transmise.</div>
+
 			
 		</div>
     );

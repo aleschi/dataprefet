@@ -1,5 +1,6 @@
 import React from "react";
 import logoUrl from '../../assets/images/logo_ministere2.svg';
+import { Link } from "react-router-dom";
 
 const Footer = () => (
 	<div className="footer">
@@ -13,11 +14,11 @@ const Footer = () => (
 		    </div>
 	    </div>
 	    <div className="footer_bottom"> 
-		    <a>Mentions légales</a>
+		    <Link className="tu" to='/mentions-legales'>Mentions légales</Link>
 		    <span>|</span>
-		    <a>Données personnelles</a>
+		    <Link className="tu" to='/donnees-personnelles'>Données personnelles</Link>
 		    <span>|</span>
-		    <a>Accessibilité</a>
+		    <Link className="tu" to='/accessibilite'>Accessibilité:non conforme</Link>
 		    <span>|</span>
 		    <a className="tu" href="mailto:declic.budget@finances.gouv.fr" target="_blank">Nous contacter : declic.budget@finances.gouv.fr</a>
 	  	</div>
