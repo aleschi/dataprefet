@@ -704,3 +704,13 @@ border-radius:0px !important;
 .padding-none{
   padding:0px;
 }
+.fr-link{
+  font-size: 13px;
+  line-height: 1.5rem;
+  padding: 0 0;
+  color:#1E1E1E;
+  text-decoration:underline !important;
+  &:hover{
+  color:#000091
+  }
+}
