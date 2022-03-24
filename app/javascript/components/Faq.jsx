@@ -40,7 +40,7 @@ class Faq extends React.Component {
 		  		<div className="d24"></div>
 		  		{ (this.state.statut=="CBR") &&
 		  		<div><div><a className="fr-link" href="/Memo.pdf" download>Télécharger le mémo outil pour CBR <i className="fa-solid fa-download"></i></a></div>
-		  		<div><a className="fr-link" href="/Formulaire.xlsx" download>Télécharger le formulaire de liaison destiné aux SGARE <i className="fa-solid fa-download"></i></a></div>
+		  		<div><a className="fr-link" href="/Formulaire.xlsx" download>Télécharger le formulaire de liaison destiné au SGARE <i className="fa-solid fa-download"></i></a></div>
 		  		<div className="d24"></div></div>
 		  		}
 		  		<Accordion >

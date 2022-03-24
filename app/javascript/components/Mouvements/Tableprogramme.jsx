@@ -90,8 +90,8 @@ class Tableprogramme extends React.Component {
 		    </table>
 			
 			</div>
-			<div className="texte_info">(1)Dans l’attente des plafonds en ETPT pour le programme 217 – MTE, la colonne ETPT du MTE est par convention identique à celle des ETP. Ces données en ETPT seront actualisées dès réception des enveloppes en ETPT.</div>
-			<div className="texte_info">(2)Le total des effectifs inclut à ce stade ceux de l’inspection du travail, qui ne font pas partie du champ du dispositif mais dépendent des choix d’organisation des directeurs régionaux. Les effectifs de l’inspection du travail  seront retirés une fois cette information transmise.</div>
+			<div className="texte_info">(1) Le plafond ETPT est calculé à partir de celui notifié au périmètre de la région/zone de gouvernance au périmètre ATE c'est à dire hors DIR et DIRM. Les notifications ayant été opérées aux préfets de région en incluant les DIRM, des ajustements seront opérés à l'issue des dialogues de gestion une fois que les décisions des préfets de région sur les plafonds attribués aux DIRM seront prises. source MTE – 11/03/22</div>
+			<div className="texte_info">(2) Le total des effectifs inclut à ce stade ceux de l’inspection du travail, qui ne font pas partie du champ du dispositif mais dépendent des choix d’organisation des directeurs régionaux. Les effectifs de l’inspection du travail  seront retirés une fois cette information transmise.</div>
 
 			
 		</div>
