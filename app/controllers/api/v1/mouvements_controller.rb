@@ -1,6 +1,6 @@
 class Api::V1::MouvementsController < ApplicationController
   before_action :authenticate_user!
-  
+  protect_from_forgery with: :null_session
   def index
     programmes = Programme.all
     region = Region.where(id: current_user.region_id).first.nom
@@ -66,23 +66,23 @@ class Api::V1::MouvementsController < ApplicationController
     end
     cout_etp = Cout.where('programme_id = ? AND categorie = ?',params[:programme_id][:value], params[:grade][:value]).first.cout
     if params[:type_mouvement][:value] == "suppression"
-      mouvement.cout_etp = -(params[:quotite][:value].to_f * cout_etp)
-      mouvement.credits_gestion = -(params[:quotite][:value].to_f * cout_etp * (DateTime.new(2022,12,31)-params[:date_effet].to_date).to_i / 365)
-      mouvement.etpt =  params[:quotite][:value].to_f * (params[:date_effet].to_date-DateTime.new(2022,1,1)).to_i / 365
+      mouvement.cout_etp = -(params[:quotite][:value].to_f * cout_etp).round(2)
+      mouvement.credits_gestion = -(params[:quotite][:value].to_f * cout_etp * (DateTime.new(2022,12,31)-params[:date_effet].to_date).to_i / 365).round(2)
+      mouvement.etpt =  (params[:quotite][:value].to_f * (params[:date_effet].to_date-DateTime.new(2022,1,1)).to_i / 365).round(2)
     else
       if !params[:mouvement_id][:value].nil? 
         mouvement.mouvement_lien = params[:mouvement_id][:value]
         mouvement_supp = Mouvement.where(id: params[:mouvement_id][:value]).first
-        mouvement.credits_gestion = (params[:quotite][:value].to_f * mouvement_supp.programme.couts.where(categorie: params[:grade][:value]).first.cout * (DateTime.new(2022,12,31)-params[:date_effet].to_date).to_i / 365)
+        mouvement.credits_gestion = (params[:quotite][:value].to_f * mouvement_supp.programme.couts.where(categorie: params[:grade][:value]).first.cout * (DateTime.new(2022,12,31)-params[:date_effet].to_date).to_i / 365).round(2)
         if params[:ponctuel] == true
           mouvement.cout_etp = 0
         else
-          mouvement.cout_etp = params[:quotite][:value].to_f * mouvement_supp.programme.couts.where(categorie: params[:grade][:value]).first.cout
+          mouvement.cout_etp = (params[:quotite][:value].to_f * mouvement_supp.programme.couts.where(categorie: params[:grade][:value]).first.cout).round(2)
         end
       else
         mouvement.cout_etp = 0
       end
-      mouvement.etpt =  params[:quotite][:value].to_f * (DateTime.new(2022,12,31)-params[:date_effet].to_date).to_i / 365
+      mouvement.etpt =  (params[:quotite][:value].to_f * (DateTime.new(2022,12,31)-params[:date_effet].to_date).to_i / 365).round(2)
     end
     
     mouvement.save

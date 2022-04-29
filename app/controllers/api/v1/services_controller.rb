@@ -4,8 +4,8 @@ class Api::V1::ServicesController < ApplicationController
   protect_from_forgery with: :null_session
   
   def index
-  	services = Service.all 
-  	response = {services: services}
+  	services = Service.all.order(programme_id: 'ASC') 
+  	response = {services: services.as_json(:include => [:programme])}
     render json: response
   end
 

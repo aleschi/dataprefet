@@ -9,19 +9,22 @@ class Service < ApplicationRecord
 
   		data = Roo::Spreadsheet.open(file.path)
     	headers = data.row(1) # get header row
+      
 
       Service.all.each do |service| #on regarde si le service est dans le fichier
         count = 0 
         data.each_with_index do |row, idx|
           next if idx == 0 # skip header
             row_data = Hash[[headers, row].transpose]
-            if row_data['Nom'] == service.nom
+            if row_data['Nom'] == service.nom && row_data['Numero'] == service.programme_id
               count += 1
             end 
         end
         if count == 0  #si nest pas dans le fichier on le supp ainsi que les mouvements associes
-          Mouvement.where(service_id: service.id).destroy_all
-          service.destroy
+          if Mouvement.where(service_id: service.id).count == 0
+            Mouvement.where(service_id: service.id).destroy_all
+            service.destroy
+          end
         end
       end
 
