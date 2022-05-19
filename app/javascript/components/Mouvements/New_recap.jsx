@@ -60,59 +60,65 @@ class New_recap extends React.Component {
     return (  
 		<div>
 			{ (this.state.type_mouvement == null) && 
-			<div className="box_form_recap">
-				
-				<div className="titre_box_form_recap">Solde restant pour suppression</div>
-				<div className="chiffre_box_form_recap cbleu">{(Math.round(this.state.solde_etp*10)/10).toLocaleString('fr')} ETP ({(Math.round(this.state.solde_etp/this.state.etp_cible * 100 * 10) / 10).toLocaleString('fr') }%)</div>
+
+			<div className="fr-callout ">
+				<p className="fr-callout__title">{(Math.round(this.state.solde_etp*10)/10).toLocaleString('fr')} ETP ({(Math.round(this.state.solde_etp/this.state.etp_cible * 100 * 10) / 10).toLocaleString('fr') }%)</p>
+				<p className="fr-callout__text"> Solde restant pour suppression</p>
 			</div>
+
 			}
 			{ (this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "suppression") &&
-			<div className="box_form_recap">
-				<div className="titre_box_form_recap">Solde</div>
-				<div className="chiffre_box_form_recap crose">{(Math.round(this.state.solde_etp*10)/10).toLocaleString('fr')} ETP ({(Math.round(this.state.solde_etp/this.state.etp_cible * 100 * 10) / 10).toLocaleString('fr') }%)</div>
-				<div className="d12"></div>
+			<div className="fr-callout ">
+				
+				<p className="fr-callout__title">{(Math.round(this.state.solde_etp*10)/10).toLocaleString('fr')} ETP ({(Math.round(this.state.solde_etp/this.state.etp_cible * 100 * 10) / 10).toLocaleString('fr') }%)</p>
+				<p className="fr-callout__text">Solde</p>
+
+				
 				{ (this.state.quotite != null) &&
 				<div>
-				<div className="titre_box_form_recap">Impact mouvement</div>
-				<div className="chiffre_box_form_recap cvert">{(Math.round(this.state.quotite.value*10)/10).toLocaleString('fr')} ETP ({(Math.round(this.state.quotite.value/this.state.etp_cible * 100 *100 ) / 100).toLocaleString('fr') }%) </div>
-				<div className="d12"></div>
-				<div className="titre_box_form_recap">Solde après suppression</div>
-				<div className="chiffre_box_form_recap cbleu">{(Math.round((this.state.solde_etp-this.state.quotite.value)*10)/10).toLocaleString('fr')} ETP ({(Math.round((this.state.solde_etp-this.state.quotite.value)/this.state.etp_cible * 100 * 100) / 100).toLocaleString('fr') }%)</div>
+					<div className="d12"></div>
+					<p className="fr-callout__title">{(Math.round(this.state.quotite.value*10)/10).toLocaleString('fr')} ETP ({(Math.round(this.state.quotite.value/this.state.etp_cible * 100 *100 ) / 100).toLocaleString('fr') }%) </p>
+					<p className="fr-callout__text">Impact mouvement</p>
+				
+					<div className="d12"></div>
+					<p className="fr-callout__title">{(Math.round((this.state.solde_etp-this.state.quotite.value)*10)/10).toLocaleString('fr')} ETP ({(Math.round((this.state.solde_etp-this.state.quotite.value)/this.state.etp_cible * 100 * 100) / 100).toLocaleString('fr') }%)</p>
+					<p className="fr-callout__text">Solde après suppression</p>
 				</div>
 				}
 			</div>
 			}
 			{ (this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "ajout") &&
-			<div className="box_form_recap">
+			<div className="fr-callout ">
 				{ (this.state.mouvement_id != null) ? 
 
 				<div>
-					<div className="titre_box_form_recap">Suppression sélectionnée</div>
+					<p className="fr-callout__title">{this.state.mouvement_id.label}</p>
+					<p className="fr-callout__text">Suppression sélectionnée</p>
 					<div className="d12"></div>
-					<div><span className="info_etp">{this.state.mouvement_id.label}</span></div>
 					
-					<div className="d24"></div>
-					<div className="titre_box_form_recap">ETP déjà ajoutés suite à cette suppression ({this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_id.value).length})</div>
-					<div className="d12"></div>
+					
+				
 					{this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_id.value).map((mouvement,index) => (
-							<div key={index}><span className="info_etp"> ETP {mouvement.grade} - {mouvement.quotite*100}% - Programme {mouvement.programme.numero} (fait le {mouvement.date})</span></div>
+							<p className="fr-callout__title" key={index}>ETP {mouvement.grade} - {mouvement.quotite*100}% - Programme {mouvement.programme.numero} (fait le {mouvement.date})</p>
 						))
 					}
+					<p className="fr-callout__text"> ETP déjà ajoutés suite à cette suppression ({this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_id.value).length})</p>
 				</div>
 
 				:
 				<div>
-					<div className="titre_box_form_recap">Dernière suppression effectuée</div>
+					<p className="fr-callout__title"> ETP {this.state.mouvement_last_supp.grade} - {this.state.mouvement_last_supp.quotite*100}% - Programme {this.state.mouvement_last_supp.programme.numero} (fait le {this.state.mouvement_last_supp.date})</p>
+					<p className="fr-callout__text">Dernière suppression effectuée</p>
 					<div className="d12"></div>
-					<div><span className="info_etp"> ETP {this.state.mouvement_last_supp.grade} - {this.state.mouvement_last_supp.quotite*100}% - Programme {this.state.mouvement_last_supp.programme.numero} (fait le {this.state.mouvement_last_supp.date})</span></div>
-					<div className="d24"></div>
-					<div className="titre_box_form_recap">ETP déjà ajoutés suite à cette suppression ({this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_last_supp.id).length})</div>
-					<div className="d12"></div>
+					
+					
+					
 					{this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_last_supp.id).length > 0 && 
 						this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_last_supp.id).map((mouvement,index) => (
-							<div key={index}><span className="info_etp">ETP {mouvement.grade} - {mouvement.quotite*100}% - Programme {mouvement.programme.numero} (fait le {mouvement.date})</span></div>
+							<p className="fr-callout__title" key={index}>ETP {mouvement.grade} - {mouvement.quotite*100}% - Programme {mouvement.programme.numero} (fait le {mouvement.date})</p>
 						))
 					}
+					<p className="fr-callout__text">ETP déjà ajoutés suite à cette suppression ({this.state.mouvements.filter(mouvement => mouvement.mouvement_lien == this.state.mouvement_last_supp.id).length})</p>
 				</div>
 				}
 				

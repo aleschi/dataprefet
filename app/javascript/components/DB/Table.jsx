@@ -156,13 +156,13 @@ class Table extends React.Component {
 	
     render() {
     return (  
-		<div className="table" >
-	    <table className="table-striped">
+		 <div className="fr-table fr-mb-2w fr-table--no-caption">
+	    <table>
 	      	<thead>
 	        <tr>
 	        	<th scope="col">Région</th>        	
-	        	<th scope="col">Effectifs cibles{(this.state.nom == "Ministère du travail, de l'emploi et de l'insertion") && <span className="texte_info">*</span>}{(this.state.nom == "Ministère de l'agriculture et de l'alimentation") && <span className="texte_info">*</span>}</th>
-	        	<th scope="col">Plafond ETPT{(this.state.nom == "Ministère du travail, de l'emploi et de l'insertion") && <span className="texte_info">*</span>}</th>
+	        	<th scope="col">Effectifs cibles</th>
+	        	<th scope="col">Plafond ETPT</th>
             {(this.state.statut == "admin") &&
             <th scope="col">Redéploiement autorisé (3%)</th>
             }

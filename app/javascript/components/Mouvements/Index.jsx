@@ -35,17 +35,43 @@ class Index extends React.Component {
     return (  
 		<div>
 		  	<Header /> 
-		  	<div className="page_container">
-		  		<div className="titre_page">{this.state.region}</div>
-		  		<div className="d24"></div>
-		  		<div className="align_flex">
-		  			<div className="bandeau"><span className="bandeau_titre">Effectifs cibles</span><span className="bandeau_texte"> {(Math.round(this.state.etp_cible*10)/10).toLocaleString('fr')} ETP</span></div>
-		  			<div className="bandeau"><span className="bandeau_titre">Plafond 2022 </span><span className="bandeau_texte"> {(Math.round(this.state.etpt_plafond*10)/10).toLocaleString('fr')} ETPT</span></div>
-		  			<div className="bandeau"><span className="bandeau_titre">3% ETP cibles</span> <span className="bandeau_texte">{(Math.round(this.state.etp_3*10)/10).toLocaleString('fr')} ETP</span></div>
-		  			<div className="bandeau"><span className="bandeau_titre">ETP redéployés </span> <span className="bandeau_texte">{(Math.round(this.state.etp_supp*10)/10).toLocaleString('fr')} ETP</span></div>
-		  			<div className="bandeau"><span className="bandeau_titre">Solde 2022 </span><span className="bandeau_texte"> {(Math.round(this.state.solde_etp*10)/10).toLocaleString('fr')} ETP</span></div>
-		  		</div>
-		  		<Table mouvements={this.state.mouvements} liste_programmes_mvt={this.state.liste_programmes_mvt}/>
+		  	<div className="fr-container">    
+        		<div className="fr-grid-row fr-grid-row--gutters">
+          			<div className="fr-col-lg-12">
+          				<h1 className="fr-my-6w">{this.state.region}</h1>
+		  			</div>
+				</div>
+
+				<div className="fr-grid-row fr-grid-row--gutters">
+          			<div className="fr-col-lg-3">
+          				<div className="fr-callout ">
+						    <p className="fr-callout__title">{(Math.round(this.state.etp_3*10)/10).toLocaleString('fr')} ETP</p>
+						    <p className="fr-callout__text"> 3% ETP cibles</p>
+						</div>
+          			</div>
+
+          			<div className="fr-col-lg-3">
+          				<div className="fr-callout ">
+						    <p className="fr-callout__title">{(Math.round(this.state.etp_supp*10)/10).toLocaleString('fr')} ETP</p>
+						    <p className="fr-callout__text"> ETP redéployés</p>
+						</div>
+          			</div>
+
+          			<div className="fr-col-lg-3">
+          				<div className="fr-callout ">
+						    <p className="fr-callout__title">{(Math.round(this.state.solde_etp*10)/10).toLocaleString('fr')} ETP</p>
+						    <p className="fr-callout__text"> Solde 2022</p>
+						</div>
+          			</div>
+
+          		</div>
+
+				<div className="fr-grid-row fr-grid-row--gutters">
+          			<div className="fr-col-lg-12">
+          				<h2 className="fr-my-2w">Historique des redéploiements</h2>
+						<Table mouvements={this.state.mouvements} liste_programmes_mvt={this.state.liste_programmes_mvt}/>
+					</div>
+				</div>
 		  	</div>
 		  	<Footer /> 
 		</div>

@@ -1,40 +1,59 @@
-<div class="logo_header">
-  <%= image_tag 'logo_ministere2.svg'%>
-</div>
-<div class='w100'>
-
-
-    <div class="login_box">
+<header role="banner" class="fr-header">
+    <div class="fr-header__body">
+        <div class="fr-container">
+            <div class="fr-header__body-row">
+                <div class="fr-header__brand fr-enlarge-link">
+                    <div class="fr-header__brand-top">
+                        <div class="fr-header__logo">
+                            <p class="fr-logo">
+                                Ministère
+                                <br>de l'économie<br>des finances<br>et de la relance
+                            </p>
+                        </div>
+                    </div>
+                    <div class="fr-header__service">
+                        <a href="/" title="Accueil - SIMULAE">
+                          <p class="fr-header__service-title">REPERE3</p>
+                        </a>
+                        <p class="fr-header__service-tagline">REdéploiement entre Programmes des Emplois en REgion - 3%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="fr-container">    
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <div class="fr-col-lg-6 fr-col-offset-lg-3">
        
-      <h1 class="logo_connexion ">LOGO</h1>
-      <div class="d32"></div>
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
+      
+      <div class="fr-hidden">
+        <h1 class="fr-my-5w">Inscription</h1>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
 
-    <div class="form">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-    </div>
-    <div class="d24"></div>
-    <div class="form">
-      <%= f.label :password %>
-      <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password" %>
-    </div>
-    <div class="d24"></div>
-    <div class="form">
-      <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-    </div>
+          <div class="fr-input-group ">
+                <label class="fr-label" for="form-field1">Adresse mail</label>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email" ,class:"fr-input", id: "form-field1" %>
+          </div>
+          <div class="fr-input-group ">
+                <label class="fr-label" for="form-field2">Mot de passe</label>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %><br />
+            <%= f.password_field :password, autocomplete: "new-password" ,class:"fr-input", id: "form-field2" %>
+          </div>
+          <div class="fr-input-group ">
+                <label class="fr-label" for="form-field3">Confirmation mot de passe</label>
 
-    <div class="d32"></div>
-    <div class="text-center">
-      <%= f.submit "Inscription", class:"bouton" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password" ,class:"fr-input", id: "form-field3" %>
+          </div>
+          <div class="">
+            <%= f.submit "Inscription", class:"fr-btn" %>
+          </div>
+        <% end %>
+      </div>
     </div>
-  <% end %>
-
   </div>
 </div>
 

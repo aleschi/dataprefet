@@ -33,55 +33,46 @@ class Faq extends React.Component {
     return (  
 		<div>
 		  	<Header /> 
-		  	<div className="page_container">
-		  		<div className="titre_page">Mentions légales</div>
-		  		<div className="d24"></div>
-		  		<div className="texte_etiquette">Mises à jour le 2 février 2022.</div>
+		  	<main role="main" className="fr-container fr-py-16v">  
+        		<div className="fr-grid-row">
+          			<div className="fr-col-12 fr-col-md-8">
+          				<h1>Mentions légales</h1>
+		  		
+				  		<section className="fr-py-6v">
+				  			<p className="fr-mt-4v fr-mb-0">Mises à jour le 2 février 2022.</p>
+				  		</section>
 
-				<div className='d24'></div>
-				<div className="titre_etiquette">Éditeur</div>
-				<div className="d12"></div>
-				<div className="texte_etiquette">
-					Ministère de l'Économie, des finances et de la relance - Direction du Budget
-				</div>
-				<div className="texte_etiquette">
-					Directrice de la publication : Mme Mélanie Joder - Directrice du Budget
-
-				</div>
-				<div className="d24"></div>
-				<div className="titre_etiquette">Conception et gestion du site</div>
-				<div className="d12"></div>
-				<div className="texte_etiquette">
-					Alexandra Leschi et Lou Vettier – Direction du Budget (Bureau 2BMS)</div>
-
-				<div className="d24"></div>
-				<div className="titre_etiquette">Hébergement </div>
-				<div className="d12"></div>
-				<div className="texte_etiquette">
-					Google Cloud Platform - Google France
-				</div>
-				<div className="texte_etiquette">
-					Fournisseur de Cloud public (CSP) Google dans le cadre du marché UGAP C3
-				</div>
-				<div className="texte_etiquette">
-					8, rue de Londres, 75009 Paris France
-					01 42 68 53 00
-				</div>
-
-				<div className="d24"></div>
-				<div className="titre_etiquette">Code source du site</div>
-				<div className="d12"></div>
-				<div className="texte_etiquette">
-					Le code source du site est disponible sur Github.</div>
-
-
-				<div className="d24"></div>
-				<div className="titre_etiquette">Gestion des cookies</div>
-				<div className="d12"></div>
-				<div className="texte_etiquette">
-					Ce portail n’utilise aucun cookie nécessitant un consentement des usagers. C’est pourquoi vous n’avez pas à accepter leur utilisation avant de poursuivre votre navigation.</div>
 				
-		  	</div>
+						<section className="fr-py-6v">
+						<h2 className="fr-h5">Éditeur</h2>
+						<p className="fr-mt-4v fr-mb-0">
+							Ministère de l'Économie, des finances et de la relance - Direction du Budget
+						</p>
+						<p className="fr-mt-4v fr-mb-0">Directrice de la publication : Mme Mélanie Joder - Directrice du Budget</p>
+						</section>
+						<section className="fr-py-6v">
+						<h2 className="fr-h5">Conception et gestion du site</h2>
+						<p className="fr-mt-4v fr-mb-0">Direction du Budget</p>
+
+						</section>
+						<section className="fr-py-6v">
+						<h2 className="fr-h5">Hébergement </h2>
+						<p className="fr-mt-4v fr-mb-0">Google Cloud Platform - Google France</p>
+						<p className="fr-mt-4v fr-mb-0">Fournisseur de Cloud public (CSP) Google dans le cadre du marché UGAP C3</p>
+						<p className="fr-mt-4v fr-mb-0">
+							8, rue de Londres, 75009 Paris France
+							01 42 68 53 00
+						</p>
+
+						</section>
+						<section className="fr-py-6v">
+						<h2 className="fr-h5">Code source du site</h2>
+						<p className="fr-mt-4v fr-mb-0">Le code source du site est disponible sur Github.</p>
+						</section>
+					</div>
+				</div>
+				
+		  	</main>
 		  	<Footer /> 
 		</div>
     );

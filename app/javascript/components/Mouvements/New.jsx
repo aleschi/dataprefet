@@ -29,10 +29,14 @@ class New extends React.Component {
     return (  
 		<div>
 		  	<Header /> 
-		  	<div className="page_container">
-		  		<div className="titre_page">Redéploiement sur la région {this.state.region}</div>
-		  		<div className="d24"></div>
-		  		<Form />
+		  	<div className="fr-container">    
+            	<div className="fr-grid-row fr-grid-row--gutters">
+                	<div className="fr-col-lg-12">
+                  		<h1 className="fr-my-6w">Nouveau redéploiement sur la région {this.state.region}</h1>
+		  			</div>
+		  		</div>
+		  				<Form />
+		  			
 		  	</div>
 		  	<Footer /> 
 		</div>

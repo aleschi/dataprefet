@@ -42,10 +42,10 @@ class Index extends React.Component {
     	return this.state.mouvements.map((mouvement, index) => {
 
     		if (mouvement.type_mouvement == "ajout"){
-	        return <tr key={index}><td>{mouvement.region.nom}</td><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><span className="etiquette_j">{mouvement.type_mouvement}</span>{(mouvement.ponctuel == true) && <span className="etiquette_r">Ponctuel</span>}</td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td></tr>
+	        return <tr key={index}><td>{mouvement.region.nom}</td><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><p className="fr-badge fr-badge--green-emeraude">{mouvement.type_mouvement}</p> {(mouvement.ponctuel == true) && <p className="fr-badge fr-badge--green-emeraude"> Ponctuel</p>}</td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td></tr>
 	        }
 	        else if (mouvement.type_mouvement == "suppression"){
-	        return <tr key={index}><td>{mouvement.region.nom}</td><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><span className="etiquette_v">{mouvement.type_mouvement}</span></td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td></tr>
+	        return <tr key={index}><td>{mouvement.region.nom}</td><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><p className="fr-badge fr-badge--blue-cumulus">{mouvement.type_mouvement}</p></td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td></tr>
 	        }	        	
     	})
     };
@@ -95,35 +95,39 @@ class Index extends React.Component {
     return (  
 		<div>
 		  	<Header /> 
-		  	<div className="page_container">
-		  		<div className="titre_page">Hitorique des mouvements</div>
-		  		<div className="d24"></div>
-          <div className="tr"><CSVLink data={data_to_download} headers={headers} filename={"table_mouvements.csv"} className="bouton">Exporter la table <i className="fas fa-cloud-download-alt"></i></CSVLink></div>
-          <div className="d24"></div>
-		  		<div className="table" >
-				    <table className="table-striped">
-				      	<thead>
-				        <tr>
-				        	<th scope="col">Région <Checkbox_dropdown name="region" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.liste_regions_mvt} parentCallback = {this.handleCallback}/></th>
-				        	<th scope="col">Date <button onClick={() => {this.sortTable('date')}} id="date"><i className="fas fa-sort"></i></button></th>
-				        	<th scope="col">Quotité ETP</th>
-				        	<th scope="col">Macrograde <Checkbox_dropdown name="grade" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.grades} parentCallback = {this.handleCallback}/></th>
-				        	<th scope="col">Type <Checkbox_dropdown name="type_mouvement" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.type_mouvements} parentCallback = {this.handleCallback}/></th>
-				        	<th scope="col">Service concerné</th>
+		  	<div className="fr-container">    
+            <div className="fr-grid-row fr-grid-row--gutters">
+                <div className="fr-col-lg-12">
+                  <h1 className="fr-my-6w">Hitorique des mouvements</h1>
+		 
+                  <div className="tr"><CSVLink data={data_to_download} headers={headers} filename={"table_mouvements.csv"} className="fr-btn fr-btn--icon-right">Exporter la table <span className="fr-icon-download-fill fr-ml-3v fr-fi--sm" aria-hidden="true"></span> </CSVLink></div>
+        
+        		  		<div className="fr-table fr-mb-2w fr-table--no-caption">
+        				    <table>
+        				      	<thead>
+        				        <tr>
+        				        	<th scope="col">Région <Checkbox_dropdown name="region" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.liste_regions_mvt} parentCallback = {this.handleCallback}/></th>
+        				        	<th scope="col">Date <button onClick={() => {this.sortTable('date')}} id="date"><span className="fr-icon-arrow-down-line fr-fi--sm" aria-hidden="true"></span></button></th>
+        				        	<th scope="col">Quotité ETP</th>
+        				        	<th scope="col">Macrograde <Checkbox_dropdown name="grade" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.grades} parentCallback = {this.handleCallback}/></th>
+        				        	<th scope="col">Type <Checkbox_dropdown name="type_mouvement" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.type_mouvements} parentCallback = {this.handleCallback}/></th>
+        				        	<th scope="col">Service concerné</th>
 
-				        	<th scope="col">Programme <Checkbox_dropdown name="programme" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.liste_programmes_mvt} parentCallback = {this.handleCallback}/></th>
+        				        	<th scope="col">Programme <Checkbox_dropdown name="programme" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.liste_programmes_mvt} parentCallback = {this.handleCallback}/></th>
 
-				          	<th scope="col">Date effective <button onClick={() => {this.sortTable('date_effet')}} id="valeur"><i className="fas fa-sort"></i></button></th>	 
-				            <th scope="col">Mouvements en gestion (LFR)</th> 
-				            <th scope="col">Mouvements en base (PLF N+1)</th>   	
-				        </tr>
-				      	</thead>
+        				          	<th scope="col">Date effective <button onClick={() => {this.sortTable('date_effet')}} id="valeur"><span className="fr-icon-arrow-down-line fr-fi--sm" aria-hidden="true"></span></button></th>	 
+        				            <th scope="col">Mouvements en gestion (LFR)</th> 
+        				            <th scope="col">Mouvements en base (PLF N+1)</th>   	
+        				        </tr>
+        				      	</thead>
 
-				      	<tbody>
-					      	{this.displayRow()} 
-				      	</tbody>
-				    </table>  	
-				</div>
+        				      	<tbody>
+        					      	{this.displayRow()} 
+        				      	</tbody>
+        				    </table>  	
+        				  </div>
+                </div>
+            </div>
 		  	</div>
 		  	<Footer /> 
 		</div>

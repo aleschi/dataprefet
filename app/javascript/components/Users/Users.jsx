@@ -4,8 +4,6 @@ import Header from "../Header";
 import Footer from "../Footer";
 import Dropzone from 'react-dropzone';
 import Moment from 'moment';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 class Users extends React.Component {
         constructor() {
@@ -17,10 +15,12 @@ class Users extends React.Component {
             files: [],
             loading: false,
             users: [],
+            statut: '',
           };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
+    
     const url = "/users/index";
     fetch(url)
       .then(response => {
@@ -31,6 +31,18 @@ class Users extends React.Component {
       })
       .then(response => this.setState({ users: response.users }))
       .catch(error => console.log(error.message));
+
+
+      const url2 = "/check_user_status";
+      fetch(url2)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Network response was not ok.");
+        })
+        .then(response => this.setState({ statut: response.statut }))
+        .catch(() => console.log(error.message));
     }
 
 
@@ -72,32 +84,35 @@ class Users extends React.Component {
         return (
         <div>
         <Header />
-        <div className="pd24">
-            <div className="d32"></div>
-            <Row className=" loader_box align_center">
-              <Col sm={12} lg={6}>
-                <div className="titre_part">Fichier Users</div>
-                <div className="d24"></div>
+     
+        
+        <div className="fr-container">  
+          <div className="fr-grid-row fr-grid-row--gutters">
+            <div className="fr-col-lg-12">
+              <h1 className="fr-my-6w">Utilisateurs</h1> 
+            </div>
+          </div> 
+          { (this.state.statut=="admin")  ?
+          <div className="fr-grid-row fr-grid-row--gutters">
+            <div className="fr-col-lg-6">
+
                 {this.state.users.map((users, index) => (
                 <div key={index}>
-                  <div className="texte_etiquette">{users.email}</div>
+                  <div>{users.email}</div>
                 </div>
                 ))}
-              </Col>
-              <Col sm={12} lg={6}>
+              </div>
+              <div className="fr-col-lg-6">
 
               { this.state.loading ? <div className="loader_box"><div className="texte_etiquette text-center">Chargement des données en cours.. Cela peut prendre quelques minutes. </div><div className="d24"></div> <div className ="loader"></div></div> : 
                 <div>
-                <h1 className="titre_part text-center">
-                 Ajouter un fichier 
-                </h1>
-                <div className="d24"></div>
+        
                 <form onSubmit={this.handleSubmit}> 
                  <Dropzone accept='.xlsx' onDrop={this.onDrop}>
                   {({getRootProps, getInputProps}) => (
                     <div className="document-file-input" {...getRootProps()}>
                       <input {...getInputProps()} />
-                      <div><i className="fas fa-plus-circle"></i></div>
+                      <div><span className="fr-icon-add-circle-fill" aria-hidden="true"></span></div>
                       <div className="d24"></div>
                       <div className="cgris"> Glissez votre fichier ici</div> 
                       <div className="d12"></div>
@@ -108,14 +123,23 @@ class Users extends React.Component {
                     </div>
                   )}
                   </Dropzone>
-                  <div className="text-center"><button type="submit" className="bouton">Envoyer</button></div>
+                  <div><button type="submit" className="fr-btn">Envoyer</button></div>
                 </form>               
-                <div className="d32"></div>
+                
                 </div>
               }
-              </Col>
-            </Row>
+            </div>
+          </div>
+          :
+          <div className="fr-grid-row fr-grid-row--gutters">
+            <div className="fr-col-lg-12">
+              <p className="fr-mb-6w">Vous n'avez pas accès à cette page.</p> 
+            </div>
+          </div> 
+          }
         </div>
+        
+       
         <Footer />
         </div>
         );

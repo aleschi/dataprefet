@@ -194,79 +194,89 @@ class Form extends React.Component {
 
 
     return (  
-    	<div className="align_flex w100s">
-	    	<div className="w50 w100s">
-				<div className="form_box">
-					<form onSubmit={this.onSubmit}>
-						<div className="texte_etiquette">Type de mouvement</div>
+    	<div className="fr-grid-row fr-grid-row--gutters">
+            <div className="fr-col-lg-6">
+				
+				<form onSubmit={this.onSubmit}>
+
+					<div className="fr-select-group">
+						<label className="fr-label">Type de mouvement</label>
 						
-						<div className="form">   
-			                <Select
+						  
+			            <Select
+			                	
 			                	id="type_mouvement"
 						        value={this.state.type_mouvement}
 						        onChange={this.handleChange('type_mouvement')}
 						        options={type_mouvement}
 						        placeholder="- Sélectionner -"
 						        components={{ IndicatorSeparator: () => null }}
-						      />
-			            </div>
-			            <div className="d24"></div>
+						/>
+			            
+			        </div>
+
 			            {(this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "ajout") &&
-			            <div>
-				            <div className="texte_etiquette">Si le redéploiement concerne un emploi ponctuel, veuillez cocher la case : <Checkbox checked={this.state.ponctuel} name="ponctuel" onChange={this.handleCheck} inputProps={{ 'aria-label': 'controlled' }}/></div>
-				            <div className="texte_info">(un poste ponctuel est un poste qui répond à une politique prioritaire ministérielle nécessitant des recrutements spécifiques et exceptionnels en cours d’année)</div>
-				            <div className="d24"></div>
-				            <div className="texte_etiquette">Ajout suite à la suppression : </div>
-				            <div className="form">
-				                	<Select
+			            <div className="fr-select-group">
+				            <div className="fr-mb-2w">Si le redéploiement concerne un emploi ponctuel*, veuillez cocher la case : <Checkbox checked={this.state.ponctuel} name="ponctuel" onChange={this.handleCheck} inputProps={{ 'aria-label': 'controlled' }}/></div>
+				            
+				            <div className="fr-mb-2w fr-text--xs">*un emploi ponctuel est un poste qui répond à une politique prioritaire ministérielle nécessitant des recrutements spécifiques et exceptionnels en cours d’année</div>
+
+				       		
+							<label className="fr-label">Ajout suite à la suppression : </label>
+				           
+				            <Select
 								        value={this.state.mouvement_id}
 								        onChange={this.handleChange('mouvement_id')}
 								        options={mouvements_liste}
 								        placeholder="- Sélectionner -"
 								        components={{ IndicatorSeparator: () => null }}
-								      />
-					        </div>
-				            <div className="d24"></div>
+							/>
+			
+				           
 			            </div>
 			            }
-			            <div className="align_flex">
-							<div className="w3">
-				                <div className="texte_etiquette">Macrograde</div>
+			          
+			          	<div className="fr-grid-row fr-grid-row--gutters fr-mb-2w">
+			          		<div className="fr-col-lg-6">
+							<div className="fr-select-group">
+								<label className="fr-label">Macrograde</label>
 				                
-				                <div className="form">
-				                	<Select
+				           
+				                <Select
 								        value={this.state.grade}
 								        onChange={this.handleChange('grade')}
 								        options={grades}
 								        placeholder="- Sélectionner -"
 								        components={{ IndicatorSeparator: () => null }}
-								      />
-					            </div>
-				            </div>
-				            <div className="w3 pcenter">
-				                <div className="texte_etiquette">Quotité ETP</div>
+								/>
+					        </div>
+					        </div>
+					        <div className="fr-col-lg-6">				           
+				            <div className="fr-select-group">
+				            	<label className="fr-label">Quotité ETP</label>
 				                
-				                <div className="form">
-				                	<Select
+				               
+				                <Select
 								        value={this.state.quotite}
 								        onChange={this.handleChange('quotite')}
 								        options={quotites}
 								        placeholder="- Sélectionner -"
 								        components={{ IndicatorSeparator: () => null }}
-								      />
-					                
-				                </div>
+								/>	
 				            </div>
-				            <div className="w3">
-				            	<div className="texte_etiquette">Date effective</div>
-				            	<DatePicker placeholderText="JJ/MM/YYYY" selected={this.state.date_effet} locale="fr" onChange= {this.onChange} dateFormat="dd/MM/yyyy" minDate={new Date(2022,0,1)} maxDate={new Date(2022,11,31)}/>
 				            </div>
-			            </div>
+				        </div>   
+			        
 
-			            <div className="d24"></div>
-			            <div className="texte_etiquette">Programme</div>
+			            <div className="fr-select-group">
+							<label className="fr-label">Date effective</label>
+				            	<DatePicker placeholderText="JJ/MM/YYYY" selected={this.state.date_effet} locale="fr" onChange= {this.onChange} dateFormat="dd/MM/yyyy" minDate={new Date(2022,0,1)} maxDate={new Date(2022,11,31)}/>
+				        </div>
+
+			            <div className="fr-select-group">
+							<label className="fr-label">Programme</label>
 			          
-			            <div className="form">
+			         
 			                <Select
 						        value={this.state.programme_id}
 						        options={programmes_liste}
@@ -277,10 +287,10 @@ class Form extends React.Component {
 						      				      
 			            </div>
 
-			            <div className="d24"></div>
 
-			            <div className="texte_etiquette">Service d'affectation</div>
-			            <div className="form">
+			            <div className="fr-select-group">
+							<label className="fr-label">Service d'affectation</label>
+			            
 			            	<Select
 						        value={this.state.service_id}
 						        onChange={this.handleChange('service_id')}
@@ -290,15 +300,15 @@ class Form extends React.Component {
 						      />
 			            </div>
 
-			            <div className="d24"></div>
+			           
 
-			            <div className="text-center">{ this.state.isValid ? <button type="submit" className="bouton">Valider</button> : <span className="bouton_inactif">Valider</span>} </div>
+			            <div className="text-center">{ this.state.isValid ? <button type="submit" className="fr-btn">Valider</button> : <span className="fr-btn bouton_inactif">Valider</span>} </div>
 
 			            <div className="d24"></div>
 					</form>
-				</div>
+				
 			</div>
-			<div className="w50 w100s">
+			<div className="fr-col-lg-6">
 				<New_recap type_mouvement={this.state.type_mouvement} mouvement_id={this.state.mouvement_id} quotite={this.state.quotite}/>
 			</div>
 		</div>

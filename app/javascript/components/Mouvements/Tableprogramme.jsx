@@ -54,8 +54,8 @@ class Tableprogramme extends React.Component {
 	            }
 
             })    		
-	        return <tr key={index}><td>{programme.numero} - {programme.ministere.nom} {(programme.numero == '155') && <span className="texte_info">(2)</span>}
-	        {(programme.numero == '217') && <span className="texte_info">(1)</span>} </td>
+	        return <tr key={index}><td>{programme.numero} - {programme.ministere.nom} {(programme.numero == '155') && <span>(2)</span>}
+	        {(programme.numero == '217') && <span>(1)</span>} </td>
 	        <td>{(Math.round(etp_cible*10)/10).toLocaleString('fr')} ETP </td>
 	        <td>{(Math.round(etpt_plafond*10)/10).toLocaleString('fr')} ETPT</td>
 	        <td>{(Math.round(count_etp_supp*10)/10).toLocaleString('fr')}</td>
@@ -69,30 +69,31 @@ class Tableprogramme extends React.Component {
     render() {
 
     return ( 
-    	<div> 
-			<div className="table" >
-		    <table className="table-striped">
-		      	<thead>
-		        <tr>
-		        	<th scope="col">Programme</th>
-		        	<th scope="col">Effectifs cibles</th>
-		        	<th scope="col">Plafond ETPT</th>
-		        	<th scope="col">ETP supprimés</th>
-		        	<th scope="col">ETP ajoutés</th>
-		        	<th scope="col">Mouvements en gestion (LFR)</th>
-	            	<th scope="col">Mouvements en base (PLF N+1)</th>
-		        </tr>
-		      	</thead>
+    	<div className="fr-grid-row fr-grid-row--gutters">
+          	<div className="fr-col-lg-12">
+				<div className="fr-table fr-mb-2w fr-table--no-caption">
+				    <table>
+				      	<thead>
+				        <tr>
+				        	<th scope="col">Programme</th>
+				        	<th scope="col">Effectifs cibles</th>
+				        	<th scope="col">Plafond ETPT</th>
+				        	<th scope="col">ETP supprimés</th>
+				        	<th scope="col">ETP ajoutés</th>
+				        	<th scope="col">Mouvements en gestion (LFR)</th>
+			            	<th scope="col">Mouvements en base (PLF N+1)</th>
+				        </tr>
+				      	</thead>
 
-		      	<tbody>
-			      	{this.displayRow()} 
-		      	</tbody>
-		    </table>
-			
+				      	<tbody>
+					      	{this.displayRow()} 
+				      	</tbody>
+				    </table>
+				
+				</div>
+				<div className="fr-text--xs">(1) Le plafond ETPT est calculé à partir de celui notifié au périmètre de la région/zone de gouvernance au périmètre ATE c'est à dire hors DIR et DIRM. Les notifications ayant été opérées aux préfets de région en incluant les DIRM, des ajustements seront opérés à l'issue des dialogues de gestion une fois que les décisions des préfets de région sur les plafonds attribués aux DIRM seront prises. source MTE – 11/03/22</div>
+				<div className="fr-text--xs">(2) net des emplois de l’inspection du travail, retirés de l’effectif total le 03/05/2022 après réception par la DB des informations correspondantes de la part du ministère chargé du travail. </div>
 			</div>
-			<div className="texte_info">(1) Le plafond ETPT est calculé à partir de celui notifié au périmètre de la région/zone de gouvernance au périmètre ATE c'est à dire hors DIR et DIRM. Les notifications ayant été opérées aux préfets de région en incluant les DIRM, des ajustements seront opérés à l'issue des dialogues de gestion une fois que les décisions des préfets de région sur les plafonds attribués aux DIRM seront prises. source MTE – 11/03/22</div>
-			<div className="texte_info">(2) Le total des effectifs inclut à ce stade ceux de l’inspection du travail, qui ne font pas partie du champ du dispositif mais dépendent des choix d’organisation des directeurs régionaux. Les effectifs de l’inspection du travail  seront retirés une fois cette information transmise.</div>
-
 			
 		</div>
     );

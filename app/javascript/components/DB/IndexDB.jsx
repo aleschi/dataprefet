@@ -31,13 +31,15 @@ class Index extends React.Component {
     return (  
 		<div>
 		  	<Header /> 
-		  	<div className="page_container">
-		  		<div className="titre_page">{this.state.nom}</div>
-		  		{(this.state.nom == "Ministère du travail, de l'emploi et de l'insertion") && 
-				<div className="texte_info">*Le total des effectifs inclut à ce stade ceux de l’inspection du travail, qui ne font pas partie du champ du dispositif mais dépendent des choix d’organisation des directeurs régionaux. Les effectifs de l’inspection du travail  seront retirés une fois cette information transmise.</div>
-		  		}
-		  		<div className="d24"></div>
-		  		<Table regions={this.state.regions} mouvements={this.state.mouvements} objectifs={this.state.objectifs} nom={this.state.nom}/>
+		  	<div className="fr-container">    
+        		<div className="fr-grid-row fr-grid-row--gutters">
+          			<div className="fr-col-lg-12">
+          				<h1 className="fr-my-6w">{this.state.nom}</h1>
+		  			
+		  				<h2 className="fr-mb-3w">Synthèse des effectifs par région</h2>
+		  				<Table regions={this.state.regions} mouvements={this.state.mouvements} objectifs={this.state.objectifs} nom={this.state.nom}/>
+		  			</div>
+		  		</div>
 		  	</div>
 		  	<Footer /> 
 		</div>

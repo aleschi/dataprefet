@@ -33,22 +33,20 @@ class Faq extends React.Component {
     return (  
 		<div>
 		  	<Header /> 
-		  	<div className="page_container">
-		  		<div className="titre_page">Données Personnelles</div>
-		  		<div className="d24"></div>
-				<div className="titre_etiquette">Cookies et respect de votre vie privée</div>
-				<div className="d12"></div>
-				<div className="texte_etiquette">
-					Ce site ne prélève aucune donnée à caractère personnel et ne fait intervenir aucuns cookies. 
-				</div>
-				<div className="d12"></div>
-				<div className="texte_etiquette">
-					Nous sommes ainsi en conformité avec la réglementation « Cookies » de la CNIL et exemptés d’autorisation préalable. C’est pour cela que vous n’avez pas eu besoin de cliquer sur un bloc pour accepter le dépôt de cookies ! 
-
-				</div>
-				
-				
-		  	</div>
+		  	<main role="main" className="fr-container fr-py-16v">
+				<div className="fr-grid-row">
+					<div className="fr-col-12 fr-col-md-8">
+						  	<h1>Données Personnelles et Gestion des Cookies </h1>
+						  	<section className="fr-py-6v">
+						  		<h2 className="fr-h5">Données personnelles</h2>
+								<p className="fr-mt-4v fr-mb-0">
+									Ce site ne prélève aucune donnée à caractère personnel et ne fait intervenir aucun cookies. 
+								</p>
+							</section>
+							
+						</div>
+					</div>
+				</main>
 		  	<Footer /> 
 		</div>
     );

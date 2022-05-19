@@ -1,45 +1,62 @@
-<div class="logo_header">
-  <%= image_tag 'logo_ministere2.svg'%>
-  <%= image_tag 'logo_repere3.svg', class: "image2"%>
-</div>
-<div class='w100'>
-
-
-    <div class="login_box">
+<header role="banner" class="fr-header">
+    <div class="fr-header__body">
+        <div class="fr-container">
+            <div class="fr-header__body-row">
+                <div class="fr-header__brand fr-enlarge-link">
+                    <div class="fr-header__brand-top">
+                        <div class="fr-header__logo">
+                            <p class="fr-logo">
+                                Ministère
+                                <br>de l'économie<br>des finances<br>et de la relance
+                            </p>
+                        </div>
+                    </div>
+                    <div class="fr-header__service">
+                        <a href="/" title="Accueil - SIMULAE">
+                          <p class="fr-header__service-title">REPERE3</p>
+                        </a>
+                        <p class="fr-header__service-tagline">REdéploiement entre Programmes des Emplois en REgion - 3%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="fr-container">    
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <div class="fr-col-lg-6 fr-col-offset-lg-3">
        
-      <h1 class="logo_connexion ">Connectez-vous</h1>
-      <div class="d32"></div>
+      <h1 class="fr-my-5w">Connectez-vous</h1>
       <%= form_for(resource, as: resource_name, url: session_path(resource_name),:html => {:id => "login"}, remote: true) do |f| %>
 
 
-        <div class="form">
-          <%= f.label :statut, "Se connecter en tant que" %>
-          <%= f.select :statut , [["CBR","CBR"], ["Prefet - SGARE","prefet"],["Ministère","ministere"], ["Direction du Budget","admin"]], {:include_blank => "- Sélectionner -"}, {class: "bs_none"} %>
+        <div class="fr-select-group">
+          <label class="fr-label" for="user_statut"> Se connecter en tant que </label>
+          <%= f.select :statut , [["CBR","CBR"], ["Prefet - SGARE","prefet"],["Ministère","ministere"], ["Direction du Budget","admin"]], {:include_blank => "- Sélectionner -"}, {class: "fr-select", id:'user_statut'} %>
         </div>
-        <div class="d24"></div>
-        <div id="region">
-          <div class="form">
-            <%= f.label :region_id, "Sur le périmètre " %>
-            <%= f.select :region_id, Region.all.pluck(:id).map {|s| [Region.find(s).nom, s]}, {:include_blank => "- Sélectionner -"}, {class: "bs_none region"} %>
-          </div>
-          <div class="d24"></div>
+ 
+     
+        <div class="fr-select-group" id="region">
+          <label class="fr-label" for="region_f">Sur le périmètre</label>
+          <%= f.select :region_id, Region.all.pluck(:id).map {|s| [Region.find(s).nom, s]}, {:include_blank => "- Sélectionner -"}, {class: "fr-select region", id: 'region_f'} %>
         </div>
-        <div id="ministere">
-          <div class="form">
-            <%= f.label :nom, "Sur le ministère " %>
-            <%= f.select :nom, Ministere.all.pluck(:nom).map {|s| [s, s]}, {:include_blank => "- Sélectionner -"}, {class: "bs_none ministere"} %>
-          </div>
-          <div class="d24"></div>
+    
+        <div class="fr-select-group" id="ministere">
+          <label class="fr-label" for="nom">Sur le ministère </label>
+          <%= f.select :nom, Ministere.all.pluck(:nom).map {|s| [s, s]}, {:include_blank => "- Sélectionner -"}, {class: "fr-select ministere", id: 'nom'} %>
         </div>
-        <div class="form">
-          <%= f.label :password, "Mot de passe" %>
-          <%= f.password_field :password,required: true, autocomplete: "current-password",class:"form-field password", id: "form-field2" %><a class="eye_icon"><i class="fas fa-eye"></i></a>
-        </div>
-        <div id='error-message' class="error"></div>
+    
 
-        <div class="d32"></div>
-        <div class="text-center">
-          <%= f.submit "Connexion", class:"bouton" %>
+        <div class="fr-input-group pr" id="motdepasse">
+          <label class="fr-label" for="password">Mot de passe</label>
+          <%= f.password_field :password,required: true, autocomplete: "current-password",class:"fr-input", id: "password" %>
+        </div>
+
+        <div id='error-message'></div>
+
+        <div class="d24"></div>
+        <div>
+          <%= f.submit "Connexion", class:"fr-btn" %>
         </div>
         <div class="d24"></div>
       <% end %>
@@ -74,13 +91,7 @@
     })
   });
 
-  $(".eye_icon").on('click',function() {
-  if ($(".password").attr('type') === 'password') {
-      $(".password").attr('type', 'text');
-  } else {
-      $(".password").attr('type', 'password');
-  }
-});
+
 
   $(document).ready(function() {
     //form id
@@ -93,7 +104,10 @@
     .bind("ajax:error", function(evt, xhr, status, error) {
       //function called on status: 401 or 500 (for ex.)
       //console.log(xhr.responseText);
-      $('#error-message').html("Mot de passe incorrect")
+      $('#error-message').html("Mot de passe incorrect");
+      $('#error-message').addClass('fr-error-text');
+      $('#password').addClass('fr-input--error');
+      $('#motdepasse').addClass('fr-input-group--error');
     });
   });
 

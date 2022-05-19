@@ -42,27 +42,31 @@ class Index_couts extends React.Component {
     return (  
 		<div>
 		  	<Header /> 
-		  	<div className="page_container">
-		  		<div className="titre_page">Répartition des coûts ETP annuels</div>
-		  		<div className="d24"></div>
-		  		<div>
-		  			<div  className="table">
-			    	<table className="table-striped">
-			      	<thead>
-			        <tr>
-			        	<th scope="col">Programme</th>
-			        	<th scope="col">Macrograde A</th>
-			        	<th scope="col">Macrograde B</th>
-			        	<th scope="col">Macrograde C</th>
-			        </tr>
-			      	</thead>
+		  	<div className="fr-container">    
+        		<div className="fr-grid-row fr-grid-row--gutters">
+          			<div className="fr-col-lg-12">
+          				<h1 className="fr-my-6w">Répartition des coûts ETP annuels</h1>
+		  	
+		  	
+			  			<div className="fr-table fr-mb-2w fr-table--no-caption">
+					    	<table>
+						      	<thead>
+						        <tr>
+						        	<th scope="col">Programme</th>
+						        	<th scope="col">Macrograde A</th>
+						        	<th scope="col">Macrograde B</th>
+						        	<th scope="col">Macrograde C</th>
+						        </tr>
+						      	</thead>
 
-			      	<tbody>
-		  				{this.displayRow()} 
-		  			</tbody>
-			    	</table>
-	    			</div> 
-	    			<div className='texte_info'>Source Base Pay </div>
+						      	<tbody>
+					  				{this.displayRow()} 
+					  			</tbody>
+					    	</table>
+		    			</div> 
+	    				<div className='fr-text--xs fr-mb-3w'>Source Base Pay </div>
+
+	    			</div>
 		  		</div>
 		  	</div>
 		  	<Footer /> 

@@ -92,7 +92,7 @@ class Checkbox_dropdown extends React.Component {
 				              <Dropdown.Toggle  className="table_dropdown_button"></Dropdown.Toggle>
 				              <Dropdown.Menu className="table_dropdown_menu">
 				                {this.state.array.map((arr, index) => (
-				                  <div key={index} className="texte_etiquette"><Checkbox value={arr} checked={this.state.selected.includes(arr)} name={arr} onChange={(event, value) => this.handleChange(event, value)} inputProps={{ 'aria-label': 'controlled' }}/>{arr}</div>
+				                  <div key={index}><Checkbox value={arr} checked={this.state.selected.includes(arr)} name={arr} onChange={(event, value) => this.handleChange(event, value)} inputProps={{ 'aria-label': 'controlled' }}/>{arr}</div>
 				                ))}
 				              </Dropdown.Menu>
 				            </Dropdown>

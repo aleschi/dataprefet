@@ -1,9 +1,6 @@
 import React from "react";
-import logoUrl from '../../assets/images/logo_ministere2.svg';
-import logoUrl2 from '../../assets/images/logo_repere3.svg';
 import { Link } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
-import { Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'react-bootstrap';
 
 class Header extends React.Component {
 	constructor(props) {
@@ -30,61 +27,90 @@ class Header extends React.Component {
 
 
     render() {
-    return (  
-		<div>
-		  	<div className="logo_header">
-		    	<img src={logoUrl} alt="logo DB" />
-		    	<img src={logoUrl2} alt="repere3" className='image2' />
-		  	</div>
-		  	<div className="nav_header_box">
-			  	<div className="nav_header">
-			  		
-			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/'>Accueil</NavLink></div> 
+    return (
+    <header role="banner" className="fr-header">
+		    <div className="fr-header__body">
+		        <div className="fr-container">
+		            <div className="fr-header__body-row">
+		                <div className="fr-header__brand fr-enlarge-link">
+		                    <div className="fr-header__brand-top">
+		                        <div className="fr-header__logo">
+		                            <p className="fr-logo">
+		                                Ministère
+                                		<br/>de l'économie<br/>des finances<br/>et de la relance
+		                            </p>
+		                        </div>
+		                        <div className="fr-header__navbar">
+		                            <button className="fr-btn--menu fr-btn fr-link" data-fr-opened="false" aria-controls="modal-833" aria-haspopup="menu" title="Menu" id="fr-btn-menu-mobile">
+		                                Menu
+		                            </button>
+		                        </div>
+		                    </div>
+		                    <div className="fr-header__service">
+		                        <a href="/" title="Accueil - Repere3 | Direction du Budget">
+		                            <p className="fr-header__service-title">REPERE3</p>
+		                        </a>
+		                        <p className="fr-header__service-tagline">REdéploiement entre Programmes des Emplois en REgion - 3%</p>
+		                    </div>
+		                </div>
+		                <div className="fr-header__tools">
+		                    <div className="fr-header__tools-links">
+		                        <ul className="fr-links-group">
+		                        	
+		                            {this.state.isLoggedIn ?
+		                            <li>
+		                                <a className="fr-link fr-fi-logout-box-r-line" data-method="delete" href="/logout">Se déconnecter</a>
+		                            </li>
+		                            :
+		                            <li>
+		                                <a className="fr-link fr-fi-lock-line" href="/connexion">Se connecter</a>
+		                            </li>
+		                            }
+		                        </ul>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div className="fr-header__menu fr-modal" id="modal-833" aria-labelledby="fr-btn-menu-mobile">
+		        <div className="fr-container">
+		            <button className="fr-btn--close fr-link" aria-controls="modal-833">Fermer</button>
+		            <div className="fr-header__menu-links fr-hidden"></div>
+		            <nav className="fr-nav" id="navigation-832" role="navigation" aria-label="Menu principal">
+		                <ul className="fr-nav__list">
+		                    <li className="fr-nav__item">
+		                        <NavLink exact to='/' activeClassName="fr-nav__link" className="fr-nav__link" target="_self" >Accueil</NavLink>
+		                    </li>
+		                    { (this.state.statut=="admin" || this.state.statut=="ministere") &&
+		                    <li className="fr-nav__item">
+		                        <NavLink exact to="/mouvements-globaux" activeClassName="fr-nav__link" className="fr-nav__link" target="_self">Historique des redéploiements</NavLink>
+		                    </li>
+		                    }
+		                    { (this.state.statut=="CBR" || this.state.statut=="prefet") &&
+		                    <li className="fr-nav__item">
+		                        <NavLink exact to="/historique" activeClassName="fr-nav__link" className="fr-nav__link" target="_self">Historique des redéploiements</NavLink>
+		                    </li>
+		                    }
+		                    { (this.state.statut=="CBR") &&
+		                    <li className="fr-nav__item">
+		                        <NavLink exact to="/mouvements" activeClassName="fr-nav__link" className="fr-nav__link" target="_self">Créer un redéploiement</NavLink>
+		                    </li>
+		                    }
 
-			  		{ (this.state.statut=="admin" || this.state.statut=="ministere") &&
-			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/mouvements-globaux'>Historique des redéploiements</NavLink></div> }
+		                    <li className="fr-nav__item">
+		                        <NavLink exact to="/couts-etp" activeClassName="fr-nav__link" className="fr-nav__link" target="_self">Tableau coûts ETP annuels</NavLink>
+		                    </li>
 
-			  		{ (this.state.statut=="CBR" || this.state.statut=="prefet") &&
-			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/historique'>Historique des redéploiements</NavLink></div> }
+		                    <li className="fr-nav__item">
+		                        <NavLink exact to="/faq" activeClassName="fr-nav__link" className="fr-nav__link" target="_self">FAQ</NavLink>
+		                    </li>
+		                </ul>
+		            </nav>
+		        </div>
+		    </div>
+		</header>
 
-
-			  		{ (this.state.statut=="CBR") &&
-			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/mouvements'>Créer un redéploiement</NavLink></div> }
-			  		
-			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/couts-etp'>Tableau coûts ETP annuels</NavLink></div> 
-
-			  		
-			  		<div className="nav_link d-none d-md-block"><NavLink className={({ isActive }) => (isActive ? 'nav_link nav_link_active' : 'nav_link')} to='/faq'>FAQ</NavLink></div> 
-
-
-			  		
-			  		<Dropdown className="user_dropdown">
-			  			<Dropdown.Toggle  className="user_dropdown_button"><i className="fas fa-user-circle"></i></Dropdown.Toggle>
-			  			<Dropdown.Menu className="">
-
-			  				<div className="nav_link d-md-none"><Link to='/'>Accueil</Link></div>
-
-			  				{ (this.state.statut=="admin" || this.state.statut=="ministere") &&
-					  		<div className="nav_link d-md-none"><Link to='/mouvements-globaux'>Historique des mouvements</Link></div> }
-
-					  		{ (this.state.statut=="CBR" || this.state.statut=="prefet") &&
-					  		<div className="nav_link d-md-none"><Link to='/historique'>Historique des déploiements</Link></div> } 
-
-					  		{ (this.state.statut=="CBR") &&
-			  				<div className="nav_link d-md-none"><Link to='/mouvements'>Créer un redéploiement</Link></div> }
-
-			  				<div className="nav_link d-md-none"><Link to='/couts-etp'>Tableau coûts ETP annuels</Link></div> 
-
-			  				{ (this.state.statut=="CBR") &&
-			  				<div className="nav_link d-md-none"><Link to='/faq'>FAQ</Link></div> }
-			  				
-			  				<div className="nav_link"><a rel="nofollow" data-method="delete" href="/logout" >Se déconnecter</a></div> 
-			  			</Dropdown.Menu>
-			  		</Dropdown>
-
-			  	</div>
-		  	</div>
-	    </div>
+		
     );
     }
 }
