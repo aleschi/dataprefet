@@ -30,7 +30,7 @@ class Home extends React.Component {
 			<IndexDB/>
 			}
 			{ (this.state.statut=="CBR" || this.state.statut=="prefet") &&
-			<Vueprogramme />
+			<Vueprogramme statut={this.state.statut}/>
 			}
 		</div>
     );

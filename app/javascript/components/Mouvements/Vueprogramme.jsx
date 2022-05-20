@@ -18,6 +18,7 @@ class Vueprogramme extends React.Component {
 	    	etp_supp: 0,
 	    	etpt_supp:0,
 	    	region_id: 0,
+	    	statut: this.props.statut,
 	    }
 	}
 	componentDidMount() {
@@ -33,6 +34,12 @@ class Vueprogramme extends React.Component {
       	.catch(error => console.log(error.message));
     }
 
+    componentDidUpdate(prevProps) {
+      if (this.props.statut !== prevProps.statut) {
+        this.setState({statut: this.props.statut});
+      }
+    }
+
     render() {
     
     return (  
@@ -41,7 +48,7 @@ class Vueprogramme extends React.Component {
 		  	<div className="fr-container">    
         		<div className="fr-grid-row fr-grid-row--gutters">
           			<div className="fr-col-lg-12">
-          				<h1 className="fr-my-6w">{this.state.region}</h1>
+          				<h1 className="fr-my-6w">{ (this.state.statut == "CBR") ? <span>CBR </span> : <span>Préfet </span> } {this.state.region}</h1>
 		  			</div>
 		  		</div>
 		  		<div className="fr-grid-row fr-grid-row--gutters">

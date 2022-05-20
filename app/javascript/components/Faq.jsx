@@ -2,8 +2,6 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 
-import { Accordion } from "react-bootstrap";
-
 class Faq extends React.Component {
 	constructor(props) {
 	    super(props);
@@ -40,7 +38,7 @@ class Faq extends React.Component {
 		  		
 		  		<div className="fr-mb-2w">Cette foire aux questions se propose de recenser et d’apporter des éléments de réponse aux interrogations des acteurs du dispositif. Pour toutes vos questions et besoins de renseignements supplémentaires, veuillez nous contacter par mail à l'adresse mail suivante : <a href="mailto:declic.budget@finances.gouv.fr" target="_blank">declic.budget@finances.gouv.fr</a></div>
 		  		
-		  		{ (this.state.statut=="CBR") &&
+		  		{ (this.state.statut=="CBR" || this.state.statut=="admin") &&
 		  		<div className="fr-mb-2w fr-downloads-group fr-downloads-group--bordered">
 		  			<ul><li>
 		  			<div className="fr-download"><p><a className="fr-download__link" href="/Memo.pdf" download>Télécharger le mémo outil pour CBR <span className="fr-download__detail">PDF – 119 ko</span></a></p></div>

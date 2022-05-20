@@ -152,14 +152,14 @@ p{
   padding-left:8px;
   padding-right:8px;
 }
-.css-319lph-ValueContainer{
+.css-319lph-ValueContainer, .css-1d8n9bt, .css-ackcql{
   padding:0px !important;
 }
 .css-14el2xx-placeholder, .css-tlfecz-indicatorContainer{
   color:var(--text-title-grey) !important;
   
 }
-.css-1hb7zxy-IndicatorsContainer{
+.css-1hb7zxy-IndicatorsContainer,.css-tlfecz-indicatorContainer, .css-1gtu0rj-indicatorContainer{
   display: none !important;
 }
 .css-26l3qy-menu{
@@ -167,7 +167,7 @@ p{
 }
 
 .total{
-  background-color:#F5F9FF !important;
+  background-color:var(--blue-france-950-100) !important;
 }
 .bouton_delete{
   background-color:transparent;
@@ -248,20 +248,73 @@ p{
     border:none;
   }
 }
+.table_dropdown_button::after {
+  content: "";
+  flex: 0 0 auto;
+  display: inline-block;
+  //vertical-align: middle;
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image:image-url("icons/system/arrow-down-s-line.svg");
+  mask-image:image-url("icons/system/arrow-down-s-line.svg");
+  --icon-size: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+  transition: transform 0.3s;
+}
 
+.table_dropdown_button[aria-expanded="true"]::after {
+  transform: rotate(-180deg);
+}
 .table_dropdown_menu{
   border:none !important;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   -o-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  padding: 8px 4px;
+  padding: 8px 14px 8px 4px;
   inset:15px auto auto 0px !important;
   transform: translate(0px,10px) !important;
+  background-color:#fff !important;
 }
 .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.Mui-checked, .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate{
   color:var(--background-action-high-blue-france) !important;
 }
 .fr-header .fr-links-group .fr-link[class^="fr-icon-"], .fr-header .fr-links-group .fr-link[class*=" fr-icon-"], .fr-header .fr-links-group .fr-link[class^="fr-fi-"], .fr-header .fr-links-group .fr-link[class*=" fr-fi-"] {
   border-radius:1rem;
+}
+
+.react-datepicker{
+  border:none !important;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0,0.1), 0 8px 16px -16px rgba(0, 0, 0,0.32) !important;
+  border-radius:0px !important;
+}
+.react-datepicker__header{
+  background-color: var(--background-action-high-blue-france) !important;
+  --hover: var(--background-action-high-blue-france-hover) !important;
+  --active: var(--background-action-high-blue-france-active) !important;
+  color: var(--text-inverted-blue-france) !important;
+  border:none !important;
+  border-radius:0px !important;
+}
+.react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected, .react-datepicker__quarter-text--keyboard-selected, .react-datepicker__year-text--keyboard-selected{
+  background-color: var(--background-action-high-blue-france) !important;
+  --hover: var(--background-action-high-blue-france-hover) !important;
+  --active: var(--background-action-high-blue-france-active) !important;
+  color: var(--text-inverted-blue-france) !important;
+  border-radius:0px !important;
+  &:hover{
+  border-radius:0px !important;
+  }
+}
+.react-datepicker__month-text{
+  &:hover{
+  border-radius:0px !important;
+  }
+}
+.react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header,.react-datepicker__day-name{
+  color: var(--text-inverted-blue-france) !important;
 }

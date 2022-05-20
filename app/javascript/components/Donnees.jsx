@@ -2,9 +2,9 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 
-import { Accordion } from "react-bootstrap";
 
-class Faq extends React.Component {
+
+class Donnees extends React.Component {
 	constructor(props) {
 	    super(props);
 	    this.state = { 
@@ -53,6 +53,6 @@ class Faq extends React.Component {
     }
 }
 
-export default Faq;
+export default Donnees;
 
 

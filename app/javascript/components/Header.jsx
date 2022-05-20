@@ -79,30 +79,30 @@ class Header extends React.Component {
 		            <nav className="fr-nav" id="navigation-832" role="navigation" aria-label="Menu principal">
 		                <ul className="fr-nav__list">
 		                    <li className="fr-nav__item">
-		                        <NavLink exact to='/' activeClassName="fr-nav__link" className="fr-nav__link" target="_self" >Accueil</NavLink>
+		                        <NavLink  to='/' className={(navData) => (navData.isActive ? "fr-nav__link" : 'fr-nav__link')} target="_self" >Accueil</NavLink>
 		                    </li>
 		                    { (this.state.statut=="admin" || this.state.statut=="ministere") &&
 		                    <li className="fr-nav__item">
-		                        <NavLink exact to="/mouvements-globaux" activeClassName="fr-nav__link" className="fr-nav__link" target="_self">Historique des redéploiements</NavLink>
+		                        <NavLink  to="/mouvements-globaux" className={(navData) => (navData.isActive ? "fr-nav__link" : 'fr-nav__link')} target="_self">Historique des redéploiements</NavLink>
 		                    </li>
 		                    }
 		                    { (this.state.statut=="CBR" || this.state.statut=="prefet") &&
 		                    <li className="fr-nav__item">
-		                        <NavLink exact to="/historique" activeClassName="fr-nav__link" className="fr-nav__link" target="_self">Historique des redéploiements</NavLink>
+		                        <NavLink  to="/historique" className={(navData) => (navData.isActive ? "fr-nav__link" : 'fr-nav__link')} target="_self">Historique des redéploiements</NavLink>
 		                    </li>
 		                    }
 		                    { (this.state.statut=="CBR") &&
 		                    <li className="fr-nav__item">
-		                        <NavLink exact to="/mouvements" activeClassName="fr-nav__link" className="fr-nav__link" target="_self">Créer un redéploiement</NavLink>
+		                        <NavLink  to="/mouvements" className={(navData) => (navData.isActive ? "fr-nav__link" : 'fr-nav__link')} target="_self">Créer un redéploiement</NavLink>
 		                    </li>
 		                    }
 
 		                    <li className="fr-nav__item">
-		                        <NavLink exact to="/couts-etp" activeClassName="fr-nav__link" className="fr-nav__link" target="_self">Tableau coûts ETP annuels</NavLink>
+		                        <NavLink  to="/couts-etp" className={(navData) => (navData.isActive ? "fr-nav__link" : 'fr-nav__link')} target="_self">Tableau coûts ETP annuels</NavLink>
 		                    </li>
 
 		                    <li className="fr-nav__item">
-		                        <NavLink exact to="/faq" activeClassName="fr-nav__link" className="fr-nav__link" target="_self">FAQ</NavLink>
+		                        <NavLink  to="/faq"  target="_self" className={(navData) => (navData.isActive ? "fr-nav__link" : 'fr-nav__link')}>FAQ</NavLink>
 		                    </li>
 		                </ul>
 		            </nav>

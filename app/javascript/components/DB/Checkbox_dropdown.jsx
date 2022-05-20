@@ -1,5 +1,4 @@
 import React from "react";
-import { Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'react-bootstrap';
 import Moment from 'moment';
 import Checkbox from '@mui/material/Checkbox';
 
@@ -85,17 +84,20 @@ class Checkbox_dropdown extends React.Component {
     };
 
     render() {
-   
+    
     return (  
+
+        <div className="table_dropdown_box pa">
+          <button className="table_dropdown_button" aria-expanded="false" aria-controls={this.state.name} aria-current="true"></button>
+          <div className="fr-collapse table_dropdown_menu" id={this.state.name} >
+
+            {this.state.array.map((arr, index) => (
+                          <div key={index}><Checkbox value={arr} checked={this.state.selected.includes(arr)} name={arr} onChange={(event, value) => this.handleChange(event, value)} inputProps={{ 'aria-label': 'controlled' }}/>{arr}</div>
+                        ))}
+          </div>
+        </div>
 		
-				        	<Dropdown className="table_dropdown_box pa">
-				              <Dropdown.Toggle  className="table_dropdown_button"></Dropdown.Toggle>
-				              <Dropdown.Menu className="table_dropdown_menu">
-				                {this.state.array.map((arr, index) => (
-				                  <div key={index}><Checkbox value={arr} checked={this.state.selected.includes(arr)} name={arr} onChange={(event, value) => this.handleChange(event, value)} inputProps={{ 'aria-label': 'controlled' }}/>{arr}</div>
-				                ))}
-				              </Dropdown.Menu>
-				            </Dropdown>
+				        	
 				           
     );
     }

@@ -44,7 +44,7 @@ class Index_couts extends React.Component {
 		  	<Header /> 
 		  	<div className="fr-container">    
         		<div className="fr-grid-row fr-grid-row--gutters">
-          			<div className="fr-col-lg-12">
+          			<div className="fr-col-lg-12 fr-col-sm-12">
           				<h1 className="fr-my-6w">Répartition des coûts ETP annuels</h1>
 		  	
 		  	
