@@ -82,6 +82,7 @@ class Faq extends React.Component {
 							<div><b>•	Plafonds 2022 </b>: cet effectif est mesuré en équivalents temps plein travaillés (ETPT) et donne une vision plus opérationnelle rapportée au temps (mois) de l’effectif dont peut disposer le RBOP régional (préfet de région) sur l’ensemble du champ constitué par les programmes inclus dans l’administration territoriale de l’Etat (ATE).</div>
 							<div><b>•	ETP redéployés </b>: cette notion mesure en ETP l’impact des redéploiements opérés en région par application du dispositif décrit dans la circulaire conjointe MTFP-MCP du 22/12/2021. La donnée est de zéro en début d’exercice et progresse jusqu’à un maximum constitué par le produit de l’effectif-cible (ETP) et de 3% (solde 2022).</div>
 							<div><b>•	Solde 2022 </b>: cette donnée mesure en ETP la capacité maximale de redéploiement d’emplois sur une région donnée (produit de l’effectif-cible et de 3%). </div>
+							<div><b>•	N° ref mouvement</b>: ce numéro permet d'identifier les ajouts liés à une suppression. Chaque ajout a ainsi le même numéro de référence que la suppression à laquelle il est lié. Un numéro égal à "Nul" s'explique dans le cas où le mouvement de suppression a été supprimé par le CBR mais que les ajouts liés ont été conservés (il est dans ce cas conseillé de supprimer également les ajouts liés).</div>
 					    </div>
 				  	</section>
 

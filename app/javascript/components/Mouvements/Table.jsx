@@ -106,10 +106,12 @@ class Table extends React.Component {
     displayRow = () => {
     	return this.state.mouvements.map((mouvement, index) => {
     		if (mouvement.type_mouvement == "ajout"){
-	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><p className="fr-badge fr-badge--green-emeraude">{mouvement.type_mouvement}</p> {(mouvement.ponctuel == true) && <p className="fr-badge fr-badge--green-emeraude"> Ponctuel</p>}</td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td>{(this.state.statut == "CBR") && <td><button className="bouton_delete" onClick={e => this.deleteMouvement(e, mouvement)}><span className="fr-icon-delete-fill fr-fi--md" aria-hidden="true"></span></button></td> }</tr>
+	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><p className="fr-badge fr-badge--green-emeraude">{mouvement.type_mouvement}</p> {(mouvement.ponctuel == true) && <p className="fr-badge fr-badge--green-emeraude"> Ponctuel</p>}</td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td><td>{(mouvement.mouvement_lien == null) ? <span>Nul</span> : <span>N{mouvement.mouvement_lien}</span> }{(this.state.statut == "CBR") && <button className="bouton_delete" onClick={(e) => { const confirmBox = window.confirm("Êtes-vous sûrs de vouloir supprimer ce mouvement ?")
+          if (confirmBox === true) {this.deleteMouvement(e, mouvement)}}}><span className="fr-icon-delete-fill fr-fi--sm" aria-hidden="true"></span></button>}</td></tr>
 	        }
 	        else if (mouvement.type_mouvement == "suppression"){
-	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><p className="fr-badge fr-badge--blue-cumulus">{mouvement.type_mouvement}</p></td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td>{(this.state.statut == "CBR") && <td><button className="bouton_delete" onClick={e => this.deleteMouvement(e, mouvement)}><span className="fr-icon-delete-fill fr-fi--md" aria-hidden="true"></span></button></td>}</tr>
+	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><p className="fr-badge fr-badge--blue-cumulus">{mouvement.type_mouvement}</p></td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td><td>N{mouvement.id} {(this.state.statut == "CBR") &&<button className="bouton_delete" onClick={(e) => { const confirmBox = window.confirm("Êtes-vous sûrs de vouloir supprimer ce mouvement ?")
+          if (confirmBox === true) {this.deleteMouvement(e, mouvement)}}}><span className="fr-icon-delete-fill fr-fi--sm" aria-hidden="true"></span></button>}</td></tr>
 	        }	        	
     	})
     };
@@ -147,7 +149,7 @@ class Table extends React.Component {
 	          <th scope="col">Date effective <button onClick={() => {this.sortTable('date_effet')}} id="valeur" className="pa padding-none"><span className="fr-icon-arrow-down-line fr-fi--sm fr-hidden" aria-hidden="true"></span></button></th>	 
             <th scope="col">Mouvements en gestion (LFR)</th> 
             <th scope="col">Mouvements en base (PLF N+1)</th>   
-            {(this.state.statut == "CBR") && <th scope="col" className="w0"></th> }	
+            <th scope="col">N° ref mouvement</th> 
 	        </tr>
 	      	</thead>
 

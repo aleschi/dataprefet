@@ -100,6 +100,20 @@ class Api::V1::MouvementsController < ApplicationController
   end
 
   def destroy
+    Mouvement.where(type_mouvement: 'ajout').all.each do |m|
+      if !m.mouvement_lien.nil?
+        if Mouvement.where(id: m.mouvement_lien).count == 0 
+          m.mouvement_lien = ''
+          m.save
+        end
+      end 
+    end
+    if Mouvement.where(mouvement_lien: mouvement&.id).count > 0 
+      Mouvement.where(mouvement_lien: mouvement&.id).each do |m|
+        m.mouvement_lien = ''
+        m.save 
+      end
+    end 
     mouvement&.destroy
     mouvements = Mouvement.where(user_id: current_user.id).order(created_at: :desc)
     response = { mouvements: mouvements.as_json(:include => [:programme,:service,]) }
