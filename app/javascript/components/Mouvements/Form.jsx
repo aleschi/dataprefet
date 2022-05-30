@@ -48,10 +48,11 @@ class Form extends React.Component {
 	      mouvements: [],
 	    };
 
-	    this.onChange = this.onChange.bind(this);
+	    this.DateChange = this.DateChange.bind(this);
 	    this.onSubmit = this.onSubmit.bind(this);
 	    this.stripHtmlEntities = this.stripHtmlEntities.bind(this);
 	    this.handleCheck = this.handleCheck.bind(this);
+	    this.handleChange = this.handleChange.bind(this);
   	}
 
   	componentDidMount() {
@@ -73,7 +74,8 @@ class Form extends React.Component {
 	      .replace(/>/g, "&gt;");
   	}
 
-  	onChange(event) {
+  	DateChange(event) {
+
     	this.setState({ date_effet: event });
   	}
 
@@ -108,6 +110,7 @@ class Form extends React.Component {
   	}
 
   	handleChange = name => value => {
+  		console.log(name);
 	    this.setState({ [name]: value,}, function() {
 	    	if (this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "ajout"){
 		    	if (this.state.grade !== null && this.state.quotite !== null && this.state.programme_id !== null && this.state.service_id !== null && this.state.date_effet !== null && this.state.mouvement_id !== null){
@@ -157,6 +160,8 @@ class Form extends React.Component {
 	    };   	
   	};
 
+
+
   	handleCheck(event) {
 		this.setState({[event.target.name]: event.target.checked});
   	}
@@ -174,6 +179,7 @@ class Form extends React.Component {
 	  value: service.id,
 	  name: "service_id"
 	}));
+
 
 	const mouvements_liste = this.state.mouvements.filter(mouvement => mouvement.type_mouvement == "suppression").map(mouvement => ({
 	  label: 'ETP ' + mouvement.grade + ' - ' + mouvement.quotite*100 + '% - Programme ' + mouvement.programme.numero + ' (fait le ' + mouvement.date + ')'  ,
@@ -257,7 +263,8 @@ class Form extends React.Component {
 				                
 				               
 				                <Select
-								        value={this.state.quotite}
+								        value={this.state.quotite} 
+
 								        onChange={this.handleChange('quotite')}
 								        options={quotites}
 								        placeholder="- Sélectionner -"
@@ -270,7 +277,7 @@ class Form extends React.Component {
 
 			            <div className="fr-select-group">
 							<label className="fr-label">Date effective</label>
-				            	<DatePicker placeholderText="JJ/MM/YYYY" selected={this.state.date_effet} locale="fr" onChange= {this.onChange} dateFormat="dd/MM/yyyy" minDate={new Date(2022,0,1)} maxDate={new Date(2022,11,31)}/>
+				            	<DatePicker placeholderText="JJ/MM/YYYY" selected={this.state.date_effet} locale="fr" onChange= {this.DateChange} dateFormat="dd/MM/yyyy" minDate={new Date(2022,0,1)} maxDate={new Date(2022,11,31)}/>
 				        </div>
 
 			            <div className="fr-select-group">

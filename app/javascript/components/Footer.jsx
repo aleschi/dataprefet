@@ -6,11 +6,11 @@ const Footer = () => (
 	    <div className="fr-container">
 	        <div className="fr-footer__body">
 	            <div className="fr-footer__brand fr-enlarge-link">
-	                <a href="/" title="Retour à l’accueil">
+	              
 	                    <p className="fr-logo" title="république française">
 	                        Ministère<br/>de l'économie<br/>des finances<br/>et de la relance
 	                    </p>
-	                </a>
+	              
 	            </div>
 	            <div className="fr-footer__content">
 	               	<p className="fr-footer__content-desc">Besoin d'aide ? contactez-nous à l'adresse mail <a href="mailto:declic.budget@finances.gouv.fr" target="_blank">declic.budget@finances.gouv.fr</a></p>
