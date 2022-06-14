@@ -94,6 +94,8 @@ class Checkbox_dropdown extends React.Component {
             {this.state.array.map((arr, index) => (
                           <div key={index}><Checkbox value={arr} checked={this.state.selected.includes(arr)} name={arr} onChange={(event, value) => this.handleChange(event, value)} inputProps={{ 'aria-label': 'controlled' }}/>{arr}</div>
                         ))}
+
+            
           </div>
         </div>
 		

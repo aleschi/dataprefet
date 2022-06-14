@@ -7,7 +7,7 @@ import fr from 'date-fns/locale/fr';
 registerLocale('fr', fr)
 import Select from 'react-select';
 
-import New_recap from "./New_recap";
+
 import Checkbox from '@mui/material/Checkbox';
 
 const grades = [
@@ -30,12 +30,12 @@ const quotites = [
 	];
 
 
-class Form extends React.Component {
+class Form2 extends React.Component {
 	constructor(props) {
 	    super(props);
 	    this.state = {
 	      date_effet: null,
-	      type_mouvement: null,
+	     isValid: false,
 	      grade: null,
 	      quotite: null,
 	      programme_id: null,
@@ -43,20 +43,18 @@ class Form extends React.Component {
 	      service_id: null,
 	      programmes: [],
 	      services: [],
-	      isValid: false,
-	      ponctuel: false,
 	      mouvements: [],
 	    };
 
 	    this.DateChange = this.DateChange.bind(this);
 	    this.onSubmit = this.onSubmit.bind(this);
 	    this.stripHtmlEntities = this.stripHtmlEntities.bind(this);
-	    this.handleCheck = this.handleCheck.bind(this);
+	   	this.handleChange1 = this.handleChange1.bind(this);
 	    this.handleChange = this.handleChange.bind(this);
   	}
 
   	componentDidMount() {
-    	const url = "/api/v1/mouvements/index";
+    	const url = "/api/v1/mouvements/mouvements_globaux";
     	fetch(url)
       	.then(response => {
         if (response.ok) {
@@ -82,12 +80,12 @@ class Form extends React.Component {
 
   	onSubmit(event) {
     	event.preventDefault();
-    	const url = "/api/v1/mouvements/create";
+    	const url = "/api/v1/mouvements/update";
     	
-    	const { date_effet, type_mouvement, grade, quotite, programme_id, service_id, ponctuel, mouvement_id} = this.state;
+    	const { date_effet, grade, quotite, programme_id, service_id, mouvement_id} = this.state;
 
 	    const body = {
-	       date_effet, type_mouvement, grade, quotite, programme_id, service_id,ponctuel,mouvement_id
+	       date_effet, grade, quotite, programme_id, service_id,mouvement_id
 	    };
 
     	const token = document.querySelector('meta[name="csrf-token"]').content;
@@ -109,31 +107,43 @@ class Form extends React.Component {
 	      .catch(error => console.log(error.message));
   	}
 
+  	handleChange1(event) {
+  	
+
+  		const url = "/api/v1/mouvements/get_mouvement";
+	    	const mouvement_id = event.value;
+	    	const body = { mouvement_id};
+
+	    	const token = document.querySelector('meta[name="csrf-token"]').content;
+		    fetch(url, {
+		      method: "POST",
+		      headers: {
+		        "X-CSRF-Token": token,
+		        "Content-Type": "application/json"
+		      },
+		      body: JSON.stringify(body)
+		    })
+		    .then(response => {
+		        if (response.ok) {
+		          return response.json();
+		        }
+		        throw new Error("Network response was not ok.");
+		      })
+		      .then(response => this.setState({ mouvement_id: response.mouvement_id, grade: response.grade, quotite: response.quotite, date_effet: new Date(response.mouvement.date_effet), programme_id: response.programme_id, services: response.services, service_id: response.service_id }))
+		      .catch(error => console.log(error.message));
+  	}
+
   	handleChange = name => value => {
-  		
+  	
 	    this.setState({ [name]: value,}, function() {
-	    	if (this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "ajout"){
+	   
 		    	if (this.state.grade !== null && this.state.quotite !== null && this.state.programme_id !== null && this.state.service_id !== null && this.state.date_effet !== null && this.state.mouvement_id !== null){
 		    	this.setState({ isValid: true});
 		    	}
 		    	else {
 		    	this.setState({ isValid: false});
-		    	}
-	    	}
-	    	else if (this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "suppression"){
-		    	if (this.state.grade !== null && this.state.quotite !== null && this.state.programme_id !== null && this.state.service_id !== null && this.state.date_effet !== null){
-		    	this.setState({ isValid: true});
-		    	}
-		    	else {
-		    	this.setState({ isValid: false});
-		    	}
-	    	}
-	    	else {
-	    		this.setState({ isValid: false});
-	    	}
+		    	}	
 	    });
-
-	    
 
 	    if ([name] == 'programme_id'){
 	    	const url = "/api/v1/mouvements/get_services";
@@ -160,11 +170,6 @@ class Form extends React.Component {
 	    };   	
   	};
 
-
-
-  	handleCheck(event) {
-		this.setState({[event.target.name]: event.target.checked});
-  	}
   	
     render() {
    
@@ -181,58 +186,27 @@ class Form extends React.Component {
 	}));
 
 
-	const mouvements_liste = this.state.mouvements.filter(mouvement => mouvement.type_mouvement == "suppression").map(mouvement => ({
-	  label: 'ETP ' + mouvement.grade + ' - ' + mouvement.quotite*100 + '% - Programme ' + mouvement.programme.numero + ' - N' + mouvement.id ,
+	const mouvements_liste = this.state.mouvements.map(mouvement => ({
+	  label: mouvement.type_mouvement + '- ETP ' + mouvement.grade + ' - ' + mouvement.quotite*100 + '% - Programme ' + mouvement.programme.numero + ' - N' + mouvement.id + ' - ' + mouvement.service.nom ,
 	  value: mouvement.id,
 	  name: "mouvement_id"
 	}));
-
-	if (this.state.mouvements.filter(mouvement => mouvement.type_mouvement == "suppression").length > 0) {
-	var type_mouvement = [
-	{ value: 'suppression', label: "Suppression d'un ETP", name: "type_mouvement"  },
-	{ value: 'ajout', label: "Ajout d'un ETP", name: "type_mouvement" },	  
-	];
-	} else {
-	var type_mouvement = [
-	{ value: 'suppression', label: "Suppression d'un ETP", name: "type_mouvement"  },	  
-	];
-	}
-
-
+	
+	console.log(this.state.grade);
     return (  
     	<div className="fr-grid-row fr-grid-row--gutters">
             <div className="fr-col-lg-6">
 				
 				<form onSubmit={this.onSubmit}>
 
-					<div className="fr-select-group">
-						<label className="fr-label">Type de mouvement</label>
-						
-						  
-			            <Select
-			                	
-			                	id="type_mouvement"
-						        value={this.state.type_mouvement}
-						        onChange={this.handleChange('type_mouvement')}
-						        options={type_mouvement}
-						        placeholder="- Sélectionner -"
-						        components={{ IndicatorSeparator: () => null }}
-						/>
-			            
-			        </div>
 
-			            {(this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "ajout") &&
 			            <div className="fr-select-group">
-				            <div className="fr-mb-2w">Si le redéploiement concerne un emploi ponctuel*, veuillez cocher la case : <Checkbox checked={this.state.ponctuel} name="ponctuel" onChange={this.handleCheck} inputProps={{ 'aria-label': 'controlled' }}/></div>
-				            
-				            <div className="fr-mb-2w fr-text--xs">*un emploi ponctuel est un poste qui répond à une politique prioritaire ministérielle nécessitant des recrutements spécifiques et exceptionnels en cours d’année</div>
 
-				       		
-							<label className="fr-label">Ajout suite à la suppression : </label>
+							<label className="fr-label">Mouvement :</label>
 				           
 				            <Select
 								        value={this.state.mouvement_id}
-								        onChange={this.handleChange('mouvement_id')}
+								        onChange={this.handleChange1}
 								        options={mouvements_liste}
 								        placeholder="- Sélectionner -"
 								        components={{ IndicatorSeparator: () => null }}
@@ -240,7 +214,7 @@ class Form extends React.Component {
 			
 				           
 			            </div>
-			            }
+			          
 			          
 			          	<div className="fr-grid-row fr-grid-row--gutters fr-mb-2w">
 			          		<div className="fr-col-lg-6">
@@ -309,20 +283,17 @@ class Form extends React.Component {
 
 			           
 
-			            <div className="text-center">{ this.state.isValid ? <button type="submit" className="fr-btn">Valider</button> : <span className="fr-btn bouton_inactif">Valider</span>} </div>
+			            <div className="text-center"><button type="submit" className="fr-btn">Valider</button> </div>
 
 			            <div className="d24"></div>
 					</form>
 				
-			</div>
-			<div className="fr-col-lg-6">
-				<New_recap type_mouvement={this.state.type_mouvement} mouvement_id={this.state.mouvement_id} quotite={this.state.quotite}/>
 			</div>
 		</div>
     );
     }
 }
 
-export default Form;
+export default Form2;
 
 

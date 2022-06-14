@@ -94,6 +94,12 @@ class Api::V1::MouvementsController < ApplicationController
   end
 
   def update
+    if params[:mouvement_id][:value]
+      mouvement = Mouvement.where(id: params[:mouvement_id][:value]).first
+      mouvement.update(grade: params[:grade][:value], quotite: params[:quotite][:value].to_f, programme_id: params[:programme_id][:value], service_id: params[:service_id][:value])
+      mouvement.save
+      render json: mouvement
+    end 
   end
 
   def edit
@@ -126,6 +132,20 @@ class Api::V1::MouvementsController < ApplicationController
       response = {services: services}
       render json: response
     end
+  end 
+
+  def get_mouvement
+    if params[:mouvement_id]
+      mouvement = Mouvement.where(id: params[:mouvement_id]).first
+      mouvement_id = {label: mouvement.type_mouvement + '- ETP ' + mouvement.grade + ' - ' + (mouvement.quotite*100).to_i.to_s + '% - Programme ' + mouvement.programme.numero.to_s + ' - N' + mouvement.id.to_s + ' - ' + mouvement.service.nom ,value: mouvement.id,name: "mouvement_id"}
+      grade = { value: mouvement.grade, label: mouvement.grade, name:"grade" }
+      quotite = { value: mouvement.quotite, label: (mouvement.quotite*100).to_i.to_s+'%', name:"quotite" }
+      programme_id = {label: mouvement.programme.numero.to_s + ' - ' + mouvement.programme.ministere.nom ,value: mouvement.programme.id,name: "programme_id"}
+      service_id = {label: mouvement.service.nom,value: mouvement.service.id,name: "service_id"}
+      services = Service.where(programme_id: mouvement.programme_id)
+      response = {mouvement: mouvement, mouvement_id: mouvement_id, grade: grade, quotite: quotite, programme_id: programme_id, services: services, service_id: service_id}
+      render json: response
+    end 
   end 
 
   def sort_table
@@ -170,10 +190,10 @@ class Api::V1::MouvementsController < ApplicationController
       mouvements = Mouvement.where(programme_id: programme_id).order(created_at: :desc)
       objectifs = Objectif.where(programme_id: programme_id)
     end
-
+    programmes = Programme.all
     liste_programmes_mvt = Programme.where(id: mouvements.pluck(:programme_id).uniq).pluck(:numero)
     liste_regions_mvt = Region.where(id: mouvements.pluck(:region_id).uniq).pluck(:nom)
-    response = { nom: nom , regions: regions.as_json(:include => [:objectifs, :mouvements]), mouvements: mouvements.as_json(:include => [:region, :service, :programme]), objectifs: objectifs, liste_programmes_mvt: liste_programmes_mvt, liste_regions_mvt: liste_regions_mvt}
+    response = { nom: nom , regions: regions.as_json(:include => [:objectifs, :mouvements]), mouvements: mouvements.as_json(:include => [:region, :service, :programme]), objectifs: objectifs, liste_programmes_mvt: liste_programmes_mvt, liste_regions_mvt: liste_regions_mvt,programmes: programmes.as_json(:include => [:ministere, :mouvements, :objectifs])}
     render json: response
   end
 

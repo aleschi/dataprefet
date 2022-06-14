@@ -8,7 +8,7 @@ const Footer = () => (
 	            <div className="fr-footer__brand fr-enlarge-link">
 	              
 	                    <p className="fr-logo" title="république française">
-	                        Ministère<br/>de l'économie<br/>des finances<br/>et de la relance
+	                        Ministère<br/>de l'économie,<br/>des finances<br/>et de la souveraineté<br/> industrielle et numérique
 	                    </p>
 	              
 	            </div>
@@ -16,13 +16,13 @@ const Footer = () => (
 	               	<p className="fr-footer__content-desc">Besoin d'aide ? contactez-nous à l'adresse mail <a href="mailto:declic.budget@finances.gouv.fr" target="_blank">declic.budget@finances.gouv.fr</a></p>
 	                <ul className="fr-footer__content-list">
 	                    <li className="fr-footer__content-item">
-	                        <a className="fr-footer__content-link" href="https://legifrance.gouv.fr">legifrance.gouv.fr</a>
+	                        <a className="fr-footer__content-link" href="https://economie.gouv.fr">economie.gouv.fr</a>
 	                    </li>
 	                    <li className="fr-footer__content-item">
 	                        <a className="fr-footer__content-link" href="https://gouvernement.fr">gouvernement.fr</a>
 	                    </li>
 	                    <li className="fr-footer__content-item">
-	                        <a className="fr-footer__content-link" href="https://service-public.fr">service-public.fr</a>
+	                        <a className="fr-footer__content-link" href="https://budget.gouv.fr">budget.gouv.fr</a>
 	                    </li>
 	                    <li className="fr-footer__content-item">
 	                        <a className="fr-footer__content-link" href="https://data.gouv.fr">data.gouv.fr</a>

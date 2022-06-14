@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       post 'mouvements/update'
       delete 'mouvements/destroy/:id', to: 'mouvements#destroy'
       post 'mouvements/get_services'
+      post 'mouvements/get_mouvement'
       post 'mouvements/sort_table'
       post 'mouvements/search'
       get 'mouvements/mouvements_globaux'

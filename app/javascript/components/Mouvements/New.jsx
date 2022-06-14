@@ -46,4 +46,3 @@ class New extends React.Component {
 
 export default New;
 
-

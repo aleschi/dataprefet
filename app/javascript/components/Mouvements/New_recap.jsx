@@ -107,7 +107,7 @@ class New_recap extends React.Component {
 
 				:
 				<div>
-					<p className="fr-callout__title"> ETP {this.state.mouvement_last_supp.grade} - {this.state.mouvement_last_supp.quotite*100}% - Programme {this.state.mouvement_last_supp.programme.numero} (fait le {Moment(this.state.mouvement_last_supp.date).format('DD/MM/YYYY')})</p>
+					<p className="fr-callout__title"> ETP {this.state.mouvement_last_supp.grade} - {this.state.mouvement_last_supp.quotite*100}% - Programme {this.state.mouvement_last_supp.programme.numero} - N{this.state.mouvement_last_supp.id}</p>
 					<p className="fr-callout__text">Dernière suppression effectuée</p>
 					<div className="d12"></div>
 					

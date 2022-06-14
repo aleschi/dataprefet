@@ -22,7 +22,7 @@ a{
 .fr-btn{
   color: var(--text-inverted-blue-france) !important;
 }
-.fr-link {
+.fr-link, .cbleu {
     color: var(--text-action-high-blue-france) !important;
 }
 .fr-header__brand:hover, .fr-footer__brand:hover{
@@ -56,7 +56,6 @@ p{
   height:12px;
 }
 
-
 .cjaune{
   color:#E8CF4E;
 }
@@ -69,6 +68,9 @@ p{
 }
 .tr{
   text-align:right;
+}
+.tc{
+  text-align:center;
 }
 .w100{
   width:100%;
@@ -240,7 +242,7 @@ p{
 .table_dropdown_button{
   font-size:1rem !important;
   padding:0px !important;
-  color: var(--background-action-high-blue-france) !important;
+  color: var(--text-title-grey) !important;
   background-color:transparent !important;
   border:none !important;
   &:focus, &:active{
@@ -317,4 +319,10 @@ p{
 }
 .react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header,.react-datepicker__day-name{
   color: var(--text-inverted-blue-france) !important;
+}
+.rotate90{
+  transform: rotate(90deg) !important;
+}
+.rotate90::before{
+  transform: rotate(90deg) !important;
 }

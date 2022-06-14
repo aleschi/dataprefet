@@ -37,7 +37,7 @@ class Header extends React.Component {
 		                        <div className="fr-header__logo">
 		                            <p className="fr-logo">
 		                                Ministère
-                                		<br/>de l'économie<br/>des finances<br/>et de la relance
+                                		<br/>de l'économie,<br/>des finances<br/>et de la souveraineté<br/> industrielle et numérique
 		                            </p>
 		                        </div>
 		                        <div className="fr-header__navbar">
@@ -47,7 +47,7 @@ class Header extends React.Component {
 		                        </div>
 		                    </div>
 		                    <div className="fr-header__service">
-		                        <a href="/" title="Accueil - Repere3 | Direction du Budget">
+		                        <a href="https://www.repere3.finances.gouv.fr" title="Accueil - Repere3 | Direction du Budget">
 		                            <p className="fr-header__service-title">REPERE3</p>
 		                        </a>
 		                        <p className="fr-header__service-tagline">REdéploiement entre Programmes des Emplois en REgion - 3%</p>

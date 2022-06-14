@@ -40,7 +40,7 @@ class Table_grades extends React.Component {
 
     return (
     	<div className="fr-grid-row fr-grid-row--gutters">
-        	<div className="fr-col-lg-6">
+        	<div className="fr-col-lg-4">
 				
 				<div className="fr-table fr-mb-2w fr-table--no-caption">
 				    <table>
@@ -61,7 +61,7 @@ class Table_grades extends React.Component {
 				    </table>
 			    </div>
 	    	</div>
-	    	<div className="fr-col-lg-6">
+	    	<div className="fr-col-lg-4">
 				<div className="fr-table fr-mb-2w fr-table--no-caption">
 			    <table>
 			      	<thead>

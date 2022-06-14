@@ -7,7 +7,7 @@
                         <div class="fr-header__logo">
                             <p class="fr-logo">
                                 Ministère
-                                <br>de l'économie<br>des finances<br>et de la relance
+                                <br>de l'économie<br>des finances<br>et de la souveraineté<br> industrielle et numérique
                             </p>
                         </div>
                     </div>
@@ -26,36 +26,36 @@
   <div class="fr-grid-row fr-grid-row--gutters">
     <div class="fr-col-lg-6 fr-col-offset-lg-3">
        
-      <h1 class="fr-my-5w">Connectez-vous</h1>
+      <h1 class="fr-my-5w tc">Connexion</h1>
       <%= form_for(resource, as: resource_name, url: session_path(resource_name),:html => {:id => "login"}, remote: true) do |f| %>
 
 
         <div class="fr-select-group">
-          <label class="fr-label" for="user_statut"> Se connecter en tant que </label>
+          <label class="fr-label" for="user_statut"> Se connecter en tant que* </label>
           <%= f.select :statut , [["CBR","CBR"], ["Prefet - SGARE","prefet"],["Ministère","ministere"], ["Direction du Budget","admin"]], {:include_blank => "- Sélectionner -"}, {class: "fr-select", id:'user_statut'} %>
         </div>
  
      
         <div class="fr-select-group" id="region">
-          <label class="fr-label" for="region_f">Sur le périmètre</label>
+          <label class="fr-label" for="region_f">Sur le périmètre*</label>
           <%= f.select :region_id, Region.all.pluck(:id).map {|s| [Region.find(s).nom, s]}, {:include_blank => "- Sélectionner -"}, {class: "fr-select region", id: 'region_f'} %>
         </div>
     
         <div class="fr-select-group" id="ministere">
-          <label class="fr-label" for="nom">Sur le ministère </label>
+          <label class="fr-label" for="nom">Sur le ministère* </label>
           <%= f.select :nom, Ministere.all.pluck(:nom).map {|s| [s, s]}, {:include_blank => "- Sélectionner -"}, {class: "fr-select ministere", id: 'nom'} %>
         </div>
     
 
         <div class="fr-input-group pr" id="motdepasse">
-          <label class="fr-label" for="password">Mot de passe</label>
+          <label class="fr-label" for="password">Mot de passe*</label>
           <%= f.password_field :password,required: true, autocomplete: "current-password",class:"fr-input", id: "password" %>
         </div>
 
         <div id='error-message'></div>
 
         <div class="d24"></div>
-        <div>
+        <div class="tc">
           <%= f.submit "Connexion", class:"fr-btn" %>
         </div>
         <div class="d24"></div>

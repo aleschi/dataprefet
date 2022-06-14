@@ -7,6 +7,7 @@ import Users from "../components/Users/Users";
 import Services from "../components/Services/Services";
 import Couts from "../components/Couts/Couts";
 import New from "../components/Mouvements/New";
+import Edit from "../components/Mouvements/Edit";
 import Index from "../components/Mouvements/Index";
 import Objectifs from "../components/Objectifs/Objectifs";
 import Historique from "../components/DB/Historique";
@@ -26,6 +27,7 @@ export default (
       <Route path="/services" element={<Services/>} />
       <Route path="/couts" element={<Couts/>} />
       <Route path="/mouvements" element={<New/>} />
+      <Route path="/mouvements/edit" element={<Edit/>} />
       <Route path="/historique" element={<Index/>} />
       <Route path="/objectifs" element={<Objectifs/>} />
       <Route path="/couts-etp" element={<Index_couts/>} />
