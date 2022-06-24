@@ -284,13 +284,13 @@ p{
   padding: 12px 14px 12px 12px;
   inset:15px auto auto 0px !important;
   transform: translate(0px,10px) !important;
-  background-color:#fff !important;
+  background-color:var(--text-inverted-grey) !important;
 }
 .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.Mui-checked, .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate{
   color:var(--background-action-high-blue-france) !important;
 }
 .fr-header .fr-links-group .fr-link[class^="fr-icon-"], .fr-header .fr-links-group .fr-link[class*=" fr-icon-"], .fr-header .fr-links-group .fr-link[class^="fr-fi-"], .fr-header .fr-links-group .fr-link[class*=" fr-fi-"] {
-  border-radius:1rem;
+  border-radius:0rem;
 }
 
 .react-datepicker{

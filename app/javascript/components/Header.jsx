@@ -53,29 +53,28 @@ class Header extends React.Component {
 		                        <p className="fr-header__service-tagline">REdéploiement entre Programmes des Emplois en REgion - 3%</p>
 		                    </div>
 		                </div>
+		           
 		                <div className="fr-header__tools">
 		                    <div className="fr-header__tools-links">
-		                        <ul className="fr-links-group">
-		                        	
-		                            {this.state.isLoggedIn ?
-		                            <li>
+		                        <ul className="fr-links-group">	                        	
+		                            
+		                            <li className="fr-shortcuts__item">
 		                                <a className="fr-link fr-fi-logout-box-r-line" data-method="delete" href="/logout">Se déconnecter</a>
 		                            </li>
-		                            :
-		                            <li>
-		                                <a className="fr-link fr-fi-lock-line" href="/connexion">Se connecter</a>
-		                            </li>
-		                            }
+		                            
 		                        </ul>
 		                    </div>
 		                </div>
+		                
 		            </div>
 		        </div>
 		    </div>
 		    <div className="fr-header__menu fr-modal" id="modal-833" aria-labelledby="fr-btn-menu-mobile">
 		        <div className="fr-container">
 		            <button className="fr-btn--close fr-link" aria-controls="modal-833">Fermer</button>
-		            <div className="fr-header__menu-links fr-hidden"></div>
+		            <div className="fr-header__menu-links ">
+
+		            </div>
 		            <nav className="fr-nav" id="navigation-832" role="navigation" aria-label="Menu principal">
 		                <ul className="fr-nav__list">
 		                    <li className="fr-nav__item">
