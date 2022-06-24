@@ -53,10 +53,10 @@ class Index extends React.Component {
     	return this.state.mouvements.map((mouvement, index) => {
 
     		if (mouvement.type_mouvement == "ajout"){
-	        return <tr key={index}><td>{mouvement.region.nom}</td><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><p className="fr-badge fr-badge--green-emeraude">{mouvement.type_mouvement}</p> {(mouvement.ponctuel == true) && <p className="fr-badge fr-badge--green-emeraude"> Ponctuel</p>}</td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td><td>{(mouvement.mouvement_lien == null) ? <span>Nul</span> : <span>N{mouvement.mouvement_lien}</span> }</td></tr>
+	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.region.nom}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><p className="fr-badge fr-badge--green-emeraude">{mouvement.type_mouvement}</p> {(mouvement.ponctuel == true) && <p className="fr-badge fr-badge--green-emeraude"> Ponctuel</p>}</td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td><td>{(mouvement.mouvement_lien == null) ? <span>Nul</span> : <span>N{mouvement.mouvement_lien}</span> }</td></tr>
 	        }
 	        else if (mouvement.type_mouvement == "suppression"){
-	        return <tr key={index}><td>{mouvement.region.nom}</td><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><p className="fr-badge fr-badge--blue-cumulus">{mouvement.type_mouvement}</p></td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td><td>N{mouvement.id}</td></tr>
+	        return <tr key={index}><td>{Moment(mouvement.date).format('DD/MM/YYYY')}</td><td>{mouvement.region.nom}</td><td>{mouvement.quotite}</td><td>{mouvement.grade}</td><td><p className="fr-badge fr-badge--blue-cumulus">{mouvement.type_mouvement}</p></td><td>{mouvement.service.nom}</td><td>{mouvement.programme.numero}</td><td>{Moment(mouvement.date_effet).format('DD/MM/YYYY')}</td><td>{Math.round(mouvement.credits_gestion).toLocaleString('fr')}€</td><td>{Math.round(mouvement.cout_etp).toLocaleString('fr')}€</td><td>N{mouvement.id}</td></tr>
 	        }	        	
     	})
     };
@@ -96,14 +96,14 @@ class Index extends React.Component {
 
     render() {
 
-    const headers = ['Region','Date','Quotité ETP','Macrograde','Type',"Service concerné ",'Programme','Date effective mouvement', 'Mouvements en gestion', 'Mouvement en base (PLF N+1)', 'N° ref mouvement' ];
+    const headers = ['Date','Region','Quotité ETP','Macrograde','Type',"Service concerné ",'Programme','Date effective mouvement', 'Mouvements en gestion', 'Mouvement en base (PLF N+1)', 'N° ref mouvement' ];
     var data_to_download = [];
     this.state.mouvements.map((mouvement, index) => {
       if (mouvement.type_mouvement == "ajout"){
-      data_to_download.push([mouvement.region.nom,mouvement.date,mouvement.quotite,mouvement.grade,mouvement.type_mouvement,mouvement.service.nom,mouvement.programme.numero,mouvement.date_effet,mouvement.credits_gestion,mouvement.cout_etp,'N'+mouvement.mouvement_lien])
+      data_to_download.push([mouvement.date,mouvement.region.nom,mouvement.quotite,mouvement.grade,mouvement.type_mouvement,mouvement.service.nom,mouvement.programme.numero,mouvement.date_effet,mouvement.credits_gestion,mouvement.cout_etp,'N'+mouvement.mouvement_lien])
       } 
       else if (mouvement.type_mouvement == "suppression"){
-      data_to_download.push([mouvement.region.nom,mouvement.date,mouvement.quotite,mouvement.grade,mouvement.type_mouvement,mouvement.service.nom,mouvement.programme.numero,mouvement.date_effet,mouvement.credits_gestion,mouvement.cout_etp,'N'+mouvement.id])
+      data_to_download.push([mouvement.date,mouvement.region.nom,mouvement.quotite,mouvement.grade,mouvement.type_mouvement,mouvement.service.nom,mouvement.programme.numero,mouvement.date_effet,mouvement.credits_gestion,mouvement.cout_etp,'N'+mouvement.id])
       }
             })
    
@@ -123,9 +123,11 @@ class Index extends React.Component {
         				    <table>
         				      	<thead>
         				        <tr>
+                          <th scope="col">Date <button onClick={() => {this.sortTable('date')}} id="date" className="p0 cnoir"><span className="fr-icon-code-view fr-fi--sm rotate90" aria-hidden="true"></span></button></th>
+
         				        	<th scope="col">Région <Checkbox_dropdown name="region" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.liste_regions_mvt} parentCallback = {this.handleCallback}/></th>
 
-        				        	<th scope="col">Date <button onClick={() => {this.sortTable('date')}} id="date" className="p0"><span className="fr-icon-code-view fr-fi--sm rotate90" aria-hidden="true"></span></button></th>
+        				        	
 
         				        	<th scope="col">Quotité ETP</th>
 
@@ -137,7 +139,7 @@ class Index extends React.Component {
 
         				        	<th scope="col">Programme {(this.state.statut == "admin") && <Checkbox_dropdown name="programme" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.liste_programmes_mvt} parentCallback = {this.handleCallback}/>}</th>
 
-        				          <th scope="col">Date effective <button onClick={() => {this.sortTable('date_effet')}} id="valeur" className="p0 fr-hidden"><span className="fr-icon-code-view fr-fi--sm rotate90" aria-hidden="true"></span></button></th>	 
+        				          <th scope="col">Date effective <button onClick={() => {this.sortTable('date_effet')}} id="valeur" className="p0 cnoir fr-hidden"><span className="fr-icon-code-view fr-fi--sm rotate90" aria-hidden="true"></span></button></th>	 
         				            <th scope="col">Mouvements en gestion (LFR)</th> 
         				            <th scope="col">Mouvements en base (PLF N+1)</th> 
                             <th scope="col">N° ref mouvement</th>   	
