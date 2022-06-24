@@ -8,8 +8,6 @@ registerLocale('fr', fr)
 import Select from 'react-select';
 
 
-import Checkbox from '@mui/material/Checkbox';
-
 const grades = [
 	  { value: 'A', label: 'A', name:"grade" },
 	  { value: 'B', label: 'B', name:"grade" },

@@ -2,7 +2,6 @@ import React from "react";
 import Header from "../Header";
 import Footer from "../Footer";
 import Moment from 'moment';
-import Checkbox from '@mui/material/Checkbox';
 import Checkbox_dropdown from './Checkbox_dropdown'
 import { CSVLink } from "react-csv";
 class Index extends React.Component {
@@ -22,10 +21,22 @@ class Index extends React.Component {
         programmes_selected: [],
         types_selected:["ajout","suppression"],
         regions_selected:[],
+        statut: '',
 	    }
 	    this.sortTable = this.sortTable.bind(this);
 	}
 	componentDidMount() {
+      const url2 = "/check_user_status";
+      fetch(url2)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Network response was not ok.");
+        })
+        .then(response => this.setState({ statut: response.statut }))
+        .catch(() => this.props.history.push("/"));
+
     	const url = "/api/v1/mouvements/mouvements_globaux";
     	fetch(url)
       	.then(response => {
@@ -96,12 +107,14 @@ class Index extends React.Component {
       }
             })
    
-    return (  
+    return (
+    <div>
+    {(this.state.statut == "admin" || this.state.statut == "ministere") &&  
 		<div>
 		  	<Header /> 
 		  	<div className="fr-container">    
             <div className="fr-grid-row fr-grid-row--gutters">
-                <div className="fr-col-lg-12">
+                <div className="fr-col-12 fr-col-lg-12">
                   <h1 className="fr-my-6w">Hitorique des mouvements</h1>
 		 
                   <div className="fr-download"><p><CSVLink data={data_to_download} headers={headers} filename={"table_mouvements.csv"} className="fr-download__link">Télécharger le tableau <span className="fr-download__detail">CSV</span> </CSVLink></p></div>
@@ -111,15 +124,20 @@ class Index extends React.Component {
         				      	<thead>
         				        <tr>
         				        	<th scope="col">Région <Checkbox_dropdown name="region" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.liste_regions_mvt} parentCallback = {this.handleCallback}/></th>
-        				        	<th scope="col">Date <button onClick={() => {this.sortTable('date')}} id="date"><span className="fr-icon-code-view fr-fi--sm rotate90" aria-hidden="true"></span></button></th>
+
+        				        	<th scope="col">Date <button onClick={() => {this.sortTable('date')}} id="date" className="p0"><span className="fr-icon-code-view fr-fi--sm rotate90" aria-hidden="true"></span></button></th>
+
         				        	<th scope="col">Quotité ETP</th>
+
         				        	<th scope="col">Macrograde <Checkbox_dropdown name="grade" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.grades} parentCallback = {this.handleCallback}/></th>
+
         				        	<th scope="col">Type <Checkbox_dropdown name="type_mouvement" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.type_mouvements} parentCallback = {this.handleCallback}/></th>
+
         				        	<th scope="col">Service concerné</th>
 
-        				        	<th scope="col">Programme <Checkbox_dropdown name="programme" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.liste_programmes_mvt} parentCallback = {this.handleCallback}/></th>
+        				        	<th scope="col">Programme {(this.state.statut == "admin") && <Checkbox_dropdown name="programme" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.liste_programmes_mvt} parentCallback = {this.handleCallback}/>}</th>
 
-        				          	<th scope="col">Date effective <button onClick={() => {this.sortTable('date_effet')}} id="valeur"><span className="fr-icon-code-view fr-fi--sm rotate90" aria-hidden="true"></span></button></th>	 
+        				          <th scope="col">Date effective <button onClick={() => {this.sortTable('date_effet')}} id="valeur" className="p0 fr-hidden"><span className="fr-icon-code-view fr-fi--sm rotate90" aria-hidden="true"></span></button></th>	 
         				            <th scope="col">Mouvements en gestion (LFR)</th> 
         				            <th scope="col">Mouvements en base (PLF N+1)</th> 
                             <th scope="col">N° ref mouvement</th>   	
@@ -136,6 +154,8 @@ class Index extends React.Component {
 		  	</div>
 		  	<Footer /> 
 		</div>
+    }
+    </div>
     );
     }
 }

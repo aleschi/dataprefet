@@ -33,11 +33,13 @@ class Index extends React.Component {
 		  	<Header /> 
 		  	<div className="fr-container">    
         		<div className="fr-grid-row fr-grid-row--gutters">
-          			<div className="fr-col-lg-12">
+          			<div className="fr-col-12 fr-col-lg-12">
+          				
           				<h1 className="fr-my-6w">{this.state.nom}</h1>
 		  			
 		  				<h2 className="fr-mb-3w">Synthèse des effectifs par région</h2>
 		  				<Table regions={this.state.regions} mouvements={this.state.mouvements} objectifs={this.state.objectifs} nom={this.state.nom}/>
+		  			
 		  			</div>
 		  		</div>
 		  	</div>

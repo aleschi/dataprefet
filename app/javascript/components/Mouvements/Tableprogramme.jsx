@@ -70,7 +70,7 @@ class Tableprogramme extends React.Component {
 
     return ( 
     	<div className="fr-grid-row fr-grid-row--gutters">
-          	<div className="fr-col-lg-12">
+          	<div className="fr-col-12 fr-col-lg-12">
 				<div className="fr-table fr-mb-2w fr-table--no-caption">
 				    <table>
 				      	<thead>

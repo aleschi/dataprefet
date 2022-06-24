@@ -156,6 +156,7 @@ class Table extends React.Component {
 	
     render() {
     return (  
+   
 		 <div className="fr-table fr-mb-2w fr-table--no-caption">
 	    <table>
 	      	<thead>
@@ -187,6 +188,7 @@ class Table extends React.Component {
 	    </table>
 		  	
 		</div>
+
     );
     }
 }

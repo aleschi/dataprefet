@@ -33,7 +33,7 @@ class Faq extends React.Component {
 		  	<Header /> 
 		  	<div className="fr-container">    
         		<div className="fr-grid-row fr-grid-row--gutters">
-          			<div className="fr-col-lg-12">
+          			<div className="fr-col-12 fr-col-lg-12">
           				<h1 className="fr-my-6w">Questions Fréquentes </h1>
 		  		
 		  		<div className="fr-mb-2w">Cette foire aux questions se propose de recenser et d’apporter des éléments de réponse aux interrogations des acteurs du dispositif. Pour toutes vos questions et besoins de renseignements supplémentaires, veuillez nous contacter par mail à l'adresse mail suivante : <a href="mailto:declic.budget@finances.gouv.fr" target="_blank">declic.budget@finances.gouv.fr</a></div>

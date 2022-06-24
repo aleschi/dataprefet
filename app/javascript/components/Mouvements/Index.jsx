@@ -15,9 +15,12 @@ class Index extends React.Component {
 	    	etp_3:0,
 	    	etp_supp: 0,
 	    	liste_programmes_mvt: [],
+	    	statut: '',
 	    }
 	}
 	componentDidMount() {
+
+        
     	const url = "/api/v1/mouvements/index";
     	fetch(url)
       	.then(response => {
@@ -32,32 +35,33 @@ class Index extends React.Component {
 
     render() {
 
-    return (  
+    return (
+     
 		<div>
 		  	<Header /> 
 		  	<div className="fr-container">    
         		<div className="fr-grid-row fr-grid-row--gutters">
-          			<div className="fr-col-lg-12">
+          			<div className="fr-col-12 fr-col-lg-12">
           				<h1 className="fr-my-6w">{this.state.region}</h1>
 		  			</div>
 				</div>
 
 				<div className="fr-grid-row fr-grid-row--gutters">
-          			<div className="fr-col-lg-3">
+          			<div className="fr-col-12 fr-col-lg-3">
           				<div className="fr-callout ">
 						    <p className="fr-callout__title">{(Math.round(this.state.etp_3*10)/10).toLocaleString('fr')} ETP</p>
 						    <p className="fr-callout__text"> 3% ETP cibles</p>
 						</div>
           			</div>
 
-          			<div className="fr-col-lg-3">
+          			<div className="fr-col-12 fr-col-lg-3">
           				<div className="fr-callout ">
 						    <p className="fr-callout__title">{(Math.round(this.state.etp_supp*10)/10).toLocaleString('fr')} ETP</p>
 						    <p className="fr-callout__text"> ETP redéployés</p>
 						</div>
           			</div>
 
-          			<div className="fr-col-lg-3">
+          			<div className="fr-col-12 fr-col-lg-3">
           				<div className="fr-callout ">
 						    <p className="fr-callout__title">{(Math.round(this.state.solde_etp*10)/10).toLocaleString('fr')} ETP</p>
 						    <p className="fr-callout__text"> Solde 2022</p>
@@ -67,7 +71,7 @@ class Index extends React.Component {
           		</div>
 
 				<div className="fr-grid-row fr-grid-row--gutters">
-          			<div className="fr-col-lg-12">
+          			<div className="fr-col-12 fr-col-lg-12">
           				<h2 className="fr-my-2w">Historique des redéploiements</h2>
 						<Table mouvements={this.state.mouvements} liste_programmes_mvt={this.state.liste_programmes_mvt}/>
 					</div>
@@ -75,6 +79,7 @@ class Index extends React.Component {
 		  	</div>
 		  	<Footer /> 
 		</div>
+
     );
     }
 }

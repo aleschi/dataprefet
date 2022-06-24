@@ -8,7 +8,6 @@ registerLocale('fr', fr)
 import Select from 'react-select';
 
 import New_recap from "./New_recap";
-import Checkbox from '@mui/material/Checkbox';
 
 const grades = [
 	  { value: 'A', label: 'A', name:"grade" },
@@ -201,7 +200,7 @@ class Form extends React.Component {
 
     return (  
     	<div className="fr-grid-row fr-grid-row--gutters">
-            <div className="fr-col-lg-6">
+            <div className="fr-col-12 fr-col-lg-6">
 				
 				<form onSubmit={this.onSubmit}>
 
@@ -223,7 +222,11 @@ class Form extends React.Component {
 
 			            {(this.state.type_mouvement !== null && this.state.type_mouvement['value'] == "ajout") &&
 			            <div className="fr-select-group">
-				            <div className="fr-mb-2w">Si le redéploiement concerne un emploi ponctuel*, veuillez cocher la case : <Checkbox checked={this.state.ponctuel} name="ponctuel" onChange={this.handleCheck} inputProps={{ 'aria-label': 'controlled' }}/></div>
+				            <div className="fr-mb-2w">Si le redéploiement concerne un emploi ponctuel*, veuillez cocher la case ci-dessous: </div>
+				            <div className="fr-checkbox-group">         
+					            <input type="checkbox" id="ponctuel" name="ponctuel" onChange={this.handleCheck} defaultChecked={this.state.ponctuel} />
+					            <label className="fr-label" htmlFor="ponctuel">ETP ponctuel</label>
+					        </div>
 				            
 				            <div className="fr-mb-2w fr-text--xs">*un emploi ponctuel est un poste qui répond à une politique prioritaire ministérielle nécessitant des recrutements spécifiques et exceptionnels en cours d’année</div>
 
@@ -243,7 +246,7 @@ class Form extends React.Component {
 			            }
 			          
 			          	<div className="fr-grid-row fr-grid-row--gutters fr-mb-2w">
-			          		<div className="fr-col-lg-6">
+			          		<div className="fr-col-12 fr-col-lg-6">
 							<div className="fr-select-group">
 								<label className="fr-label">Macrograde</label>
 				                
@@ -257,7 +260,7 @@ class Form extends React.Component {
 								/>
 					        </div>
 					        </div>
-					        <div className="fr-col-lg-6">				           
+					        <div className="fr-col-12 fr-col-lg-6">				           
 				            <div className="fr-select-group">
 				            	<label className="fr-label">Quotité ETP</label>
 				                
@@ -315,7 +318,7 @@ class Form extends React.Component {
 					</form>
 				
 			</div>
-			<div className="fr-col-lg-6">
+			<div className="fr-col-12 fr-col-lg-6">
 				<New_recap type_mouvement={this.state.type_mouvement} mouvement_id={this.state.mouvement_id} quotite={this.state.quotite}/>
 			</div>
 		</div>

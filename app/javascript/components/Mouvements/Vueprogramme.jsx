@@ -43,34 +43,35 @@ class Vueprogramme extends React.Component {
     render() {
     
     return (  
+ 
 		<div>
 		  	<Header /> 
 		  	<div className="fr-container">    
         		<div className="fr-grid-row fr-grid-row--gutters">
-          			<div className="fr-col-lg-12">
+          			<div className="fr-col-12 fr-col-lg-12">
           				<h1 className="fr-my-6w">{ (this.state.statut == "CBR") ? <span>CBR </span> : <span>Préfet </span> } {this.state.region}</h1>
 		  			</div>
 		  		</div>
 		  		<div className="fr-grid-row fr-grid-row--gutters">
-          			<div className="fr-col-lg-3">
+          			<div className="fr-col-6 fr-col-lg-3">
 		  				<div className="fr-callout ">
 						    <p className="fr-callout__title">{(Math.round(this.state.etp_cible*10)/10).toLocaleString('fr')} ETP</p>
 						    <p className="fr-callout__text"> Effectifs cibles</p>
 						</div>
 					</div>
-					<div className="fr-col-lg-3">
+					<div className="fr-col-6 fr-col-lg-3">
 						<div className="fr-callout ">
 						    <p className="fr-callout__title">{(Math.round(this.state.etpt_plafond*10)/10).toLocaleString('fr')} ETPT</p>
 						    <p className="fr-callout__text"> Plafond 2022</p>
 						</div>
 					</div>
-					<div className="fr-col-lg-3">
+					<div className="fr-col-6 fr-col-lg-3">
 						<div className="fr-callout ">
 						    <p className="fr-callout__title">{(Math.round(this.state.etp_supp*10)/10).toLocaleString('fr')} ETP</p>
 						    <p className="fr-callout__text"> ETP redéployés* </p>
 						</div>
 					</div>
-					<div className="fr-col-lg-3">
+					<div className="fr-col-6 fr-col-lg-3">
 						<div className="fr-callout ">
 						    <p className="fr-callout__title">{(Math.round(this.state.solde_etp*10)/10).toLocaleString('fr')} ETP</p>
 						    <p className="fr-callout__text"> Solde 2022</p>
@@ -78,13 +79,13 @@ class Vueprogramme extends React.Component {
 					</div>  	
 				</div>
 				<div className="fr-grid-row fr-grid-row--gutters">
-          			<div className="fr-col-lg-12">
+          			<div className="fr-col-12 fr-col-lg-12">
 						<div className="fr-text--xs">*Les ETP redéployés correspondent aux ETP supprimés.</div>
 					</div>
 				</div>
 
 				<div className="fr-grid-row fr-grid-row--gutters">
-          			<div className="fr-col-lg-12">
+          			<div className="fr-col-12 fr-col-lg-12">
 						<h2 className="fr-my-2w">Synthèse des effectifs par programme </h2>
 					</div>
 				</div>
@@ -92,7 +93,7 @@ class Vueprogramme extends React.Component {
 				<Tableprogramme region_id={this.state.region_id} mouvements={this.state.mouvements} programmes={this.state.programmes}/>
 
 				<div className="fr-grid-row fr-grid-row--gutters">
-          			<div className="fr-col-lg-12">
+          			<div className="fr-col-12 fr-col-lg-12">
 						<h2 className="fr-my-2w">Synthèse des mouvements par catégorie </h2>
 					</div>
 				</div>
@@ -102,6 +103,7 @@ class Vueprogramme extends React.Component {
 		  	</div>
 		  	<Footer /> 
 		</div>
+
     );
     }
 }

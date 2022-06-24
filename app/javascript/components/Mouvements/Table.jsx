@@ -1,7 +1,5 @@
 import React from "react";
 import Moment from 'moment';
-import Checkbox from '@mui/material/Checkbox';
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
 import { CSVLink } from "react-csv";
 import Checkbox_dropdown from '../DB/Checkbox_dropdown'
 
@@ -145,13 +143,13 @@ class Table extends React.Component {
 	    <table>
 	      	<thead>
 	        <tr>
-	        	<th scope="col">Date <button onClick={() => {this.sortTable('date')}} id="date" className="pa"><span className="fr-icon-code-view fr-fi--sm rotate90" aria-hidden="true"></span></button></th>
+	        	<th scope="col">Date <button onClick={() => {this.sortTable('date')}} id="date" className="p0"><span className="fr-icon-code-view fr-fi--sm rotate90" aria-hidden="true"></span></button></th>
 	        	<th scope="col">Quotité ETP</th>
-	        	<th scope="col">Macrograde<Checkbox_dropdown name="grade" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.grades} parentCallback = {this.handleCallback}/></th>
+	        	<th scope="col pr">Macrograde<Checkbox_dropdown name="grade" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.grades} parentCallback = {this.handleCallback}/></th>
 	        	<th scope="col">Type <Checkbox_dropdown name="type_mouvement" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.type_mouvements} parentCallback = {this.handleCallback}/> </th>
 	        	<th scope="col">Service concerné</th>
 	        	<th scope="col">Programme<Checkbox_dropdown name="programme" grades_selected={this.state.grades_selected} programmes_selected={this.state.programmes_selected} types_selected={this.state.types_selected} regions_selected={this.state.regions_selected} array={this.state.liste_programmes_mvt} parentCallback = {this.handleCallback}/></th>
-	          <th scope="col">Date effective <button onClick={() => {this.sortTable('date_effet')}} id="valeur" className="pa padding-none"><span className="fr-icon-code-view fr-fi--sm rotate90" aria-hidden="true"></span></button></th>	 
+	          <th scope="col">Date effective <button onClick={() => {this.sortTable('date_effet')}} id="valeur" className="p0 fr-hidden"><span className="fr-icon-code-view fr-fi--sm rotate90" aria-hidden="true"></span></button></th>	 
             <th scope="col">Mouvements en gestion (LFR)</th> 
             <th scope="col">Mouvements en base (PLF N+1)</th>   
             <th scope="col">N° ref mouvement</th> 

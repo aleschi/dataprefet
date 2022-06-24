@@ -1,6 +1,6 @@
 import React from "react";
 import Moment from 'moment';
-import Checkbox from '@mui/material/Checkbox';
+
 
 class Checkbox_dropdown extends React.Component {
 	constructor(props) {
@@ -44,7 +44,7 @@ class Checkbox_dropdown extends React.Component {
     handleChange(event, value) {
         const selected_new = new Array() 
         this.state.array.forEach(el => {
-          if (el == event.target.name && value == true){
+          if (el == event.target.name && event.target.checked == true){
             selected_new.push(el);
           }
           else if (el != event.target.name && this.state.selected.includes(el)){
@@ -90,12 +90,17 @@ class Checkbox_dropdown extends React.Component {
         <div className="table_dropdown_box pa">
           <button className="table_dropdown_button" aria-expanded="false" aria-controls={this.state.name} aria-current="true"></button>
           <div className="fr-collapse table_dropdown_menu" id={this.state.name} >
+          
+          {this.state.array.map((arr, index) => (
 
-            {this.state.array.map((arr, index) => (
-                          <div key={index}><Checkbox value={arr} checked={this.state.selected.includes(arr)} name={arr} onChange={(event, value) => this.handleChange(event, value)} inputProps={{ 'aria-label': 'controlled' }}/>{arr}</div>
-                        ))}
+          <div key={index} className="fr-checkbox-group">
+           
+            <input type="checkbox" id={arr} name={arr} value={arr} onChange={(event, value) => this.handleChange(event, value)} defaultChecked={this.state.selected.includes(arr)} />
+          
+            <label className="fr-label" htmlFor={arr}>{arr}</label>
+          </div>
+          ))}
 
-            
           </div>
         </div>
 		

@@ -212,6 +212,9 @@ class Api::V1::MouvementsController < ApplicationController
       mouvements = Mouvement.where(region_id: current_user.region_id).order(date: :desc)
       mouvements_region = current_user.region_id
       mouvements_region_id = current_user.region_id
+    elsif current_user.statut == "ministere"
+      mouvements = Mouvement.where(programme_id: mouvements_programmes_id).order(created_at: :desc)
+      mouvements_region_id = Region.where(nom: mouvements_region).pluck(:id)
     end
 
     

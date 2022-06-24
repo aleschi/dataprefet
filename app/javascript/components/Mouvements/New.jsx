@@ -8,10 +8,21 @@ class New extends React.Component {
 	    super(props);
 	    this.state = {
 	    	region:null,
-	    	
+	    	statut: '',
 	    }
 	}
 	componentDidMount() {
+		const url2 = "/check_user_status";
+      	fetch(url2)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Network response was not ok.");
+        })
+        .then(response => this.setState({ statut: response.statut }))
+        .catch(() => this.props.history.push("/"));
+
     	const url = "/api/v1/mouvements/index";
     	fetch(url)
       	.then(response => {
@@ -27,11 +38,13 @@ class New extends React.Component {
     render() {
     
     return (  
+    <div>
+    {(this.state.statut == "CBR") && 
 		<div>
 		  	<Header /> 
 		  	<div className="fr-container">    
             	<div className="fr-grid-row fr-grid-row--gutters">
-                	<div className="fr-col-lg-12">
+                	<div className="fr-col-12 fr-col-lg-12">
                   		<h1 className="fr-my-6w">Nouveau redéploiement sur la région {this.state.region}</h1>
 		  			</div>
 		  		</div>
@@ -40,6 +53,8 @@ class New extends React.Component {
 		  	</div>
 		  	<Footer /> 
 		</div>
+	}
+	</div>
     );
     }
 }

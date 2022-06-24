@@ -84,20 +84,20 @@ class Couts extends React.Component {
         <Header />
         <div className="fr-container">  
           <div className="fr-grid-row fr-grid-row--gutters">
-            <div className="fr-col-lg-12">
+            <div className="fr-col-12 fr-col-lg-12">
               <h1 className="fr-my-6w">Couts</h1> 
             </div>
           </div> 
           { (this.state.statut=="admin")  ?
             <div className="fr-grid-row fr-grid-row--gutters">
-              <div className="fr-col-lg-6">
+              <div className="fr-col-12 fr-col-lg-6">
                 {this.state.couts.map((couts, index) => (
                 <div key={index}>
                   <div className="texte_etiquette">{couts.categorie} - {couts.cout}</div>
                 </div>
                 ))}
               </div>
-              <div className="fr-col-lg-6">
+              <div className="fr-col-12 fr-col-lg-6">
 
                 { this.state.loading ? <div className="loader_box"><div className="texte_etiquette text-center">Chargement des données en cours.. Cela peut prendre quelques minutes. </div><div className="d24"></div> <div className ="loader"></div></div> : 
                   <div>
@@ -125,7 +125,7 @@ class Couts extends React.Component {
             </div>
             :
           <div className="fr-grid-row fr-grid-row--gutters">
-            <div className="fr-col-lg-12">
+            <div className="fr-col-12 fr-col-lg-12">
               <p className="fr-mb-6w">Vous n'avez pas accès à cette page.</p> 
             </div>
           </div> 
