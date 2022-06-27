@@ -207,7 +207,6 @@ class Form extends React.Component {
 					<div className="fr-select-group">
 						<label className="fr-label">Type de mouvement</label>
 						
-						  
 			            <Select
 			                	
 			                	id="type_mouvement"
